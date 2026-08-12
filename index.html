@@ -8,6 +8,39 @@
 <title>Alexandre Autran — Mathematics & Machine Learning</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/styles.css">
+
+<style>
+/* --- Icônes sociales / thème : ajustements demandés --- */
+.social-button.scholar {
+  background: #4285f4 !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+.social-button.scholar .scholar-logo {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 22% !important;
+  box-sizing: border-box;
+  display: block;
+  color: #fff;
+  object-fit: unset !important;
+  border-radius: inherit;
+}
+
+.theme-toggle .theme-icon {
+  width: 22px;
+  height: 22px;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+/* L'icône visible indique le mode proposé, pas le mode courant. */
+html[data-theme="dark"] .theme-toggle .sun-icon { display: block !important; }
+html[data-theme="dark"] .theme-toggle .moon-icon { display: none !important; }
+html[data-theme="light"] .theme-toggle .moon-icon { display: block !important; }
+html[data-theme="light"] .theme-toggle .sun-icon { display: none !important; }
+
+.theme-toggle:hover .theme-icon { transform: scale(1.08); }
+</style>
 </head>
 
 <body>
@@ -53,7 +86,9 @@
 </a>
 
 <a class="social-button scholar" href="https://scholar.google.com/citations?user=XlnZs3kAAAAJ&hl=fr" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
-<img class="scholar-logo" src="https://arobertson38.github.io/MICRO2D/assets/collab/google_scholar.png" alt="Google Scholar">
+<svg class="scholar-logo" viewBox="0 0 24 24" aria-hidden="true">
+  <path fill="currentColor" d="M12 3 2.5 8.2 12 13.4l7.2-4v5.2h1.8V8.4L12 3Zm-5.1 9v4.3c0 2.2 2.3 4 5.1 4s5.1-1.8 5.1-4V12L12 14.8 6.9 12Z"/>
+</svg>
 </a>
 
 <a class="social-button hal" href="https://cv.hal.science/alexandre-autran" target="_blank" rel="noopener" aria-label="HAL" title="HAL">
@@ -83,71 +118,17 @@
         aria-label="Switch to light mode"
         title="Switch theme"
     >
+        <!-- En mode clair : croissant = proposer le mode sombre -->
         <svg class="theme-icon moon-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <defs>
-                <filter id="moonGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="1.2" result="blur"/>
-                    <feMerge>
-                        <feMergeNode in="blur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-            </defs>
-
-            <path
-                d="M19.7 15.3A8.4 8.4 0 0 1 8.7 4.3
-                   7.1 5.8 6.1 8 6.1 10.4
-                   6.1 15 9.9 18.8 14.5 18.8
-                   16.4 18.8 18.2 18.2 19.7 17.2
-                   19.9 16.8 19.9 16 19.7 15.3Z"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                filter="url(#moonGlow)"
-            />
-
-            <circle cx="17.5" cy="6.2" r=".8" fill="currentColor"/>
-            <circle cx="20" cy="9.4" r=".45" fill="currentColor"/>
+          <path d="M20.2 15.2A8.4 8.4 0 0 1 8.8 3.8a8.8 8.8 0 1 0 11.4 11.4Z"
+                fill="currentColor"/>
         </svg>
 
+        <!-- En mode sombre : soleil = proposer le mode clair -->
         <svg class="theme-icon sun-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <defs>
-                <filter id="sunGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="1.2" result="blur"/>
-                    <feMerge>
-                        <feMergeNode in="blur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-            </defs>
-
-            <circle
-                cx="12"
-                cy="12"
-                r="4"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                filter="url(#sunGlow)"
-            />
-
-            <path
-                d="M12 2.5v2.3
-                   M12 19.2v2.3
-                   M2.5 12h2.3
-                   M19.2 12h2.3
-                   M5.3 5.3l1.6 1.6
-                   M17.1 17.1l1.6 1.6
-                   M18.7 5.3l-1.6 1.6
-                   M6.9 17.1l-1.6 1.6"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                filter="url(#sunGlow)"
-            />
+          <circle cx="12" cy="12" r="3.6" fill="currentColor"/>
+          <path d="M12 2.2v2.1M12 19.7v2.1M2.2 12h2.1M19.7 12h2.1M5.1 5.1l1.5 1.5M17.4 17.4l1.5 1.5M18.9 5.1l-1.5 1.5M6.6 17.4l-1.5 1.5"
+                fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
         </svg>
     </button>
 </div>
@@ -546,5 +527,26 @@ Mathematics oral examinations for second-year undergraduate students preparing f
 
 <script src="assets/script.js?v=11"></script>
 
+
+<script>
+(function () {
+  const root = document.documentElement;
+  const button = document.getElementById('themeToggle');
+  if (!button) return;
+
+  function syncThemeButton() {
+    const dark = root.getAttribute('data-theme') === 'dark';
+    button.setAttribute('aria-checked', dark ? 'true' : 'false');
+    button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    button.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+  }
+
+  syncThemeButton();
+  new MutationObserver(syncThemeButton).observe(root, {
+    attributes: true,
+    attributeFilter: ['data-theme']
+  });
+})();
+</script>
 </body>
 </html>
