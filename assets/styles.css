@@ -167,11 +167,11 @@ a:hover{
 .email,
 .cv,
 .github{
-    background:#91b5ff;
+    background:#546477;
 }
 
 .scholar{
-    background:#91b5ff;
+    background:#788ed5;
 }
 
 .hal{
@@ -179,7 +179,7 @@ a:hover{
 }
 
 .linkedin{
-    background:#91b5ff;
+    background:#347da9;
 }
 
 .social-button.linkedin .linkedin-logo{
@@ -973,13 +973,115 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 }
 
-
-/* Social buttons in the same blue as the About title */
+/* Tous les boutons sociaux utilisent la couleur du titre About */
 .social-button.email,
 .social-button.cv,
 .social-button.github,
 .social-button.scholar,
+.social-button.hal,
 .social-button.linkedin{
     background:#91b5ff !important;
     color:#0c161d !important;
+}
+
+
+/* Google Scholar : carré bleu découpé comme sur la référence */
+.social-button.scholar{
+    background:transparent !important;
+    overflow:visible;
+}
+
+.social-button.scholar .scholar-logo{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    object-fit:cover !important;
+    border-radius:4px !important;
+    display:block;
+}
+
+/* Tous les logos : même découpage que Google Scholar */
+.social-button.email,
+.social-button.cv,
+.social-button.github,
+.social-button.scholar,
+.social-button.hal,
+.social-button.linkedin{
+    background:transparent !important;
+    overflow:visible;
+}
+
+/* Email + GitHub */
+.social-button.email svg,
+.social-button.github svg{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    padding:5px !important;
+    box-sizing:border-box;
+    background:#91b5ff !important;
+    color:#0c161d !important;
+    border-radius:4px !important;
+    display:block;
+}
+
+/* CV */
+.social-button.cv .icon-letters{
+    width:30px !important;
+    height:30px !important;
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+    box-sizing:border-box;
+    background:#91b5ff !important;
+    color:#0c161d !important;
+    border-radius:4px !important;
+}
+
+/* Google Scholar + HAL + LinkedIn */
+.social-button.scholar .scholar-logo,
+.social-button.hal .hal-logo,
+.social-button.linkedin .linkedin-logo{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    padding:0 !important;
+    margin:0 !important;
+    box-sizing:border-box;
+    display:block;
+    object-fit:cover !important;
+    background:#91b5ff !important;
+    border-radius:4px !important;
+}
+
+.social-button.hal .hal-logo{
+    object-fit:contain !important;
+}
+
+.social-button.hal{
+    background:transparent !important;
+}
+
+.social-button.hal .hal-logo{
+    background:transparent !important;
+}
+
+.social-button.hal{
+    background:transparent !important;
+}
+
+.social-button.hal .hal-logo{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    padding:0 !important;
+    margin:0 !important;
+    display:block;
+    object-fit:contain !important;
+    background:#91b5ff !important;
+    border-radius:4px !important;
 }
