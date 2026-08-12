@@ -1605,3 +1605,27 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
         margin-bottom:22px !important;
     }
 }
+
+.timeline:before{
+    left:136px !important;
+}
+
+.timeline-marker{
+    margin:36px auto 0 !important;
+}
+
+@media(max-width:900px){
+    .timeline:before{
+        left:111px !important;
+    }
+}
+
+@media(max-width:700px){
+    .timeline:before{
+        left:9px !important;
+    }
+
+    .timeline-marker{
+        margin:36px auto 0 !important;
+    }
+}
