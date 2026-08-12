@@ -174,10 +174,6 @@ a:hover{
     background:#788ed5;
 }
 
-.hal{
-    background:#ffffff;
-}
-
 .linkedin{
     background:#347da9;
 }
@@ -978,12 +974,10 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 .social-button.cv,
 .social-button.github,
 .social-button.scholar,
-.social-button.hal,
 .social-button.linkedin{
     background:#91b5ff !important;
     color:#0c161d !important;
 }
-
 
 
 .social-button.scholar{
@@ -1006,7 +1000,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 .social-button.cv,
 .social-button.github,
 .social-button.scholar,
-.social-button.hal,
 .social-button.linkedin{
     background:transparent !important;
     overflow:visible;
@@ -1042,7 +1035,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 
 
 .social-button.scholar .scholar-logo,
-.social-button.hal .hal-logo,
 .social-button.linkedin .linkedin-logo{
     width:30px !important;
     height:30px !important;
@@ -1056,40 +1048,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:#91b5ff !important;
     border-radius:4px !important;
 }
-
-
-.social-button.hal .hal-logo{
-    object-fit:contain !important;
-}
-
-
-.social-button.hal{
-    background:transparent !important;
-}
-
-.social-button.hal .hal-logo{
-    background:transparent !important;
-}
-
-
-.social-button.hal{
-    background:transparent !important;
-}
-
-.social-button.hal .hal-logo{
-    width:30px !important;
-    height:30px !important;
-    max-width:30px !important;
-    max-height:30px !important;
-    padding:0 !important;
-    margin:0 !important;
-    display:block;
-    object-fit:contain !important;
-    background:#91b5ff !important;
-    border-radius:4px !important;
-}
-
-
 .social-button.email svg,
 .social-button.github svg{
     width:30px !important;
@@ -1127,14 +1085,12 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 }
 
 .social-button.scholar,
-.social-button.hal,
 .social-button.linkedin{
     background:transparent !important;
     overflow:visible !important;
 }
 
 .social-button.scholar .scholar-logo,
-.social-button.hal .hal-logo,
 .social-button.linkedin .linkedin-logo{
     width:30px !important;
     height:30px !important;
@@ -1152,10 +1108,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 
 .social-button.scholar .scholar-logo{
     padding:1px !important;
-}
-
-.social-button.hal .hal-logo{
-    padding:2px !important;
 }
 
 .social-button.linkedin .linkedin-logo{
