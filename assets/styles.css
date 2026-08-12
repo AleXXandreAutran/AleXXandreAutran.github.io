@@ -1629,3 +1629,21 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
         margin:36px auto 0 !important;
     }
 }
+
+.timeline-marker{
+    margin:6px auto 0 !important;
+}
+
+@media(max-width:700px){
+    .timeline-marker{
+        margin:6px auto 0 !important;
+    }
+}
+
+.resource-card .course-author{
+    margin:2px 0 7px !important;
+    color:var(--violet) !important;
+    font-size:13px !important;
+    font-weight:600 !important;
+    line-height:1.35 !important;
+}
