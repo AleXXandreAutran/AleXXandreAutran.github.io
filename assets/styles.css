@@ -1057,10 +1057,12 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     border-radius:4px !important;
 }
 
+/* HAL est transparent : on garde le logo entier dans son carré */
 .social-button.hal .hal-logo{
     object-fit:contain !important;
 }
 
+/* HAL : aucune couleur de fond */
 .social-button.hal{
     background:transparent !important;
 }
@@ -1069,6 +1071,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:transparent !important;
 }
 
+/* HAL : même fond bleu que les autres, logo monochrome découpé */
 .social-button.hal{
     background:transparent !important;
 }
@@ -1084,4 +1087,41 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     object-fit:contain !important;
     background:#91b5ff !important;
     border-radius:4px !important;
+}
+
+/* Trois logos de gauche : découpes plus nettes */
+.social-button.email svg,
+.social-button.github svg{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    padding:3px !important;
+    background:#91b5ff !important;
+    color:#0c161d !important;
+    border-radius:4px !important;
+    shape-rendering:geometricPrecision;
+}
+
+.social-button.email svg path{
+    stroke-width:2.15 !important;
+    vector-effect:non-scaling-stroke;
+}
+
+.social-button.github svg{
+    padding:2.5px !important;
+}
+
+.social-button.cv .icon-letters{
+    width:30px !important;
+    height:30px !important;
+    background:#91b5ff !important;
+    color:#0c161d !important;
+    border-radius:4px !important;
+    font-size:16px !important;
+    font-weight:900 !important;
+    letter-spacing:-0.03em;
+    line-height:1 !important;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:geometricPrecision;
 }
