@@ -110,6 +110,7 @@ a:hover{
 
 .affiliation-group a{
     font-size:14px;
+    color:var(--cyan);
 }
 
 .research-affiliation{
@@ -360,6 +361,7 @@ html[data-theme="light"] .sun-icon{
 
 .about-copy a{
     font-weight:600;
+    color:var(--cyan);
 }
 
 .about-copy .email-line{
