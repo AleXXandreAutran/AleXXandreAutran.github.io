@@ -818,4 +818,149 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 
     .show-more{
-        margin-left
+        margin-left:132px;
+    }
+
+    .name{
+        font-size:23px;
+    }
+
+    .affiliation-group,
+    .affiliation-group a{
+        font-size:13px;
+    }
+
+    .social-button{
+        width:32px;
+        height:32px;
+    }
+
+    .social-button svg,
+    .social-button img{
+        width:20px;
+        height:20px;
+        max-width:20px;
+        max-height:20px;
+    }
+}
+
+@media(max-width:700px){
+    .mobile-menu{
+        display:block;
+        position:fixed;
+        right:14px;
+        top:14px;
+        z-index:31;
+    }
+
+    .sidebar{
+        transform:translateX(-102%);
+        transition:transform .22s ease;
+        box-shadow:var(--shadow);
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .content{
+        margin-left:0;
+        padding:0 18px;
+    }
+
+    .about-section{
+        min-height:auto;
+        padding-top:80px;
+    }
+
+    .section{
+        padding:40px 0;
+    }
+
+    .section-title{
+        font-size:34px;
+    }
+
+    .about-copy{
+        font-size:16px;
+    }
+
+    .resource-grid{
+        grid-template-columns:1fr;
+    }
+
+    .publication-item{
+        grid-template-columns:54px 1fr;
+    }
+
+    .timeline:before{
+        left:7px;
+    }
+
+    .timeline-item{
+        grid-template-columns:18px 1fr;
+        gap:9px;
+        padding-bottom:27px;
+    }
+
+    .timeline-date{
+        grid-column:2;
+        text-align:left;
+        order:1;
+        padding:0;
+    }
+
+    .timeline-marker{
+        grid-column:1;
+        grid-row:1/3;
+        order:0;
+        margin-top:4px;
+    }
+
+    .timeline-content{
+        grid-column:2;
+        order:2;
+        padding-left:0;
+    }
+
+    .show-more{
+        margin-left:27px;
+    }
+
+    .resource-controls{
+        align-items:stretch;
+    }
+
+    .search-box{
+        min-width:100%;
+    }
+
+    footer{
+        flex-direction:column;
+    }
+
+    .theme-row{
+        margin-top:20px;
+    }
+
+    .side-nav{
+        margin-top:22px;
+    }
+
+    .socials{
+        gap:7px;
+    }
+
+    .social-button{
+        width:32px;
+        height:32px;
+    }
+
+    .social-button svg,
+    .social-button img{
+        width:20px;
+        height:20px;
+        max-width:20px;
+        max-height:20px;
+    }
+}
