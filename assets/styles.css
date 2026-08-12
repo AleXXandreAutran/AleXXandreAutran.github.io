@@ -178,6 +178,18 @@ a:hover{
     background:#ffffff !important;
 }
 
+.social-button.hal .hal-logo {
+  width: 120% !important;
+  height: 120% !important;
+  max-width: none !important;
+  max-height: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: block;
+  object-fit: contain !important;
+  border-radius: inherit;
+}
+
 .linkedin{
     background:#347da9;
 }
