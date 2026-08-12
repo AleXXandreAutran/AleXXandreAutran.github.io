@@ -1128,12 +1128,10 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     padding:2px !important;
 }
 
-/* Remove the horizontal separator immediately above Research */
 #publications{
     border-bottom:none;
 }
 
-/* Final social-logo sizing */
 .social-button.scholar{
     padding:0 !important;
     background:transparent !important;
@@ -1174,7 +1172,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:#0A66C2 !important;
 }
 
-/* Exact LinkedIn brand color from the supplied logo */
 .social-button.linkedin{
     background:#0A66C2 !important;
     overflow:hidden !important;
@@ -1194,12 +1191,10 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:#0A66C2 !important;
 }
 
-/* Match "L1 exercise sheets." to the colles description size */
 .other-intro{
     font-size:15px;
 }
 
-/* Final Google Scholar sizing: same visible size as the other icons */
 .social-button.scholar{
     background:transparent !important;
     overflow:visible !important;
@@ -1220,17 +1215,12 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:transparent !important;
 }
 
-/* =========================================================
-   FINAL OVERRIDES — social icons and About spacing
-   ========================================================= */
 
-/* Slightly reduced space before About */
 .about-section{
     min-height:500px;
     padding-top:120px;
 }
 
-/* Same visible size for all social icons */
 .social-button{
     width:34px;
     height:34px;
@@ -1267,7 +1257,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     vector-effect:non-scaling-stroke;
 }
 
-/* CV */
 .social-button.cv{
     background:transparent !important;
     overflow:visible !important;
@@ -1287,7 +1276,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     line-height:1 !important;
 }
 
-/* GitHub */
 .social-button.github{
     background:transparent !important;
     overflow:visible !important;
@@ -1302,7 +1290,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     display:block !important;
 }
 
-/* Google Scholar */
 .social-button.scholar{
     background:transparent !important;
     overflow:visible !important;
