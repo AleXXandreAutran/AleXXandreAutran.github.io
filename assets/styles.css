@@ -1198,3 +1198,24 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 .other-intro{
     font-size:15px;
 }
+
+/* Final Google Scholar sizing: same visible size as the other icons */
+.social-button.scholar{
+    background:transparent !important;
+    overflow:visible !important;
+    padding:0 !important;
+}
+
+.social-button.scholar .scholar-logo{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:block !important;
+    box-sizing:border-box !important;
+    object-fit:cover !important;
+    border-radius:4px !important;
+    background:transparent !important;
+}
