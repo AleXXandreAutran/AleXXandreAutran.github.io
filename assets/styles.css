@@ -1642,8 +1642,8 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 
 .resource-card .course-author{
     margin:2px 0 7px !important;
-    color:var(--violet) !important;
-    font-size:13px !important;
-    font-weight:600 !important;
-    line-height:1.35 !important;
+    color:var(--muted) !important;
+    font-size:12.5px !important;
+    font-weight:400 !important;
+    line-height:1.4 !important;
 }
