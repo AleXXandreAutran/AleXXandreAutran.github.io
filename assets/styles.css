@@ -973,7 +973,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 }
 
-/* Tous les boutons sociaux utilisent la couleur du titre About */
+
 .social-button.email,
 .social-button.cv,
 .social-button.github,
@@ -985,7 +985,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 }
 
 
-/* Google Scholar : carré bleu découpé comme sur la référence */
+
 .social-button.scholar{
     background:transparent !important;
     overflow:visible;
@@ -1001,7 +1001,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     display:block;
 }
 
-/* Tous les logos : même découpage que Google Scholar */
+
 .social-button.email,
 .social-button.cv,
 .social-button.github,
@@ -1012,7 +1012,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     overflow:visible;
 }
 
-/* Email + GitHub */
+
 .social-button.email svg,
 .social-button.github svg{
     width:30px !important;
@@ -1027,7 +1027,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     display:block;
 }
 
-/* CV */
+
 .social-button.cv .icon-letters{
     width:30px !important;
     height:30px !important;
@@ -1040,7 +1040,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     border-radius:4px !important;
 }
 
-/* Google Scholar + HAL + LinkedIn */
+
 .social-button.scholar .scholar-logo,
 .social-button.hal .hal-logo,
 .social-button.linkedin .linkedin-logo{
@@ -1057,12 +1057,12 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     border-radius:4px !important;
 }
 
-/* HAL est transparent : on garde le logo entier dans son carré */
+
 .social-button.hal .hal-logo{
     object-fit:contain !important;
 }
 
-/* HAL : aucune couleur de fond */
+
 .social-button.hal{
     background:transparent !important;
 }
@@ -1071,7 +1071,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:transparent !important;
 }
 
-/* HAL : même fond bleu que les autres, logo monochrome découpé */
+
 .social-button.hal{
     background:transparent !important;
 }
@@ -1089,7 +1089,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     border-radius:4px !important;
 }
 
-/* Trois logos de gauche : découpes plus nettes */
+
 .social-button.email svg,
 .social-button.github svg{
     width:30px !important;
@@ -1124,4 +1124,40 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     line-height:1 !important;
     -webkit-font-smoothing:antialiased;
     text-rendering:geometricPrecision;
+}
+
+.social-button.scholar,
+.social-button.hal,
+.social-button.linkedin{
+    background:transparent !important;
+    overflow:visible !important;
+}
+
+.social-button.scholar .scholar-logo,
+.social-button.hal .hal-logo,
+.social-button.linkedin .linkedin-logo{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    margin:0 !important;
+    box-sizing:border-box !important;
+    display:block !important;
+    background:#91b5ff !important;
+    border-radius:4px !important;
+    object-fit:contain !important;
+    image-rendering:auto !important;
+    transform:translateZ(0);
+}
+
+.social-button.scholar .scholar-logo{
+    padding:1px !important;
+}
+
+.social-button.hal .hal-logo{
+    padding:2px !important;
+}
+
+.social-button.linkedin .linkedin-logo{
+    padding:2px !important;
 }
