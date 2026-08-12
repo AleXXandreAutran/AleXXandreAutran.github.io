@@ -167,31 +167,19 @@ a:hover{
 .email,
 .cv,
 .github{
-    background:#546477;
+    background:#91b5ff;
 }
 
 .scholar{
-    background:#788ed5;
+    background:#91b5ff;
 }
 
-.social-button.hal{
-    background:#ffffff !important;
-}
-
-.social-button.hal .hal-logo {
-  width: 130% !important;
-  height: 130% !important;
-  max-width: none !important;
-  max-height: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  display: block;
-  object-fit: contain !important;
-  border-radius: inherit;
+.hal{
+    background:#ffffff;
 }
 
 .linkedin{
-    background:#347da9;
+    background:#91b5ff;
 }
 
 .social-button.linkedin .linkedin-logo{
@@ -983,4 +971,15 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
         max-width:20px;
         max-height:20px;
     }
+}
+
+
+/* Social buttons in the same blue as the About title */
+.social-button.email,
+.social-button.cv,
+.social-button.github,
+.social-button.scholar,
+.social-button.linkedin{
+    background:#91b5ff !important;
+    color:#0c161d !important;
 }
