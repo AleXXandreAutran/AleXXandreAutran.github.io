@@ -1519,3 +1519,89 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 .name{
     white-space:nowrap;
 }
+
+.name{
+    font-size:36px !important;
+    line-height:1.08 !important;
+    white-space:nowrap;
+}
+
+.section{
+    padding:52px 0 !important;
+}
+
+.about-section{
+    min-height:auto !important;
+    padding-top:60px !important;
+    padding-bottom:52px !important;
+}
+
+.section-heading-row{
+    gap:24px !important;
+    margin-bottom:24px !important;
+}
+
+.heading-rule{
+    height:1px !important;
+    margin-top:0 !important;
+    opacity:.9;
+}
+
+.section-intro{
+    margin:0 0 28px !important;
+}
+
+.about-copy{
+    margin-top:28px !important;
+}
+
+.publication-item{
+    padding:26px 0 !important;
+}
+
+.resource-group{
+    margin-top:28px !important;
+}
+
+.other-docs{
+    margin-top:42px !important;
+}
+
+#publications{
+    border-bottom:none !important;
+}
+
+@media(max-width:900px){
+    .name{
+        font-size:32px !important;
+    }
+
+    .section{
+        padding:46px 0 !important;
+    }
+
+    .about-section{
+        padding-top:54px !important;
+        padding-bottom:46px !important;
+    }
+}
+
+@media(max-width:700px){
+    .name{
+        font-size:30px !important;
+    }
+
+    .section{
+        padding:40px 0 !important;
+    }
+
+    .about-section{
+        padding-top:44px !important;
+        padding-bottom:40px !important;
+    }
+
+    .section-heading-row{
+        gap:18px !important;
+        margin-bottom:22px !important;
+    }
+}
