@@ -983,7 +983,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 }
 
-
 .social-button.email,
 .social-button.cv,
 .social-button.github,
@@ -992,7 +991,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:#91b5ff !important;
     color:#0c161d !important;
 }
-
 
 .social-button.scholar{
     background:transparent !important;
@@ -1009,7 +1007,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     display:block;
 }
 
-
 .social-button.email,
 .social-button.cv,
 .social-button.github,
@@ -1018,7 +1015,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:transparent !important;
     overflow:visible;
 }
-
 
 .social-button.email svg,
 .social-button.github svg{
@@ -1034,7 +1030,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     display:block;
 }
 
-
 .social-button.cv .icon-letters{
     width:30px !important;
     height:30px !important;
@@ -1046,7 +1041,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     color:#0c161d !important;
     border-radius:4px !important;
 }
-
 
 .social-button.scholar .scholar-logo,
 .social-button.linkedin .linkedin-logo{
@@ -1128,12 +1122,10 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     padding:2px !important;
 }
 
-/* Remove the horizontal separator immediately above Research */
 #publications{
     border-bottom:none;
 }
 
-/* Final social-logo sizing */
 .social-button.scholar{
     padding:0 !important;
     background:transparent !important;
@@ -1174,7 +1166,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:#0A66C2 !important;
 }
 
-/* Exact LinkedIn brand color from the supplied logo */
 .social-button.linkedin{
     background:#0A66C2 !important;
     overflow:hidden !important;
@@ -1194,12 +1185,10 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:#0A66C2 !important;
 }
 
-/* Match "L1 exercise sheets." to the colles description size */
 .other-intro{
     font-size:15px;
 }
 
-/* Final Google Scholar sizing: same visible size as the other icons */
 .social-button.scholar{
     background:transparent !important;
     overflow:visible !important;
@@ -1220,17 +1209,11 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:transparent !important;
 }
 
-/* =========================================================
-   FINAL OVERRIDES — social icons and About spacing
-   ========================================================= */
-
-/* Slightly reduced space before About */
 .about-section{
     min-height:500px;
     padding-top:120px;
 }
 
-/* Same visible size for all social icons */
 .social-button{
     width:34px;
     height:34px;
@@ -1247,7 +1230,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     max-height:30px !important;
 }
 
-/* Email */
 .social-button.email{
     background:transparent !important;
     overflow:visible !important;
@@ -1267,7 +1249,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     vector-effect:non-scaling-stroke;
 }
 
-/* CV */
 .social-button.cv{
     background:transparent !important;
     overflow:visible !important;
@@ -1287,7 +1268,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     line-height:1 !important;
 }
 
-/* GitHub */
 .social-button.github{
     background:transparent !important;
     overflow:visible !important;
@@ -1302,7 +1282,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     display:block !important;
 }
 
-/* Google Scholar */
 .social-button.scholar{
     background:transparent !important;
     overflow:visible !important;
@@ -1323,7 +1302,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:transparent !important;
 }
 
-/* LinkedIn — exact blue requested */
 .social-button.linkedin{
     background:transparent !important;
     overflow:visible !important;
@@ -1344,7 +1322,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:#0A66C2 !important;
 }
 
-/* Mobile spacing before About */
 @media(max-width:700px){
     .about-section{
         min-height:auto;
@@ -1352,17 +1329,11 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 }
 
-/* =========================================================
-   DEFINITIVE FINAL OVERRIDES
-   ========================================================= */
-
-/* About: clearly less empty space above the title */
 .about-section{
     min-height:500px !important;
     padding-top:90px !important;
 }
 
-/* All social buttons have exactly the same outer dimensions */
 .socials{
     align-items:center;
 }
@@ -1380,7 +1351,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     place-items:center !important;
 }
 
-/* Email */
 .social-button.email{
     background:#91b5ff !important;
 }
@@ -1396,7 +1366,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     box-sizing:border-box !important;
 }
 
-/* CV */
 .social-button.cv{
     background:#91b5ff !important;
 }
@@ -1415,7 +1384,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     box-sizing:border-box !important;
 }
 
-/* GitHub */
 .social-button.github{
     background:#91b5ff !important;
 }
@@ -1431,7 +1399,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     box-sizing:border-box !important;
 }
 
-/* Google Scholar: image fills the same 30x30 frame */
 .social-button.scholar{
     background:transparent !important;
 }
@@ -1448,7 +1415,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     box-sizing:border-box !important;
 }
 
-/* LinkedIn: exact requested blue, independent of external image files */
 .social-button.linkedin{
     background:#0A66C2 !important;
 }
@@ -1465,7 +1431,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     box-sizing:border-box !important;
 }
 
-/* Mobile */
 @media(max-width:700px){
     .about-section{
         min-height:auto !important;
@@ -1480,23 +1445,16 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 }
 
-/* =========================================================
-   FINAL OVERRIDES v3
-   ========================================================= */
-
-/* Even less space before About */
 .about-section{
     min-height:500px !important;
     padding-top:70px !important;
 }
 
-/* Social icons stay perfectly still on hover */
 .social-button:hover{
     transform:none !important;
     filter:brightness(1.08);
 }
 
-/* Remove transform animation since icons no longer move */
 .social-button{
     transition:filter .16s ease !important;
 }
@@ -1508,24 +1466,17 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 }
 
-/* =========================================================
-   FINAL OVERRIDES v4 — sidebar typography
-   ========================================================= */
-
-/* Alexandre Autran = same size as About */
 .name{
     font-size:40px !important;
     line-height:1.05 !important;
 }
 
-/* Affiliation text = same size as About paragraph text */
 .affiliation-group,
 .affiliation-group a{
     font-size:17px !important;
     line-height:1.6 !important;
 }
 
-/* Slightly more room so the larger identity block breathes */
 .affiliation-groups{
     margin-top:12px !important;
     max-width:290px !important;
@@ -1553,3 +1504,18 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 }
 
+.about-copy p,
+.resource-group .section-intro{
+    text-align:justify;
+}
+
+@media(max-width:700px){
+    .about-copy p,
+    .resource-group .section-intro{
+        text-align:left;
+    }
+}
+
+.name{
+    white-space:nowrap;
+}
