@@ -175,11 +175,20 @@ a:hover{
 }
 
 .hal{
-    background:#69c5d0;
+    background:#ffffff;
 }
 
 .linkedin{
     background:#347da9;
+}
+
+.social-button.linkedin .linkedin-logo{
+    width:100%!important;
+    height:100%!important;
+    max-width:none!important;
+    max-height:none!important;
+    object-fit:cover!important;
+    display:block;
 }
 
 .side-nav{
