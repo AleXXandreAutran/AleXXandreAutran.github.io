@@ -114,9 +114,9 @@ a:hover{
 }
 
 .research-affiliation{
-    border-top:1px solid rgba(127,181,200,.18);
+    border-top:0;
     border-radius:0;
-    padding-top:8px;
+    padding-top:0;
 }
 
 .socials{
@@ -306,7 +306,7 @@ html[data-theme="light"] .sun-icon{
 
 .about-section{
     min-height:500px;
-    padding-top:116px;
+    padding-top:150px;
 }
 
 .eyebrow{
@@ -888,7 +888,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 
     .about-section{
         min-height:auto;
-        padding-top:80px;
+        padding-top:100px;
     }
 
     .section{
@@ -1126,4 +1126,49 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 
 .social-button.linkedin .linkedin-logo{
     padding:2px !important;
+}
+
+/* Remove the horizontal separator immediately above Research */
+#publications{
+    border-bottom:none;
+}
+
+/* Final social-logo sizing */
+.social-button.scholar{
+    padding:0 !important;
+    background:transparent !important;
+    overflow:hidden !important;
+}
+
+.social-button.scholar .scholar-logo{
+    width:100% !important;
+    height:100% !important;
+    max-width:none !important;
+    max-height:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:block !important;
+    box-sizing:border-box !important;
+    object-fit:cover !important;
+    border-radius:inherit !important;
+    background:transparent !important;
+}
+
+.social-button.linkedin{
+    background:transparent !important;
+    overflow:visible !important;
+}
+
+.social-button.linkedin .linkedin-logo{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:block !important;
+    box-sizing:border-box !important;
+    object-fit:cover !important;
+    border-radius:4px !important;
+    background:#91b5ff !important;
 }
