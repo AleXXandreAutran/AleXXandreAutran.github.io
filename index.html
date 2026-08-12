@@ -24,20 +24,6 @@
   object-fit: cover !important;
   border-radius: inherit;
 }
-
-.theme-toggle .theme-icon {
-  width: 22px;
-  height: 22px;
-  transition: transform .2s ease, opacity .2s ease;
-}
-
-html[data-theme="dark"] .theme-toggle .sun-icon { display: block !important; }
-html[data-theme="dark"] .theme-toggle .moon-icon { display: none !important; }
-html[data-theme="light"] .theme-toggle .moon-icon { display: block !important; }
-html[data-theme="light"] .theme-toggle .sun-icon { display: none !important; }
-
-.theme-toggle:hover .theme-icon { transform: scale(1.08); }
-
 .social-button.hal,
 .social-button.linkedin {
   padding: 0 !important;
@@ -129,28 +115,8 @@ html[data-theme="light"] .theme-toggle .sun-icon { display: none !important; }
 <a href="#research">Research</a>
 <a href="#resources">Resources</a>
 </nav>
-
-<div class="theme-row">
-    <button
-        class="theme-toggle"
-        id="themeToggle"
-        role="switch"
-        aria-checked="true"
-        aria-label="Switch to light mode"
-        title="Switch theme"
-    >
-        <svg class="theme-icon moon-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M20.2 15.2A8.4 8.4 0 0 1 8.8 3.8a8.8 8.8 0 1 0 11.4 11.4Z"
-                fill="currentColor"/>
-        </svg>
-
-        <svg class="theme-icon sun-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="3.6" fill="currentColor"/>
-          <path d="M12 2.2v2.1M12 19.7v2.1M2.2 12h2.1M19.7 12h2.1M5.1 5.1l1.5 1.5M17.4 17.4l1.5 1.5M18.9 5.1l-1.5 1.5M6.6 17.4l-1.5 1.5"
-                fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
-        </svg>
-    </button>
-</div>
+<!-- Theme fixed to dark. Hidden compatibility element kept for assets/script.js. -->
+<button id="themeToggle" type="button" hidden aria-hidden="true" tabindex="-1"></button>
 
 </aside>
 
@@ -546,26 +512,24 @@ Mathematics oral examinations for second-year undergraduate students preparing f
 
 <script src="assets/script.js?v=11"></script>
 
-
 <script>
 (function () {
   const root = document.documentElement;
-  const button = document.getElementById('themeToggle');
-  if (!button) return;
 
-  function syncThemeButton() {
-    const dark = root.getAttribute('data-theme') === 'dark';
-    button.setAttribute('aria-checked', dark ? 'true' : 'false');
-    button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
-    button.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+  function forceDarkTheme() {
+    if (root.getAttribute('data-theme') !== 'dark') {
+      root.setAttribute('data-theme', 'dark');
+    }
   }
 
-  syncThemeButton();
-  new MutationObserver(syncThemeButton).observe(root, {
+  forceDarkTheme();
+
+  new MutationObserver(forceDarkTheme).observe(root, {
     attributes: true,
     attributeFilter: ['data-theme']
   });
 })();
 </script>
+
 </body>
 </html>
