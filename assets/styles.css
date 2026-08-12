@@ -46,7 +46,7 @@ body{
 }
 
 a{
-    color:#4f8cff;
+    color:var(--cyan);
     text-decoration:none;
 }
 
