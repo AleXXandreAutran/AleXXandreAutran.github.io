@@ -1647,3 +1647,29 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     font-weight:400 !important;
     line-height:1.4 !important;
 }
+
+.master-course-intro{
+    margin:4px 0 18px;
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+}
+
+.master-course-intro-professors{
+    margin-top:34px;
+}
+
+.master-grid-written{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+.master-grid-professors{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+@media(max-width:900px){
+    .master-grid-written,
+    .master-grid-professors{
+        grid-template-columns:1fr;
+    }
+}
