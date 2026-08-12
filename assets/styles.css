@@ -178,13 +178,27 @@ a:hover{
     background:#347da9;
 }
 
-.social-button.linkedin .linkedin-logo{
-    width:100%!important;
-    height:100%!important;
-    max-width:none!important;
-    max-height:none!important;
-    object-fit:cover!important;
-    display:block;
+.social-button.scholar {
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+}
+
+.social-button.scholar .scholar-logo {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+
+    display: block !important;
+
+    object-fit: cover !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border-radius: inherit !important;
+    background: transparent !important;
 }
 
 .side-nav{
