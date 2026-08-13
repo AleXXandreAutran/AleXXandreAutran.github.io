@@ -735,6 +735,11 @@ html[data-theme="light"] .sun-icon{
     padding-bottom:12px;
 }
 
+.other-intro{
+    margin-top:12px !important;
+    margin-bottom:18px !important;
+}
+
 .other-title{
     font-size:19px;
     color:var(--violet);
