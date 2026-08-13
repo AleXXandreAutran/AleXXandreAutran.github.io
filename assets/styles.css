@@ -1442,4 +1442,8 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     .resource-group .section-intro{
         text-align:left;
     }
+
+    .timeline:before{
+        left:9px !important;
+    }
 }
