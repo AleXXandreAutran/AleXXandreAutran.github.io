@@ -1,771 +1,1439 @@
-<!doctype html>
-<html lang="en" data-theme="light">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Alexandre Autran">
-<meta name="theme-color" content="#0c161d">
-<title>Alexandre Autran</title>
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/styles.css">
-
-<style>
-.mobile-name-break{
-    display:none;
+:root{
+    --bg:#0c161d;
+    --sidebar:#17242f;
+    --panel:#19272f;
+    --panel2:#142129;
+    --text:#f0f4f6;
+    --muted:#acbac2;
+    --subtle:#7f909a;
+    --border:#2d424d;
+    --cyan:#2fb8d0;
+    --blue:#91b5ff;
+    --coral:#ff9b87;
+    --violet:#c1a9ff;
+    --shadow:0 16px 40px rgba(0,0,0,.13);
+    --sidebar-w:320px;
+    --content-max:1000px;
 }
 
-.name{
-    display:inline-block !important;
-    margin-bottom:10px !important;
+html[data-theme="light"]{
+    --bg:#f8fafc;
+    --sidebar:#edf3f7;
+    --panel:#ffffff;
+    --panel2:#f4f7f9;
+    --text:#17212a;
+    --muted:#566571;
+    --subtle:#74838e;
+    --border:#cad7df;
+    --shadow:0 14px 36px rgba(50,70,90,.08);
 }
 
-.affiliation-groups{
-    margin-top:16px !important;
+*{
+    box-sizing:border-box;
 }
 
-.research-affiliation{
-    margin-top:10px !important;
-    padding-top:12px !important;
+html{
+    scroll-behavior:smooth;
 }
 
-.socials{
-    margin-top:22px !important;
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;
+    line-height:1.6;
 }
 
-.about-copy{
-    width:100% !important;
-    max-width:none !important;
-}
-
-.about-copy p{
-    width:100% !important;
-    max-width:none !important;
-}
-
-.research-list{
-    display:grid !important;
-    gap:28px !important;
-}
-
-.research-item{
-    display:grid !important;
-    grid-template-columns:max-content minmax(0,1fr) !important;
-    column-gap:16px !important;
-    align-items:start !important;
-}
-
-.research-item .year-badge{
-    grid-column:1 !important;
-    margin:0 !important;
-}
-
-.research-item > div:last-child{
-    grid-column:2 !important;
-    min-width:0 !important;
-}
-
-.research-item h3{
-    font-size:1rem !important;
-    line-height:1.4 !important;
-    margin-top:0 !important;
-    margin-bottom:6px !important;
-}
-
-.research-meta{
-    font-size:0.9rem !important;
-    opacity:0.72;
-    margin:2px 0 !important;
-    line-height:1.3 !important;
-}
-
-.site-footer{
-    margin-top:60px;
-    padding:24px 0 30px;
-    font-size:0.78rem;
-    opacity:0.55;
-    text-align:center;
-}
-
-.site-footer a{
-    color:inherit;
+a{
+    color:var(--cyan);
     text-decoration:none;
 }
 
-.site-footer a:hover{
+a:hover{
     text-decoration:underline;
+    text-underline-offset:3px;
+}
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:var(--sidebar-w);
+    background:var(--sidebar);
+    border-right:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:16px 18px 14px;
+    z-index:20;
+}
+
+.identity{
+    text-align:center;
+    width:100%;
+}
+
+.name{
+    font-size:25px;
+    line-height:1.25;
+    font-weight:500;
+    background:linear-gradient(90deg,#8caeff,#69edf2);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-decoration:none;
+}
+
+.name:hover{
+    text-decoration:none;
+}
+
+.affiliation-groups{
+    margin:7px auto 0;
+    display:grid;
+    gap:7px;
+    max-width:280px;
+}
+
+.affiliation-group{
+    display:grid;
+    gap:1px;
+    padding:6px 7px;
+    border:1px solid transparent;
+    border-radius:8px;
+    color:#ccd6dc;
+    font-size:14px;
+    line-height:1.65;
+}
+
+.affiliation-group a{
+    font-size:14px;
+    color:var(--cyan);
+}
+
+.research-affiliation{
+    border-top:1px solid rgba(127,181,200,.18);
+    border-radius:0;
+    padding-top:8px;
+}
+
+.socials{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    margin-top:16px;
+}
+
+.social-button{
+    width:34px;
+    height:34px;
+    border-radius:8px;
+    display:grid;
+    place-items:center;
+    color:white!important;
+    text-decoration:none!important;
+    transition:transform .16s ease,filter .16s ease;
+    overflow:hidden;
+}
+
+.social-button:hover{
+    transform:translateY(-2px);
+    filter:brightness(1.08);
+}
+
+.social-button svg{
+    display:block;
+    width:21px;
+    height:21px;
+}
+
+.social-button img{
+    display:block;
+    width:30px;
+    height:30px;
+    max-width:30px;
+    max-height:30px;
+    object-fit:contain;
+}
+
+.icon-letters{
+    font-weight:800;
+    font-size:15px;
+    line-height:1;
+}
+
+.email,
+.cv,
+.github{
+    background:#546477;
+}
+
+.scholar{
+    background:#788ed5;
+}
+
+.linkedin{
+    background:#347da9;
+}
+
+.social-button.scholar {
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+}
+
+.social-button.scholar .scholar-logo {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    display: block !important;
+    object-fit: cover !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: inherit !important;
+    background: transparent !important;
+}
+
+.side-nav{
+    display:grid;
+    gap:21px;
+    margin-top:30px;
+    text-align:center;
+}
+
+.side-nav a{
+    font-size:17px;
+    color:var(--cyan);
+}
+
+.side-nav a.active{
+    color:var(--text);
+    font-weight:600;
+}
+
+.theme-row{
+    margin-top:auto;
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.theme-toggle{
+    width:42px;
+    height:42px;
+    border:1px solid var(--border);
+    border-radius:50%;
+    background:var(--panel);
+    color:var(--text);
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+    padding:0;
+    transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+
+.theme-toggle:hover{
+    transform:translateY(-2px);
+    border-color:var(--cyan);
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.theme-toggle:focus-visible{
+    outline:2px solid var(--cyan);
+    outline-offset:3px;
+}
+
+.theme-icon{
+    width:21px;
+    height:21px;
+}
+
+.theme-icon svg{
+    width:100%;
+    height:100%;
+    display:block;
+}
+
+.moon-icon{
+    display:none;
+}
+
+.sun-icon{
+    display:block;
+}
+
+html[data-theme="light"] .moon-icon{
+    display:block;
+}
+
+html[data-theme="light"] .sun-icon{
+    display:none;
+}
+
+.theme-label{
+    display:none;
+}
+
+.mobile-menu{
+    display:none;
+    border:1px solid var(--border);
+    background:var(--panel);
+    color:var(--text);
+    border-radius:8px;
+    padding:7px 10px;
+    font:inherit;
+}
+
+.content{
+    margin-left:var(--sidebar-w);
+    padding:0 46px 50px;
+}
+
+.section{
+    max-width:var(--content-max);
+    margin:0 auto;
+    padding:48px 0 58px;
+    border-bottom:1px solid var(--border);
+    scroll-margin-top:20px;
+}
+
+.about-section{
+    min-height:500px;
+    padding-top:120px;
+}
+
+.eyebrow{
+    text-transform:uppercase;
+    letter-spacing:.22em;
+    color:#7ee7f2;
+    font-size:11px;
+    font-weight:800;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    margin-bottom:8px;
+}
+
+.section-title{
+    font-size:40px;
+    line-height:1.05;
+    font-weight:500;
+    letter-spacing:-.035em;
+    margin:0;
+}
+
+.title-blue{
+    color:var(--blue);
+}
+
+.title-coral{
+    color:var(--coral);
+}
+
+.title-violet{
+    color:var(--violet);
+}
+
+.title-cyan{
+    color:var(--cyan);
+}
+
+.section-heading-row{
+    display:flex;
+    align-items:center;
+    gap:25px;
+    margin-bottom:27px;
+}
+
+.heading-rule{
+    height:1px;
+    background:linear-gradient(90deg,rgba(255,155,135,.65),var(--border));
+    flex:1;
+    margin-top:8px;
+}
+
+.violet-rule{
+    background:linear-gradient(90deg,rgba(193,169,255,.55),var(--border));
+}
+
+.cyan-rule{
+    background:linear-gradient(90deg,rgba(108,236,255,.55),var(--border));
+}
+
+.about-copy{
+    margin-top:34px;
+    max-width:830px;
+    font-size:17px;
+}
+
+.about-copy p{
+    margin:0 0 20px;
+}
+
+.about-copy a{
+    font-weight:600;
+    color:var(--cyan);
+}
+
+.about-copy .email-line{
+    font-size:14px;
+    color:var(--muted);
+    margin-top:26px;
+}
+
+.email-line b{
+    font-weight:400;
+    margin:0 7px;
+    color:var(--subtle);
+}
+
+.email-line span{
+    color:var(--subtle);
+}
+
+.section-intro{
+    color:var(--muted);
+    margin:-10px 0 31px;
+    font-size:15px;
+}
+
+.publication-list{
+    border-top:1px solid var(--border);
+}
+
+.publication-item{
+    display:grid;
+    grid-template-columns:66px 1fr;
+    gap:20px;
+    padding:28px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.year-badge{
+    width:max-content;
+    height:max-content;
+    border-radius:999px;
+    background:#5a2b23;
+    color:#ff9b87;
+    font-weight:800;
+    font-size:13px;
+    padding:4px 8px;
+}
+
+.publication-item h3{
+    font-size:16px;
+    margin:0 0 5px;
+    font-weight:600;
+}
+
+.publication-item p{
+    color:var(--muted);
+    margin:2px 0;
+    font-size:14px;
+}
+
+.pdf-link{
+    display:inline-block;
+    margin-top:8px;
+    font-size:14px;
+    font-weight:700;
+    color:var(--cyan);
+}
+
+.timeline{
+    position:relative;
+}
+
+.timeline:before{
+    content:"";
+    position:absolute;
+    left:137px;
+    top:9px;
+    bottom:12px;
+    width:1px;
+    background:var(--border);
+}
+
+.timeline-item{
+    display:grid;
+    grid-template-columns:118px 18px 1fr;
+    gap:9px;
+    position:relative;
+    padding:0 0 31px;
+}
+
+.timeline-date{
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    color:#91a1ab;
+    font-size:12px;
+    text-align:right;
+    padding-top:4px;
+}
+
+.timeline-marker{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    border:2px solid var(--blue);
+    background:var(--bg);
+    margin:4px auto 0;
+    position:relative;
+    z-index:2;
+}
+
+.timeline-item[data-tone="msc"] .timeline-marker{
+    border-color:var(--coral);
+}
+
+.timeline-item[data-tone="reading"] .timeline-marker{
+    border-color:var(--violet);
+}
+
+.timeline-item[data-tone="bsc"] .timeline-marker{
+    border-color:var(--cyan);
+}
+
+.timeline-content{
+    padding-left:5px;
+}
+
+.category-pill{
+    display:inline-block;
+    border-radius:999px;
+    padding:3px 8px 2px;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.04em;
+    color:#8eafff;
+    background:#1c3768;
+}
+
+.timeline-item[data-tone="msc"] .category-pill{
+    color:#ff9a86;
+    background:#5a2d24;
+}
+
+.timeline-item[data-tone="reading"] .category-pill{
+    color:#c8acff;
+    background:#402e70;
+}
+
+.timeline-item[data-tone="bsc"] .category-pill{
+    color:#73e9f5;
+    background:#164951;
+}
+
+.timeline-content h3{
+    font-size:16px;
+    margin:7px 0 5px;
+    font-weight:650;
+}
+
+.timeline-content p{
+    font-size:14px;
+    color:var(--muted);
+    margin:3px 0;
+}
+
+.timeline-content .place{
+    color:var(--subtle);
+}
+
+.timeline-links{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.research-extra{
+    display:none;
+}
+
+.timeline.expanded .research-extra{
+    display:grid;
+}
+
+.show-more{
+    margin-left:157px;
+    border:0;
+    background:none;
+    color:var(--cyan);
+    cursor:pointer;
+    font:inherit;
+    font-size:14px;
+    padding:0;
+}
+
+.show-more:hover{
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+
+.resources-section{
+    padding-bottom:40px;
+}
+
+.resource-controls{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    margin:0 0 25px;
+}
+
+.search-box{
+    min-width:250px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid var(--border);
+    background:var(--panel2);
+    padding:8px 10px;
+    border-radius:8px;
+    color:var(--subtle);
+}
+
+.search-box input{
+    width:100%;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:var(--text);
+    font:inherit;
+}
+
+.search-box input::placeholder{
+    color:var(--subtle);
+}
+
+.filter-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+.filter-chip{
+    border:1px solid var(--border);
+    background:transparent;
+    color:var(--muted);
+    border-radius:999px;
+    padding:6px 9px;
+    font:inherit;
+    font-size:12px;
+    cursor:pointer;
+}
+
+.filter-chip:hover,
+.filter-chip.active{
+    border-color:#65ddeb;
+    color:var(--cyan);
+    background:rgba(67,200,218,.08);
+}
+
+.resource-group{
+    margin-top:31px;
+}
+
+.resource-subhead{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:20px;
+    border-bottom:1px solid var(--border);
+    padding-bottom:8px;
+    margin-bottom:13px;
+}
+
+.resource-subhead h3{
+    font-size:17px;
+    margin:0;
+    color:var(--violet);
+    font-weight:600;
+}
+
+.resource-subhead span{
+    color:var(--subtle);
+    font-size:12px;
+}
+
+.resource-subhead.mono h3{
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:12px;
+    font-weight:800;
+}
+
+.resource-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:9px;
+}
+
+.colles-grid{
+    display:grid !important;
+    grid-template-columns:repeat(10,minmax(0,1fr)) !important;
+    gap:9px !important;
+}
+
+.compact-grid:not(.colles-grid){
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:9px;
+}
+
+.resource-card{
+    border:1px solid #38505d;
+    background:var(--panel);
+    border-radius:8px;
+    padding:13px 14px;
+    min-height:90px;
+    transition:border-color .16s ease,transform .16s ease,background .16s ease;
+}
+
+.colles-grid .resource-card{
+    width:auto !important;
+    min-height:75px !important;
+    padding:10px 12px !important;
+}
+
+.compact-grid:not(.colles-grid) .resource-card{
+    width:auto;
+    min-height:68px;
+    padding:11px 12px;
+}
+
+.resource-card:hover{
+    border-color:#4e8190;
+    transform:translateY(-1px);
+}
+
+.resource-card h4{
+    font-size:14px;
+    line-height:1.3;
+    margin:0 0 6px;
+    font-weight:600;
+}
+
+.resource-card p{
+    font-size:12.5px;
+    line-height:1.4;
+    margin:0 0 6px;
+    color:var(--muted);
+}
+
+.resource-card .pdf-link{
+    margin-top:2px;
+    font-size:12px;
+}
+
+.other-docs{
+    margin-top:48px;
+    border-bottom:1px solid var(--border);
+    padding-bottom:12px;
+}
+
+.other-title{
+    font-size:19px;
+    color:var(--violet);
+    font-weight:600;
+    margin:0;
+}
+
+.other-intro{
+    font-size:13px;
+    color:var(--muted);
+    margin:4px 0 0;
+}
+
+.resource-card.hidden-by-filter,
+.resource-card.hidden-by-search{
+    display:none;
+}
+
+.resource-group.hidden-group{
+    display:none;
+}
+
+.no-results{
+    border:1px dashed var(--border);
+    border-radius:8px;
+    padding:15px;
+    color:var(--muted);
+    text-align:center;
+}
+
+.no-results[hidden]{
+    display:none;
+}
+
+footer{
+    max-width:var(--content-max);
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    color:#70818b;
+    font-size:12px;
+    padding:22px 0 0;
+}
+
+html[data-theme="light"] .affiliation-group{
+    color:#4f606b;
+}
+
+html[data-theme="light"] .section-intro{
+    color:var(--muted);
+}
+
+html[data-theme="light"] .timeline-content p{
+    color:var(--muted);
+}
+
+html[data-theme="light"] .resource-card p{
+    color:var(--muted);
+}
+
+html[data-theme="light"] .resource-card{
+    border-color:var(--border);
+}
+
+html[data-theme="light"] .resource-card:hover{
+    border-color:#8aa6b5;
+}
+
+html[data-theme="light"] .year-badge{
+    background:#ffe4de;
+    color:#b74f3d;
+}
+
+html[data-theme="light"] .category-pill{
+    background:#dfe8ff;
+    color:#4969b5;
+}
+
+html[data-theme="light"] .timeline-item[data-tone="msc"] .category-pill{
+    background:#ffe3dc;
+    color:#a94f3e;
+}
+
+html[data-theme="light"] .timeline-item[data-tone="reading"] .category-pill{
+    background:#eee6ff;
+    color:#7355aa;
+}
+
+html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
+    background:#dff8fa;
+    color:#247c84;
+}
+
+@media(max-width:900px){
+    :root{
+        --sidebar-w:220px;
+    }
+
+    .content{
+        padding:0 28px;
+    }
+
+    .resource-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .colles-grid{
+        grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    }
+
+    .compact-grid:not(.colles-grid){
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .timeline:before{
+        left:112px;
+    }
+
+    .timeline-item{
+        grid-template-columns:93px 18px 1fr;
+    }
+
+    .show-more{
+        margin-left:132px;
+    }
+
+    .name{
+        font-size:23px;
+    }
+
+    .affiliation-group,
+    .affiliation-group a{
+        font-size:13px;
+    }
+
+    .social-button{
+        width:32px;
+        height:32px;
+    }
+
+    .social-button svg,
+    .social-button img{
+        width:20px;
+        height:20px;
+        max-width:20px;
+        max-height:20px;
+    }
 }
 
 @media(max-width:700px){
-    .mobile-name-break{
+    .mobile-menu{
         display:block;
+        position:fixed;
+        right:14px;
+        top:14px;
+        z-index:31;
+    }
+
+    .sidebar{
+        transform:translateX(-102%);
+        transition:transform .22s ease;
+        box-shadow:var(--shadow);
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .content{
+        margin-left:0;
+        padding:0 18px;
+    }
+
+    .about-section{
+        min-height:auto;
+        padding-top:80px;
+    }
+
+    .section{
+        padding:40px 0;
+    }
+
+    .section-title{
+        font-size:34px;
+    }
+
+    .about-copy{
+        font-size:16px;
+    }
+
+    .resource-grid{
+        grid-template-columns:1fr;
+    }
+
+    .colles-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    }
+
+    .compact-grid:not(.colles-grid){
+        grid-template-columns:1fr;
+    }
+
+    .publication-item{
+        grid-template-columns:54px 1fr;
+    }
+
+    .timeline:before{
+        left:7px;
+    }
+
+    .timeline-item{
+        grid-template-columns:18px 1fr;
+        gap:9px;
+        padding-bottom:27px;
+    }
+
+    .timeline-date{
+        grid-column:2;
+        text-align:left;
+        order:1;
+        padding:0;
+    }
+
+    .timeline-marker{
+        grid-column:1;
+        grid-row:1/3;
+        order:0;
+        margin-top:4px;
+    }
+
+    .timeline-content{
+        grid-column:2;
+        order:2;
+        padding-left:0;
+    }
+
+    .show-more{
+        margin-left:27px;
+    }
+
+    .resource-controls{
+        align-items:stretch;
+    }
+
+    .search-box{
+        min-width:100%;
+    }
+
+    footer{
+        flex-direction:column;
+    }
+
+    .theme-row{
+        margin-top:20px;
+    }
+
+    .side-nav{
+        margin-top:22px;
+    }
+
+    .socials{
+        gap:7px;
+    }
+
+    .social-button{
+        width:32px;
+        height:32px;
+    }
+
+    .social-button svg,
+    .social-button img{
+        width:20px;
+        height:20px;
+        max-width:20px;
+        max-height:20px;
     }
 }
-</style>
-</head>
-
-<body>
-
-<aside class="sidebar" id="sidebar">
-
-<div class="identity">
-
-<a class="name" href="#about">Alexandre<br class="mobile-name-break"> Autran</a>
-
-<div class="affiliation-groups" aria-label="Affiliations">
-<div class="affiliation-group">
-<span>
-<a href="https://math.ens-rennes.fr/" target="_blank" rel="noopener">Mathematics Department</a><br>
-<a href="https://www.ens-rennes.fr/" target="_blank" rel="noopener">ENS de Rennes</a>
-</span>
-</div>
-</div>
-
-<div class="affiliation-group research-affiliation">
-<span>
-<a href="https://centreborelli.ens-paris-saclay.fr/fr" target="_blank" rel="noopener">Centre Borelli</a><br>
-<a href="https://ens-paris-saclay.fr/" target="_blank" rel="noopener">ENS Paris-Saclay</a>
-</span>
-</div>
-
-</div>
-
-<div class="socials" aria-label="Profile links">
-
-<a class="social-button email" href="mailto:alexandre.autran@ens-rennes.fr" aria-label="Email" title="Email">
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<path d="M3 5h18v14H3z" fill="none" stroke="currentColor" stroke-width="1.8"/>
-<path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8"/>
-</svg>
-</a>
-
-<a class="social-button cv" href="documents/CV.pdf" target="_blank" rel="noopener" aria-label="CV" title="CV">
-<span class="icon-letters" aria-hidden="true">CV</span>
-</a>
-
-<a class="social-button github" href="https://github.com/AleXXandreAutran" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<path fill="currentColor" d="M12 2C6.48 2 2 6.59 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.9c-2.78.62-3.37-1.21-3.37-1.21-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.86.09-.66.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 6.99c.85 0 1.7.12 2.5.35 1.9-1.33 2.74-1.05 2.74-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.77c0 .27.18.59.69.49A10.25 10.25 0 0 0 22 12.25C22 6.59 17.52 2 12 2Z"/>
-</svg>
-</a>
-
-<a class="social-button scholar" href="https://scholar.google.com/citations?user=XlnZs3kAAAAJ&hl=fr" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
-<img class="scholar-logo" src="https://arobertson38.github.io/MICRO2D/assets/collab/google_scholar.png" alt="Google Scholar">
-</a>
-
-<a class="social-button linkedin" href="https://fr.linkedin.com/in/alexandre-autran-85279931b/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
-<svg class="linkedin-logo" viewBox="0 0 24 24" aria-hidden="true">
-<rect x="0" y="0" width="24" height="24" rx="3.2" fill="#0A66C2"/>
-<path fill="#ffffff" d="M5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zM7.119 20.452H3.555V9h3.564v11.452zM20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.352V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z"/>
-</svg>
-</a>
-
-</div>
-
-<nav class="side-nav" aria-label="Main navigation">
-<a href="#about">About</a>
-<a href="#research">Research</a>
-<a href="#experiences">Experiences</a>
-<a href="#resources">Resources</a>
-</nav>
-
-<button class="theme-toggle" id="themeModeToggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
-<span class="theme-icon moon-icon" aria-hidden="true">
-<svg viewBox="0 0 24 24" fill="none">
-<path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.6 8.6 0 1 0 20.2 15.1Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</span>
-
-<span class="theme-icon sun-icon" aria-hidden="true">
-<svg viewBox="0 0 24 24" fill="none">
-<circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/>
-<path d="M12 2.5v2M12 19.5v2M4.5 12h-2M21.5 12h-2M5.3 5.3 6.7 6.7M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-</svg>
-</span>
-</button>
-
-</aside>
-
-<button class="mobile-menu" id="mobileMenu" aria-controls="sidebar" aria-expanded="false">Menu</button>
-
-<main class="content">
-
-<section class="section about-section" id="about">
-
-<h1 class="section-title title-blue">About</h1>
-
-<div class="about-copy">
-
-<p>
-<strong>Welcome to my page!</strong> I am an <em>élève normalien</em> at the
-<a href="https://www.ens-rennes.fr/" target="_blank" rel="noopener">École Normale Supérieure de Rennes</a>,
-in the Department of Mathematics. I am also a machine learning researcher at the
-<a href="https://centreborelli.ens-paris-saclay.fr/fr" target="_blank" rel="noopener">Centre Borelli</a> at
-<a href="https://ens-paris-saclay.fr/" target="_blank" rel="noopener">ENS Paris-Saclay</a>.
-</p>
-
-<p>
-My research focuses on probabilistic and geometric methods for machine learning,
-high-dimensional statistics, density analysis, optimal transport,
-graph-based learning, and statistical learning theory.
-</p>
-
-<p class="email-line">
-<a href="mailto:alexandre.autran@ens-rennes.fr">alexandre.autran@ens-rennes.fr</a>
-<span>(professional)</span>
-<b>·</b>
-<a href="mailto:alexandre.autran13@gmail.com">alexandre.autran13@gmail.com</a>
-<span>(personal)</span>
-</p>
-
-</div>
-
-</section>
-
-<section class="section" id="research">
-
-<div class="section-heading-row">
-<h2 class="section-title title-coral">Research</h2>
-<span class="heading-rule"></span>
-</div>
-
-<div class="research-list">
-
-<article class="research-item">
-<div class="year-badge">2026</div>
-<div>
-<h3>Optimization with an Exact Discrete Adjoint for a Diffusive Lotka–Volterra Harvesting Problem</h3>
-<p class="research-meta">Alexandre Autran</p>
-<p class="research-meta"><em>HAL preprint</em></p>
-</div>
-</article>
-
-<article class="research-item">
-<div class="year-badge">2026</div>
-<div>
-<h3>Multi-Dimensional Charge Diffusion–Collection Model in Semiconductor Devices Subjected to Single Ionizing Particles</h3>
-<p class="research-meta">Alexandre Autran, Dan Munteanu &amp; Jean-Luc Autran</p>
-<p class="research-meta"><em>Applied Sciences, 16(11), 5551</em></p>
-<a class="pdf-link" href="https://www.mdpi.com/2076-3417/16/11/5551" target="_blank" rel="noopener">paper ↗</a>
-</div>
-</article>
-
-</div>
-
-</section>
-
-<section class="section" id="experiences">
-
-<div class="section-heading-row">
-<h2 class="section-title title-violet">Experiences</h2>
-<span class="heading-rule violet-rule"></span>
-</div>
-
-<p class="section-intro">
-A selection of research internships, projects, seminars, and reading groups completed during my studies.
-</p>
-
-<div class="timeline" id="researchTimeline">
-
-<article class="timeline-item" data-tone="ml">
-<div class="timeline-date">AUG 2026 — ONGOING</div>
-<div class="timeline-marker" aria-hidden="true"></div>
-<div class="timeline-content">
-<span class="category-pill">MACHINE LEARNING RESEARCH</span>
-<h3>High-Dimensional Density Analysis Using Local Unimodality</h3>
-<p>Supervised by Argyris Kalogeratos</p>
-<p class="place">Centre Borelli, ENS Paris-Saclay, France</p>
-<div class="timeline-links"></div>
-</div>
-</article>
-
-<article class="timeline-item" data-tone="msc">
-<div class="timeline-date">MAY — AUG 2026</div>
-<div class="timeline-marker" aria-hidden="true"></div>
-<div class="timeline-content">
-<span class="category-pill">MSC RESEARCH INTERNSHIP</span>
-<h3>Thermochromic Modeling of the Emissivity of Oxide Nanocomposites</h3>
-<p>Supervised by Nguyen Ngoc Duy and Amaury Baret</p>
-<p class="place">University of Liège, Belgium</p>
-<div class="timeline-links"></div>
-</div>
-</article>
-
-<article class="timeline-item" data-tone="msc">
-<div class="timeline-date">APR — JUN 2026</div>
-<div class="timeline-marker" aria-hidden="true"></div>
-<div class="timeline-content">
-<span class="category-pill">MSC RESEARCH INTERNSHIP</span>
-<h3>Numerical Simulation and Optimal Control of Spatial Lotka–Volterra Systems</h3>
-<p>Supervised by Martin J. Gander and Bastien Chaudet-Dumas</p>
-<p class="place">University of Geneva, Switzerland</p>
-<div class="timeline-links">
-<a class="pdf-link" href="documents/research/msc/lotka-volterra-optimal-control-report.pdf" target="_blank" rel="noopener">
-report <span aria-hidden="true">↗</span>
-</a>
-</div>
-</div>
-</article>
-
-<article class="timeline-item" data-tone="ml">
-<div class="timeline-date">APR — MAY 2026</div>
-<div class="timeline-marker" aria-hidden="true"></div>
-<div class="timeline-content">
-<span class="category-pill">MACHINE LEARNING PROJECTS</span>
-<h3>Air Pollution and Cardiovascular Disease Prediction</h3>
-<p>Course taught by Myriam Maumy</p>
-<p class="place">MSc Statistical Learning</p>
-<div class="timeline-links">
-<a class="pdf-link" href="documents/research/machine-learning/air-pollution-prediction-report.pdf" target="_blank" rel="noopener">
-air pollution report <span aria-hidden="true">↗</span>
-</a>
-<a class="pdf-link" href="documents/research/machine-learning/cardiovascular-disease-prediction-report.pdf" target="_blank" rel="noopener">
-cardiovascular report <span aria-hidden="true">↗</span>
-</a>
-</div>
-</div>
-</article>
-
-<article class="timeline-item" data-tone="reading">
-<div class="timeline-date">JAN 2026</div>
-<div class="timeline-marker" aria-hidden="true"></div>
-<div class="timeline-content">
-<span class="category-pill">STATISTICAL READING GROUP</span>
-<h3>Supervised Statistical Learning: Prediction by Empirical Risk Minimization</h3>
-<p>Supervised by Magalie Fromont</p>
-<p class="place">ENS de Rennes, France</p>
-<div class="timeline-links">
-<a class="pdf-link" href="documents/research/reading-groups/statistical-learning-erm-slides.pdf" target="_blank" rel="noopener">
-slides <span aria-hidden="true">↗</span>
-</a>
-</div>
-</div>
-</article>
-
-<article class="timeline-item research-extra" data-tone="reading">
-<div class="timeline-date">NOV 2025 — JAN 2026</div>
-<div class="timeline-marker" aria-hidden="true"></div>
-<div class="timeline-content">
-<span class="category-pill">MSC RESEARCH SEMINAR</span>
-<h3>Point Process and Stein’s Method</h3>
-<p>Supervised by Jean-Christophe Breton</p>
-<p class="place">University of Rennes, France</p>
-<div class="timeline-links">
-<a class="pdf-link" href="documents/research/seminars/stein-point-processes-report.pdf" target="_blank" rel="noopener">
-report <span aria-hidden="true">↗</span>
-</a>
-<a class="pdf-link" href="documents/research/seminars/stein-point-processes-slides.pdf" target="_blank" rel="noopener">
-slides <span aria-hidden="true">↗</span>
-</a>
-</div>
-</div>
-</article>
-
-<article class="timeline-item research-extra" data-tone="reading">
-<div class="timeline-date">OCT — NOV 2025</div>
-<div class="timeline-marker" aria-hidden="true"></div>
-<div class="timeline-content">
-<span class="category-pill">ALGEBRA READING GROUP</span>
-<h3>Elimination Theory and Extension</h3>
-<p>Supervised by Jade Nardi</p>
-<p class="place">ENS de Rennes, France</p>
-<div class="timeline-links">
-<a class="pdf-link" href="documents/research/reading-groups/elimination-theory-extension-slides.pdf" target="_blank" rel="noopener">
-slides <span aria-hidden="true">↗</span>
-</a>
-</div>
-</div>
-</article>
-
-<article class="timeline-item research-extra" data-tone="bsc">
-<div class="timeline-date">JUN — AUG 2025</div>
-<div class="timeline-marker" aria-hidden="true"></div>
-<div class="timeline-content">
-<span class="category-pill">BSC RESEARCH INTERNSHIP</span>
-<h3>Lattice-Based Post-Quantum Cryptography</h3>
-<p>Supervised by Pierre-Alain Fouque and Aurore Guillevic</p>
-<p class="place">Inria / IRISA, France</p>
-<div class="timeline-links">
-<a class="pdf-link" href="documents/research/bsc/post-quantum-cryptography-report.pdf" target="_blank" rel="noopener">
-report <span aria-hidden="true">↗</span>
-</a>
-<a class="pdf-link" href="documents/research/bsc/post-quantum-cryptography-slides.pdf" target="_blank" rel="noopener">
-slides <span aria-hidden="true">↗</span>
-</a>
-</div>
-</div>
-</article>
-
-<article class="timeline-item research-extra" data-tone="bsc">
-<div class="timeline-date">MAY — JUN 2025</div>
-<div class="timeline-marker" aria-hidden="true"></div>
-<div class="timeline-content">
-<span class="category-pill">BSC RESEARCH INTERNSHIP</span>
-<h3>Algebraic Counting of the Real Roots of Polynomials</h3>
-<p>Supervised by Marie-Françoise Roy</p>
-<p class="place">University of Rennes, France</p>
-<div class="timeline-links">
-<a class="pdf-link" href="documents/research/bsc/real-root-counting-report.pdf" target="_blank" rel="noopener">
-report <span aria-hidden="true">↗</span>
-</a>
-<a class="pdf-link" href="documents/research/bsc/real-root-counting-slides.pdf" target="_blank" rel="noopener">
-slides <span aria-hidden="true">↗</span>
-</a>
-</div>
-</div>
-</article>
-
-<article class="timeline-item research-extra" data-tone="reading">
-<div class="timeline-date">FEB — MAR 2025</div>
-<div class="timeline-marker" aria-hidden="true"></div>
-<div class="timeline-content">
-<span class="category-pill">DIRECTED RESEARCH READING</span>
-<h3>Geometry of Numbers</h3>
-<p>Supervised by Juliette Bavard</p>
-<p class="place">ENS de Rennes, France</p>
-<div class="timeline-links">
-<a class="pdf-link" href="documents/research/reading-groups/geometry-of-numbers-report.pdf" target="_blank" rel="noopener">
-report <span aria-hidden="true">↗</span>
-</a>
-<a class="pdf-link" href="documents/research/reading-groups/geometry-of-numbers-slides.pdf" target="_blank" rel="noopener">
-slides <span aria-hidden="true">↗</span>
-</a>
-</div>
-</div>
-</article>
-
-<article class="timeline-item research-extra" data-tone="bsc">
-<div class="timeline-date">FEB — MAR 2024</div>
-<div class="timeline-marker" aria-hidden="true"></div>
-<div class="timeline-content">
-<span class="category-pill">BSC RESEARCH INTERNSHIP</span>
-<h3>Topological Study of Matrix Groups</h3>
-<p>Supervised by Françoise Dal’Bo and Jérémy Bettinger</p>
-<p class="place">University of Rennes, France</p>
-<div class="timeline-links">
-<a class="pdf-link" href="documents/research/bsc/topological-matrix-groups-report.pdf" target="_blank" rel="noopener">
-report <span aria-hidden="true">↗</span>
-</a>
-</div>
-</div>
-</article>
-
-<article class="timeline-item research-extra" data-tone="bsc">
-<div class="timeline-date">MAY — JUN 2023</div>
-<div class="timeline-marker" aria-hidden="true"></div>
-<div class="timeline-content">
-<span class="category-pill">BSC RESEARCH INTERNSHIP</span>
-<h3>Introduction to Hyperbolic Geometry and Fuchsian Groups</h3>
-<p>Supervised by Frank Loray</p>
-<p class="place">University of Rennes, France</p>
-<div class="timeline-links">
-<a class="pdf-link" href="documents/research/bsc/hyperbolic-geometry-fuchsian-groups-report.pdf" target="_blank" rel="noopener">
-report <span aria-hidden="true">↗</span>
-</a>
-<a class="pdf-link" href="documents/research/bsc/hyperbolic-geometry-fuchsian-groups-slides.pdf" target="_blank" rel="noopener">
-slides <span aria-hidden="true">↗</span>
-</a>
-</div>
-</div>
-</article>
-
-</div>
-
-<button class="show-more" id="showResearch" aria-expanded="false">
-Show all 12 experiences <span aria-hidden="true">↓</span>
-</button>
-
-</section>
-
-<section class="section resources-section" id="resources">
-
-<div class="section-heading-row">
-<h2 class="section-title title-cyan">Resources</h2>
-<span class="heading-rule cyan-rule"></span>
-</div>
-
-<p class="section-intro">
-Course notes and oral-exam preparation sheets.
-</p>
-
-<div class="resource-group">
-
-<div class="resource-subhead">
-<h3>Master courses</h3>
-</div>
-
-<p class="master-course-intro">
-Course notes I wrote during my M1/M2 years at ENS de Rennes:
-</p>
-
-<div class="resource-grid master-grid master-grid-written">
-
-<article class="resource-card">
-<h4>EDP appliquées à la biologie</h4>
-<p>Fokker–Planck, entropy methods, Wasserstein flows, Keller–Segel and Fisher–KPP.</p>
-<a class="pdf-link" href="documents/courses/applied-pdes-biology.pdf" target="_blank" rel="noopener">
-PDF <span aria-hidden="true">↗</span>
-</a>
-</article>
-
-<article class="resource-card">
-<h4>Modèles aléatoires</h4>
-<p>Galton–Watson trees, Poisson processes, continuous-time Markov chains and queues.</p>
-<a class="pdf-link" href="documents/courses/random-models.pdf" target="_blank" rel="noopener">
-PDF <span aria-hidden="true">↗</span>
-</a>
-</article>
-
-</div>
-
-<p class="master-course-intro master-course-intro-professors">
-Here are also four excellent sets of lecture notes:
-</p>
-
-<div class="resource-grid master-grid master-grid-professors">
-
-<article class="resource-card">
-<h4>Processus stochastiques</h4>
-<p class="course-author"><em>Course by Jean-Christophe Breton</em></p>
-<p>Gaussian processes, Brownian motion, martingales, semimartingales and stochastic integration.</p>
-<a class="pdf-link" href="documents/courses/stochastic-processes.pdf" target="_blank" rel="noopener">
-PDF <span aria-hidden="true">↗</span>
-</a>
-</article>
-
-<article class="resource-card">
-<h4>Calcul stochastique</h4>
-<p class="course-author"><em>Course by Jean-Christophe Breton</em></p>
-<p>Itô formula, Girsanov theorem, SDEs, Feynman–Kac and diffusions.</p>
-<a class="pdf-link" href="documents/courses/stochastic-calculus.pdf" target="_blank" rel="noopener">
-PDF <span aria-hidden="true">↗</span>
-</a>
-</article>
-
-<article class="resource-card">
-<h4>Statistiques</h4>
-<p class="course-author"><em>Course by Clément Levrard</em></p>
-<p>Statistical models, Gaussian linear models, maximum likelihood, Bayesian and nonparametric statistics.</p>
-<a class="pdf-link" href="documents/courses/statistics.pdf" target="_blank" rel="noopener">
-PDF <span aria-hidden="true">↗</span>
-</a>
-</article>
-
-<article class="resource-card">
-<h4>Apprentissage statistique et grande dimension</h4>
-<p class="course-author"><em>Course by Clément Levrard</em></p>
-<p>ERM, VC dimension, SVMs, convexification, Ridge/Lasso and double descent.</p>
-<a class="pdf-link" href="documents/courses/statistical-learning-high-dimension.pdf" target="_blank" rel="noopener">
-PDF <span aria-hidden="true">↗</span>
-</a>
-</article>
-
-</div>
-
-</div>
-
-<div class="resource-group">
-
-<div class="resource-subhead">
-<h3>Colles — ENS oral examinations</h3>
-</div>
-
-<p class="section-intro">
-Mathematics oral examinations for second-year undergraduate students preparing for the Écoles Normales Supérieures entrance examinations (Ulm, Paris-Saclay, Lyon and Rennes).
-</p>
-
-<div class="resource-grid compact-grid colles-grid">
-
-<article class="resource-card">
-<h4>Colle n°1</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-01.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°2</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-02.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°3</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-03.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°4</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-04.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°5</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-05.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°6</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-06.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°7</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-07.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°8</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-08.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°9</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-09.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°10</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-10.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°11</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-11.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°12</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-12.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°13</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-13.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°14</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-14.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°15</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-15.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Colle n°16</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-16.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-</div>
-
-</div>
-
-<div class="other-docs">
-<h3 class="other-title">Other documents</h3>
-<p class="other-intro">L1 exercise sheets.</p>
-</div>
-
-<div class="resource-group">
-
-<div class="resource-grid compact-grid">
-
-<article class="resource-card">
-<h4>Feuille n°1</h4>
-<p>Cesàro lemma, Wilson’s theorem, sets, sequences, continuity and convexity</p>
-<a class="pdf-link" href="documents/resources/exercise-sheets/feuille-01.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Feuille n°2</h4>
-<p>Monomorphisms, epimorphisms, integrals, sequences, norms and prime-valued polynomials</p>
-<a class="pdf-link" href="documents/resources/exercise-sheets/feuille-02.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Feuille n°3</h4>
-<p>Heine’s theorem, arithmetic, Cantor and Cantor–Bernstein–Schröder</p>
-<a class="pdf-link" href="documents/resources/exercise-sheets/feuille-03.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Feuille n°4</h4>
-<p>Fixed points, functional equations, differentiability, compactness and arithmetic</p>
-<a class="pdf-link" href="documents/resources/exercise-sheets/feuille-04.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Feuille n°5</h4>
-<p>Matrix traces, fixed points, functional equations, subsequences and nilpotent matrices</p>
-<a class="pdf-link" href="documents/resources/exercise-sheets/feuille-05.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Feuille n°6</h4>
-<p>Darboux’s theorem, matrix rank, algebraic numbers and divergent series</p>
-<a class="pdf-link" href="documents/resources/exercise-sheets/feuille-06.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Feuille n°7</h4>
-<p>Linear families, Bolzano–Weierstrass, cluster points and asymptotic equivalents</p>
-<a class="pdf-link" href="documents/resources/exercise-sheets/feuille-07.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Feuille n°8</h4>
-<p>Modulus-preserving maps, derivations, stable polynomials and Kürschák’s theorem</p>
-<a class="pdf-link" href="documents/resources/exercise-sheets/feuille-08.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Feuille n°9</h4>
-<p>Common complements, kernels and images, independent maps and lower bounds</p>
-<a class="pdf-link" href="documents/resources/exercise-sheets/feuille-09.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-<article class="resource-card">
-<h4>Feuille n°10</h4>
-<p>Multiplicative maps, dual bases, matrix equations and convergence</p>
-<a class="pdf-link" href="documents/resources/exercise-sheets/feuille-10.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-</article>
-
-</div>
-
-</div>
-
-</section>
-
-<footer class="site-footer">
-© 2026 Alexandre Autran
-<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener">
-CC BY 4.0
-</a>
-</footer>
-
-</main>
-
-<script src="assets/script.js"></script>
-
-<script>
-(function () {
-    const root = document.documentElement;
-    const toggle = document.getElementById('themeModeToggle');
-
-    function updateToggle() {
-        const isDark = root.getAttribute('data-theme') === 'dark';
-        const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
-        toggle.setAttribute('aria-label', label);
-        toggle.setAttribute('title', label);
+
+.social-button.email,
+.social-button.cv,
+.social-button.github,
+.social-button.scholar,
+.social-button.linkedin{
+    background:#91b5ff !important;
+    color:#0c161d !important;
+}
+
+.social-button.scholar{
+    background:transparent !important;
+    overflow:visible;
+}
+
+.social-button.scholar .scholar-logo{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    object-fit:cover !important;
+    border-radius:4px !important;
+    display:block;
+}
+
+.social-button.email,
+.social-button.cv,
+.social-button.github,
+.social-button.scholar,
+.social-button.linkedin{
+    background:transparent !important;
+    overflow:visible;
+}
+
+.social-button.email svg,
+.social-button.github svg{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    padding:5px !important;
+    box-sizing:border-box;
+    background:#91b5ff !important;
+    color:#0c161d !important;
+    border-radius:4px !important;
+    display:block;
+}
+
+.social-button.cv .icon-letters{
+    width:30px !important;
+    height:30px !important;
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+    box-sizing:border-box;
+    background:#91b5ff !important;
+    color:#0c161d !important;
+    border-radius:4px !important;
+}
+
+.social-button.scholar .scholar-logo,
+.social-button.linkedin .linkedin-logo{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    padding:0 !important;
+    margin:0 !important;
+    box-sizing:border-box;
+    display:block;
+    object-fit:cover !important;
+    background:#91b5ff !important;
+    border-radius:4px !important;
+}
+
+.social-button.email svg,
+.social-button.github svg{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    padding:3px !important;
+    background:#91b5ff !important;
+    color:#0c161d !important;
+    border-radius:4px !important;
+    shape-rendering:geometricPrecision;
+}
+
+.social-button.email svg path{
+    stroke-width:2.15 !important;
+    vector-effect:non-scaling-stroke;
+}
+
+.social-button.github svg{
+    padding:2.5px !important;
+}
+
+.social-button.cv .icon-letters{
+    width:30px !important;
+    height:30px !important;
+    background:#91b5ff !important;
+    color:#0c161d !important;
+    border-radius:4px !important;
+    font-size:16px !important;
+    font-weight:900 !important;
+    letter-spacing:-0.03em;
+    line-height:1 !important;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:geometricPrecision;
+}
+
+.social-button.scholar,
+.social-button.linkedin{
+    background:transparent !important;
+    overflow:visible !important;
+}
+
+.social-button.scholar .scholar-logo,
+.social-button.linkedin .linkedin-logo{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+    margin:0 !important;
+    box-sizing:border-box !important;
+    display:block !important;
+    background:#91b5ff !important;
+    border-radius:4px !important;
+    object-fit:contain !important;
+    image-rendering:auto !important;
+    transform:translateZ(0);
+}
+
+.social-button.scholar .scholar-logo{
+    padding:1px !important;
+}
+
+.social-button.linkedin .linkedin-logo{
+    padding:2px !important;
+}
+
+#publications{
+    border-bottom:none;
+}
+
+.social-button.scholar{
+    padding:0 !important;
+    background:transparent !important;
+    overflow:hidden !important;
+}
+
+.social-button.scholar .scholar-logo{
+    width:100% !important;
+    height:100% !important;
+    max-width:none !important;
+    max-height:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:block !important;
+    box-sizing:border-box !important;
+    object-fit:cover !important;
+    border-radius:inherit !important;
+    background:transparent !important;
+}
+
+.social-button.linkedin{
+    background:#0A66C2 !important;
+    overflow:hidden !important;
+    padding:0 !important;
+}
+
+.social-button.linkedin .linkedin-logo{
+    width:100% !important;
+    height:100% !important;
+    max-width:none !important;
+    max-height:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:block !important;
+    box-sizing:border-box !important;
+    object-fit:cover !important;
+    border-radius:inherit !important;
+    background:#0A66C2 !important;
+}
+
+.other-intro{
+    font-size:15px;
+}
+
+.about-section{
+    min-height:500px;
+    padding-top:120px;
+}
+
+.social-button{
+    width:34px;
+    height:34px;
+}
+
+.social-button.email svg,
+.social-button.github svg,
+.social-button.cv .icon-letters,
+.social-button.scholar .scholar-logo,
+.social-button.linkedin .linkedin-logo{
+    width:30px !important;
+    height:30px !important;
+    max-width:30px !important;
+    max-height:30px !important;
+}
+
+@media(max-width:700px){
+    .about-section{
+        min-height:auto;
+        padding-top:80px;
+    }
+}
+
+.about-section{
+    min-height:500px !important;
+    padding-top:90px !important;
+}
+
+.socials{
+    align-items:center;
+}
+
+.social-button{
+    width:30px !important;
+    height:30px !important;
+    min-width:30px !important;
+    min-height:30px !important;
+    padding:0 !important;
+    margin:0 !important;
+    border-radius:4px !important;
+    overflow:hidden !important;
+    display:grid !important;
+    place-items:center !important;
+}
+
+.social-button:hover{
+    transform:none !important;
+    filter:brightness(1.08);
+}
+
+.social-button{
+    transition:filter .16s ease !important;
+}
+
+.name{
+    font-size:36px !important;
+    line-height:1.08 !important;
+    white-space:nowrap;
+}
+
+.affiliation-group,
+.affiliation-group a{
+    font-size:17px !important;
+    line-height:1.6 !important;
+}
+
+.affiliation-groups{
+    margin-top:12px !important;
+    max-width:290px !important;
+}
+
+.about-copy p,
+.resource-group .section-intro{
+    text-align:justify;
+}
+
+.section{
+    padding:52px 0 !important;
+}
+
+.about-section{
+    min-height:auto !important;
+    padding-top:60px !important;
+    padding-bottom:52px !important;
+}
+
+.section-heading-row{
+    gap:24px !important;
+    margin-bottom:24px !important;
+}
+
+.heading-rule{
+    height:1px !important;
+    margin-top:0 !important;
+    opacity:.9;
+}
+
+.section-intro{
+    margin:0 0 28px !important;
+}
+
+.about-copy{
+    margin-top:28px !important;
+}
+
+.publication-item{
+    padding:26px 0 !important;
+}
+
+.resource-group{
+    margin-top:28px !important;
+}
+
+.other-docs{
+    margin-top:42px !important;
+}
+
+#publications{
+    border-bottom:none !important;
+}
+
+.timeline:before{
+    left:136px !important;
+}
+
+.timeline-marker{
+    margin:6px auto 0 !important;
+}
+
+.resource-card .course-author{
+    margin:2px 0 7px !important;
+    color:var(--muted) !important;
+    font-size:12.5px !important;
+    font-weight:400 !important;
+    line-height:1.4 !important;
+}
+
+.master-course-intro{
+    margin:4px 0 18px;
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+}
+
+.master-course-intro-professors{
+    margin-top:34px;
+}
+
+.master-grid-written{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+.master-grid-professors{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+#themeModeToggle{
+    margin-top:auto;
+    margin-bottom:10px;
+    flex:0 0 auto;
+}
+
+.social-button{
+    width:38px !important;
+    height:38px !important;
+    min-width:38px !important;
+    min-height:38px !important;
+    border-radius:5px !important;
+}
+
+.social-button.email svg,
+.social-button.github svg,
+.social-button.cv .icon-letters,
+.social-button.scholar .scholar-logo,
+.social-button.linkedin .linkedin-logo{
+    width:100% !important;
+    height:100% !important;
+    max-width:none !important;
+    max-height:none !important;
+}
+
+.social-button.cv .icon-letters{
+    font-size:19px !important;
+}
+
+@media(max-width:900px){
+    .name{
+        font-size:32px !important;
     }
 
-    toggle.addEventListener('click', function () {
-        const isDark = root.getAttribute('data-theme') === 'dark';
-        root.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        updateToggle();
-    });
+    .section{
+        padding:46px 0 !important;
+    }
 
-    updateToggle();
-})();
-</script>
+    .about-section{
+        padding-top:54px !important;
+        padding-bottom:46px !important;
+    }
 
-</body>
-</html>
+    .master-grid-written,
+    .master-grid-professors{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:700px){
+    .name{
+        font-size:30px !important;
+    }
+
+    .section{
+        padding:40px 0 !important;
+    }
+
+    .about-section{
+        min-height:auto !important;
+        padding-top:44px !important;
+        padding-bottom:40px !important;
+    }
+
+    .section-heading-row{
+        gap:18px !important;
+        margin-bottom:22px !important;
+    }
+
+    .about-copy p,
+    .resource-group .section-intro{
+        text-align:left;
+    }
+}
