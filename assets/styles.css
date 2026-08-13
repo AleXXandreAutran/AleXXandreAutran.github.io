@@ -1677,6 +1677,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 
 #themeModeToggle{
     margin-top:auto;
-    margin-bottom:-15px;
+    margin-bottom:-5px;
     flex:0 0 auto;
 }
