@@ -55,10 +55,6 @@ a:hover{
     text-underline-offset:3px;
 }
 
-/* =========================
-   Sidebar
-   ========================= */
-
 .sidebar{
     position:fixed;
     left:0;
@@ -168,7 +164,6 @@ a:hover{
     line-height:1;
 }
 
-/* Email + GitHub */
 .social-button.email,
 .social-button.github{
     background:transparent !important;
@@ -201,7 +196,6 @@ a:hover{
     padding:2.5px !important;
 }
 
-/* CV */
 .social-button.cv{
     background:transparent !important;
 }
@@ -224,7 +218,6 @@ a:hover{
     text-rendering:geometricPrecision;
 }
 
-/* Google Scholar */
 .social-button.scholar{
     padding:0 !important;
     background:transparent !important;
@@ -247,7 +240,6 @@ a:hover{
     transform:translateZ(0);
 }
 
-/* LinkedIn */
 .social-button.linkedin{
     background:#0A66C2 !important;
     overflow:hidden !important;
@@ -366,10 +358,6 @@ html[data-theme="light"] .sun-icon{
     font:inherit;
 }
 
-/* =========================
-   Main layout
-   ========================= */
-
 .content{
     margin-left:var(--sidebar-w);
     padding:0 46px 50px;
@@ -452,10 +440,6 @@ html[data-theme="light"] .sun-icon{
     font-size:15px;
 }
 
-/* =========================
-   About
-   ========================= */
-
 .about-copy{
     margin-top:28px !important;
     max-width:830px;
@@ -487,10 +471,6 @@ html[data-theme="light"] .sun-icon{
 .email-line span{
     color:var(--subtle);
 }
-
-/* =========================
-   Publications / Research
-   ========================= */
 
 .publication-list{
     border-top:1px solid var(--border);
@@ -538,10 +518,6 @@ html[data-theme="light"] .sun-icon{
 #publications{
     border-bottom:none !important;
 }
-
-/* =========================
-   Experiences timeline
-   ========================= */
 
 .timeline{
     position:relative;
@@ -672,10 +648,6 @@ html[data-theme="light"] .sun-icon{
     text-decoration:underline;
     text-underline-offset:3px;
 }
-
-/* =========================
-   Resources
-   ========================= */
 
 .resources-section{
     padding-bottom:40px;
@@ -904,10 +876,6 @@ html[data-theme="light"] .sun-icon{
     display:none;
 }
 
-/* =========================
-   Footer
-   ========================= */
-
 footer{
     max-width:var(--content-max);
     margin:0 auto;
@@ -918,10 +886,6 @@ footer{
     font-size:12px;
     padding:22px 0 0;
 }
-
-/* =========================
-   Light theme adjustments
-   ========================= */
 
 html[data-theme="light"] .affiliation-group{
     color:#4f606b;
@@ -965,10 +929,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     background:#dff8fa;
     color:#247c84;
 }
-
-/* =========================
-   Tablet
-   ========================= */
 
 @media(max-width:900px){
     :root{
@@ -1022,10 +982,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 }
 
-/* =========================
-   Mobile
-   ========================= */
-
 @media(max-width:700px){
     .mobile-menu{
         display:block;
@@ -1048,7 +1004,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     .content{
         margin-left:0;
         padding-left:18px;
-        padding-right:24px;
+        padding-right:32px;
     }
 
     .name{
