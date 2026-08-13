@@ -1673,3 +1673,9 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
         grid-template-columns:1fr;
     }
 }
+
+
+#themeModeToggle{
+    margin-top:auto;
+    flex:0 0 auto;
+}
