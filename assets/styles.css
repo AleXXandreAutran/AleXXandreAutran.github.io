@@ -1680,3 +1680,27 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     margin-bottom:10px;
     flex:0 0 auto;
 }
+
+.social-button{
+    width:38px !important;
+    height:38px !important;
+    min-width:38px !important;
+    min-height:38px !important;
+    border-radius:5px !important;
+}
+
+.social-button.email svg,
+.social-button.github svg,
+.social-button.cv .icon-letters,
+.social-button.scholar .scholar-logo,
+.social-button.linkedin .linkedin-logo{
+    width:100% !important;
+    height:100% !important;
+    max-width:none !important;
+    max-height:none !important;
+}
+
+.social-button.cv .icon-letters{
+    font-size:19px !important;
+}
+
