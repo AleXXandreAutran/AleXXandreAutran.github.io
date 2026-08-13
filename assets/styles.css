@@ -992,6 +992,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 
     .sidebar{
+        width:280px;
         transform:translateX(-102%);
         transition:transform .22s ease;
         box-shadow:var(--shadow);
@@ -1004,7 +1005,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     .content{
         margin-left:0;
         padding-left:18px;
-        padding-right:32px;
+        padding-right:24px;
     }
 
     .name{
@@ -1036,7 +1037,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 
     .about-copy p,
     .resource-group .section-intro{
-        text-align:left;
+        text-align:justify;
     }
 
     .resource-grid{
