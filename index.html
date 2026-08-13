@@ -31,6 +31,28 @@
     margin-top:22px !important;
 }
 
+/* Research: the year badge behaves like an itemize marker */
+.research-item{
+    display:grid !important;
+    grid-template-columns:max-content minmax(0, 1fr) !important;
+    column-gap:16px !important;
+    align-items:start !important;
+}
+
+.research-item .year-badge{
+    grid-column:1 !important;
+    margin:0 !important;
+}
+
+.research-item > div:last-child{
+    grid-column:2 !important;
+    min-width:0 !important;
+}
+
+.research-item > div:last-child h3{
+    margin-top:0 !important;
+}
+
 .site-footer{
     margin-top:60px;
     padding:24px 0 30px;
