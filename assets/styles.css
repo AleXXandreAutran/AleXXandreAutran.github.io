@@ -55,6 +55,10 @@ a:hover{
     text-underline-offset:3px;
 }
 
+/* =========================
+   Sidebar
+   ========================= */
+
 .sidebar{
     position:fixed;
     left:0;
@@ -76,9 +80,10 @@ a:hover{
 }
 
 .name{
-    font-size:25px;
-    line-height:1.25;
+    font-size:36px !important;
+    line-height:1.08 !important;
     font-weight:500;
+    white-space:nowrap;
     background:linear-gradient(90deg,#8caeff,#69edf2);
     -webkit-background-clip:text;
     background-clip:text;
@@ -91,10 +96,10 @@ a:hover{
 }
 
 .affiliation-groups{
-    margin:7px auto 0;
+    margin:12px auto 0 !important;
     display:grid;
     gap:7px;
-    max-width:280px;
+    max-width:290px !important;
 }
 
 .affiliation-group{
@@ -104,12 +109,13 @@ a:hover{
     border:1px solid transparent;
     border-radius:8px;
     color:#ccd6dc;
-    font-size:14px;
-    line-height:1.65;
+    font-size:17px !important;
+    line-height:1.6 !important;
 }
 
 .affiliation-group a{
-    font-size:14px;
+    font-size:17px !important;
+    line-height:1.6 !important;
     color:var(--cyan);
 }
 
@@ -123,78 +129,145 @@ a:hover{
     display:flex;
     gap:15px;
     justify-content:center;
+    align-items:center;
     margin-top:16px;
 }
 
 .social-button{
-    width:34px;
-    height:34px;
-    border-radius:8px;
-    display:grid;
-    place-items:center;
-    color:white!important;
-    text-decoration:none!important;
-    transition:transform .16s ease,filter .16s ease;
-    overflow:hidden;
+    width:38px !important;
+    height:38px !important;
+    min-width:38px !important;
+    min-height:38px !important;
+    padding:0 !important;
+    margin:0 !important;
+    border-radius:5px !important;
+    display:grid !important;
+    place-items:center !important;
+    color:white !important;
+    text-decoration:none !important;
+    overflow:hidden !important;
+    transition:filter .16s ease !important;
 }
 
 .social-button:hover{
-    transform:translateY(-2px);
+    transform:none !important;
     filter:brightness(1.08);
 }
 
 .social-button svg{
     display:block;
-    width:21px;
-    height:21px;
 }
 
 .social-button img{
     display:block;
-    width:30px;
-    height:30px;
-    max-width:30px;
-    max-height:30px;
     object-fit:contain;
 }
 
 .icon-letters{
     font-weight:800;
-    font-size:15px;
     line-height:1;
 }
 
-.email,
-.cv,
-.github{
-    background:#546477;
+/* Email + GitHub */
+.social-button.email,
+.social-button.github{
+    background:transparent !important;
 }
 
-.scholar{
-    background:#788ed5;
+.social-button.email svg,
+.social-button.github svg{
+    width:100% !important;
+    height:100% !important;
+    max-width:none !important;
+    max-height:none !important;
+    box-sizing:border-box;
+    background:#91b5ff !important;
+    color:#0c161d !important;
+    border-radius:4px !important;
+    display:block;
+    shape-rendering:geometricPrecision;
 }
 
-.linkedin{
-    background:#347da9;
+.social-button.email svg{
+    padding:3px !important;
 }
 
-.social-button.scholar {
-    padding: 0 !important;
-    overflow: hidden !important;
-    background: transparent !important;
+.social-button.email svg path{
+    stroke-width:2.15 !important;
+    vector-effect:non-scaling-stroke;
 }
 
-.social-button.scholar .scholar-logo {
-    width: 100% !important;
-    height: 100% !important;
-    max-width: none !important;
-    max-height: none !important;
-    display: block !important;
-    object-fit: cover !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border-radius: inherit !important;
-    background: transparent !important;
+.social-button.github svg{
+    padding:2.5px !important;
+}
+
+/* CV */
+.social-button.cv{
+    background:transparent !important;
+}
+
+.social-button.cv .icon-letters{
+    width:100% !important;
+    height:100% !important;
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+    box-sizing:border-box;
+    background:#91b5ff !important;
+    color:#0c161d !important;
+    border-radius:4px !important;
+    font-size:19px !important;
+    font-weight:900 !important;
+    letter-spacing:-0.03em;
+    line-height:1 !important;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:geometricPrecision;
+}
+
+/* Google Scholar */
+.social-button.scholar{
+    padding:0 !important;
+    background:transparent !important;
+    overflow:hidden !important;
+}
+
+.social-button.scholar .scholar-logo{
+    width:100% !important;
+    height:100% !important;
+    max-width:none !important;
+    max-height:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:block !important;
+    box-sizing:border-box !important;
+    object-fit:cover !important;
+    border-radius:inherit !important;
+    background:transparent !important;
+    image-rendering:auto !important;
+    transform:translateZ(0);
+}
+
+/* LinkedIn */
+.social-button.linkedin{
+    background:#0A66C2 !important;
+    overflow:hidden !important;
+    padding:0 !important;
+}
+
+.social-button.linkedin .linkedin-logo{
+    width:100% !important;
+    height:100% !important;
+    max-width:none !important;
+    max-height:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:block !important;
+    box-sizing:border-box !important;
+    object-fit:cover !important;
+    border-radius:inherit !important;
+    background:#0A66C2 !important;
+    image-rendering:auto !important;
+    transform:translateZ(0);
 }
 
 .side-nav{
@@ -277,6 +350,12 @@ html[data-theme="light"] .sun-icon{
     display:none;
 }
 
+#themeModeToggle{
+    margin-top:auto;
+    margin-bottom:10px;
+    flex:0 0 auto;
+}
+
 .mobile-menu{
     display:none;
     border:1px solid var(--border);
@@ -287,6 +366,10 @@ html[data-theme="light"] .sun-icon{
     font:inherit;
 }
 
+/* =========================
+   Main layout
+   ========================= */
+
 .content{
     margin-left:var(--sidebar-w);
     padding:0 46px 50px;
@@ -295,14 +378,15 @@ html[data-theme="light"] .sun-icon{
 .section{
     max-width:var(--content-max);
     margin:0 auto;
-    padding:48px 0 58px;
+    padding:52px 0 !important;
     border-bottom:1px solid var(--border);
     scroll-margin-top:20px;
 }
 
 .about-section{
-    min-height:500px;
-    padding-top:120px;
+    min-height:auto !important;
+    padding-top:60px !important;
+    padding-bottom:52px !important;
 }
 
 .eyebrow{
@@ -342,15 +426,16 @@ html[data-theme="light"] .sun-icon{
 .section-heading-row{
     display:flex;
     align-items:center;
-    gap:25px;
-    margin-bottom:27px;
+    gap:24px !important;
+    margin-bottom:24px !important;
 }
 
 .heading-rule{
-    height:1px;
+    height:1px !important;
     background:linear-gradient(90deg,rgba(255,155,135,.65),var(--border));
     flex:1;
-    margin-top:8px;
+    margin-top:0 !important;
+    opacity:.9;
 }
 
 .violet-rule{
@@ -361,14 +446,25 @@ html[data-theme="light"] .sun-icon{
     background:linear-gradient(90deg,rgba(108,236,255,.55),var(--border));
 }
 
+.section-intro{
+    color:var(--muted);
+    margin:0 0 28px !important;
+    font-size:15px;
+}
+
+/* =========================
+   About
+   ========================= */
+
 .about-copy{
-    margin-top:34px;
+    margin-top:28px !important;
     max-width:830px;
     font-size:17px;
 }
 
 .about-copy p{
     margin:0 0 20px;
+    text-align:justify;
 }
 
 .about-copy a{
@@ -392,11 +488,9 @@ html[data-theme="light"] .sun-icon{
     color:var(--subtle);
 }
 
-.section-intro{
-    color:var(--muted);
-    margin:-10px 0 31px;
-    font-size:15px;
-}
+/* =========================
+   Publications / Research
+   ========================= */
 
 .publication-list{
     border-top:1px solid var(--border);
@@ -406,7 +500,7 @@ html[data-theme="light"] .sun-icon{
     display:grid;
     grid-template-columns:66px 1fr;
     gap:20px;
-    padding:28px 0;
+    padding:26px 0 !important;
     border-bottom:1px solid var(--border);
 }
 
@@ -440,6 +534,14 @@ html[data-theme="light"] .sun-icon{
     font-weight:700;
     color:var(--cyan);
 }
+
+#publications{
+    border-bottom:none !important;
+}
+
+/* =========================
+   Experiences timeline
+   ========================= */
 
 .timeline{
     position:relative;
@@ -478,7 +580,7 @@ html[data-theme="light"] .sun-icon{
     border-radius:50%;
     border:2px solid var(--blue);
     background:var(--bg);
-    margin:4px auto 0;
+    margin:6px auto 0 !important;
     position:relative;
     z-index:2;
 }
@@ -571,6 +673,10 @@ html[data-theme="light"] .sun-icon{
     text-underline-offset:3px;
 }
 
+/* =========================
+   Resources
+   ========================= */
+
 .resources-section{
     padding-bottom:40px;
 }
@@ -634,7 +740,11 @@ html[data-theme="light"] .sun-icon{
 }
 
 .resource-group{
-    margin-top:31px;
+    margin-top:28px !important;
+}
+
+.resource-group .section-intro{
+    text-align:justify;
 }
 
 .resource-subhead{
@@ -730,15 +840,18 @@ html[data-theme="light"] .sun-icon{
     font-size:12px;
 }
 
-.other-docs{
-    margin-top:48px;
-    border-bottom:1px solid var(--border);
-    padding-bottom:12px;
+.resource-card .course-author{
+    margin:2px 0 7px !important;
+    color:var(--muted) !important;
+    font-size:12.5px !important;
+    font-weight:400 !important;
+    line-height:1.4 !important;
 }
 
-.other-intro{
-    margin-top:12px !important;
-    margin-bottom:18px !important;
+.other-docs{
+    margin-top:42px !important;
+    border-bottom:1px solid var(--border);
+    padding-bottom:12px;
 }
 
 .other-title{
@@ -749,9 +862,25 @@ html[data-theme="light"] .sun-icon{
 }
 
 .other-intro{
-    font-size:13px;
+    font-size:15px;
     color:var(--muted);
-    margin:4px 0 0;
+    margin:12px 0 18px !important;
+}
+
+.master-course-intro{
+    margin:4px 0 18px;
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+}
+
+.master-course-intro-professors{
+    margin-top:34px;
+}
+
+.master-grid-written,
+.master-grid-professors{
+    grid-template-columns:repeat(2,minmax(0,1fr));
 }
 
 .resource-card.hidden-by-filter,
@@ -775,6 +904,10 @@ html[data-theme="light"] .sun-icon{
     display:none;
 }
 
+/* =========================
+   Footer
+   ========================= */
+
 footer{
     max-width:var(--content-max);
     margin:0 auto;
@@ -786,18 +919,16 @@ footer{
     padding:22px 0 0;
 }
 
+/* =========================
+   Light theme adjustments
+   ========================= */
+
 html[data-theme="light"] .affiliation-group{
     color:#4f606b;
 }
 
-html[data-theme="light"] .section-intro{
-    color:var(--muted);
-}
-
-html[data-theme="light"] .timeline-content p{
-    color:var(--muted);
-}
-
+html[data-theme="light"] .section-intro,
+html[data-theme="light"] .timeline-content p,
 html[data-theme="light"] .resource-card p{
     color:var(--muted);
 }
@@ -835,6 +966,10 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     color:#247c84;
 }
 
+/* =========================
+   Tablet
+   ========================= */
+
 @media(max-width:900px){
     :root{
         --sidebar-w:220px;
@@ -842,6 +977,19 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 
     .content{
         padding:0 28px;
+    }
+
+    .name{
+        font-size:32px !important;
+    }
+
+    .section{
+        padding:46px 0 !important;
+    }
+
+    .about-section{
+        padding-top:54px !important;
+        padding-bottom:46px !important;
     }
 
     .resource-grid{
@@ -856,6 +1004,11 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
         grid-template-columns:repeat(2,minmax(0,1fr));
     }
 
+    .master-grid-written,
+    .master-grid-professors{
+        grid-template-columns:1fr;
+    }
+
     .timeline:before{
         left:112px;
     }
@@ -867,29 +1020,11 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     .show-more{
         margin-left:132px;
     }
-
-    .name{
-        font-size:23px;
-    }
-
-    .affiliation-group,
-    .affiliation-group a{
-        font-size:13px;
-    }
-
-    .social-button{
-        width:32px;
-        height:32px;
-    }
-
-    .social-button svg,
-    .social-button img{
-        width:20px;
-        height:20px;
-        max-width:20px;
-        max-height:20px;
-    }
 }
+
+/* =========================
+   Mobile
+   ========================= */
 
 @media(max-width:700px){
     .mobile-menu{
@@ -912,24 +1047,40 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 
     .content{
         margin-left:0;
-        padding:0 18px;
+        padding-left:18px;
+        padding-right:24px;
+    }
+
+    .name{
+        font-size:30px !important;
     }
 
     .about-section{
-        min-height:auto;
-        padding-top:80px;
+        min-height:auto !important;
+        padding-top:44px !important;
+        padding-bottom:40px !important;
     }
 
     .section{
-        padding:40px 0;
+        padding:40px 0 !important;
     }
 
     .section-title{
         font-size:34px;
     }
 
+    .section-heading-row{
+        gap:18px !important;
+        margin-bottom:22px !important;
+    }
+
     .about-copy{
         font-size:16px;
+    }
+
+    .about-copy p,
+    .resource-group .section-intro{
+        text-align:left;
     }
 
     .resource-grid{
@@ -949,7 +1100,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 
     .timeline:before{
-        left:7px;
+        left:9px;
     }
 
     .timeline-item{
@@ -969,7 +1120,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
         grid-column:1;
         grid-row:1/3;
         order:0;
-        margin-top:4px;
     }
 
     .timeline-content{
@@ -1004,446 +1154,5 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 
     .socials{
         gap:7px;
-    }
-
-    .social-button{
-        width:32px;
-        height:32px;
-    }
-
-    .social-button svg,
-    .social-button img{
-        width:20px;
-        height:20px;
-        max-width:20px;
-        max-height:20px;
-    }
-}
-
-.social-button.email,
-.social-button.cv,
-.social-button.github,
-.social-button.scholar,
-.social-button.linkedin{
-    background:#91b5ff !important;
-    color:#0c161d !important;
-}
-
-.social-button.scholar{
-    background:transparent !important;
-    overflow:visible;
-}
-
-.social-button.scholar .scholar-logo{
-    width:30px !important;
-    height:30px !important;
-    max-width:30px !important;
-    max-height:30px !important;
-    object-fit:cover !important;
-    border-radius:4px !important;
-    display:block;
-}
-
-.social-button.email,
-.social-button.cv,
-.social-button.github,
-.social-button.scholar,
-.social-button.linkedin{
-    background:transparent !important;
-    overflow:visible;
-}
-
-.social-button.email svg,
-.social-button.github svg{
-    width:30px !important;
-    height:30px !important;
-    max-width:30px !important;
-    max-height:30px !important;
-    padding:5px !important;
-    box-sizing:border-box;
-    background:#91b5ff !important;
-    color:#0c161d !important;
-    border-radius:4px !important;
-    display:block;
-}
-
-.social-button.cv .icon-letters{
-    width:30px !important;
-    height:30px !important;
-    display:flex !important;
-    align-items:center;
-    justify-content:center;
-    box-sizing:border-box;
-    background:#91b5ff !important;
-    color:#0c161d !important;
-    border-radius:4px !important;
-}
-
-.social-button.scholar .scholar-logo,
-.social-button.linkedin .linkedin-logo{
-    width:30px !important;
-    height:30px !important;
-    max-width:30px !important;
-    max-height:30px !important;
-    padding:0 !important;
-    margin:0 !important;
-    box-sizing:border-box;
-    display:block;
-    object-fit:cover !important;
-    background:#91b5ff !important;
-    border-radius:4px !important;
-}
-
-.social-button.email svg,
-.social-button.github svg{
-    width:30px !important;
-    height:30px !important;
-    max-width:30px !important;
-    max-height:30px !important;
-    padding:3px !important;
-    background:#91b5ff !important;
-    color:#0c161d !important;
-    border-radius:4px !important;
-    shape-rendering:geometricPrecision;
-}
-
-.social-button.email svg path{
-    stroke-width:2.15 !important;
-    vector-effect:non-scaling-stroke;
-}
-
-.social-button.github svg{
-    padding:2.5px !important;
-}
-
-.social-button.cv .icon-letters{
-    width:30px !important;
-    height:30px !important;
-    background:#91b5ff !important;
-    color:#0c161d !important;
-    border-radius:4px !important;
-    font-size:16px !important;
-    font-weight:900 !important;
-    letter-spacing:-0.03em;
-    line-height:1 !important;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:geometricPrecision;
-}
-
-.social-button.scholar,
-.social-button.linkedin{
-    background:transparent !important;
-    overflow:visible !important;
-}
-
-.social-button.scholar .scholar-logo,
-.social-button.linkedin .linkedin-logo{
-    width:30px !important;
-    height:30px !important;
-    max-width:30px !important;
-    max-height:30px !important;
-    margin:0 !important;
-    box-sizing:border-box !important;
-    display:block !important;
-    background:#91b5ff !important;
-    border-radius:4px !important;
-    object-fit:contain !important;
-    image-rendering:auto !important;
-    transform:translateZ(0);
-}
-
-.social-button.scholar .scholar-logo{
-    padding:1px !important;
-}
-
-.social-button.linkedin .linkedin-logo{
-    padding:2px !important;
-}
-
-#publications{
-    border-bottom:none;
-}
-
-.social-button.scholar{
-    padding:0 !important;
-    background:transparent !important;
-    overflow:hidden !important;
-}
-
-.social-button.scholar .scholar-logo{
-    width:100% !important;
-    height:100% !important;
-    max-width:none !important;
-    max-height:none !important;
-    margin:0 !important;
-    padding:0 !important;
-    display:block !important;
-    box-sizing:border-box !important;
-    object-fit:cover !important;
-    border-radius:inherit !important;
-    background:transparent !important;
-}
-
-.social-button.linkedin{
-    background:#0A66C2 !important;
-    overflow:hidden !important;
-    padding:0 !important;
-}
-
-.social-button.linkedin .linkedin-logo{
-    width:100% !important;
-    height:100% !important;
-    max-width:none !important;
-    max-height:none !important;
-    margin:0 !important;
-    padding:0 !important;
-    display:block !important;
-    box-sizing:border-box !important;
-    object-fit:cover !important;
-    border-radius:inherit !important;
-    background:#0A66C2 !important;
-}
-
-.other-intro{
-    font-size:15px;
-}
-
-.about-section{
-    min-height:500px;
-    padding-top:120px;
-}
-
-.social-button{
-    width:34px;
-    height:34px;
-}
-
-.social-button.email svg,
-.social-button.github svg,
-.social-button.cv .icon-letters,
-.social-button.scholar .scholar-logo,
-.social-button.linkedin .linkedin-logo{
-    width:30px !important;
-    height:30px !important;
-    max-width:30px !important;
-    max-height:30px !important;
-}
-
-@media(max-width:700px){
-    .about-section{
-        min-height:auto;
-        padding-top:80px;
-    }
-}
-
-.about-section{
-    min-height:500px !important;
-    padding-top:90px !important;
-}
-
-.socials{
-    align-items:center;
-}
-
-.social-button{
-    width:30px !important;
-    height:30px !important;
-    min-width:30px !important;
-    min-height:30px !important;
-    padding:0 !important;
-    margin:0 !important;
-    border-radius:4px !important;
-    overflow:hidden !important;
-    display:grid !important;
-    place-items:center !important;
-}
-
-.social-button:hover{
-    transform:none !important;
-    filter:brightness(1.08);
-}
-
-.social-button{
-    transition:filter .16s ease !important;
-}
-
-.name{
-    font-size:36px !important;
-    line-height:1.08 !important;
-    white-space:nowrap;
-}
-
-.affiliation-group,
-.affiliation-group a{
-    font-size:17px !important;
-    line-height:1.6 !important;
-}
-
-.affiliation-groups{
-    margin-top:12px !important;
-    max-width:290px !important;
-}
-
-.about-copy p,
-.resource-group .section-intro{
-    text-align:justify;
-}
-
-.section{
-    padding:52px 0 !important;
-}
-
-.about-section{
-    min-height:auto !important;
-    padding-top:60px !important;
-    padding-bottom:52px !important;
-}
-
-.section-heading-row{
-    gap:24px !important;
-    margin-bottom:24px !important;
-}
-
-.heading-rule{
-    height:1px !important;
-    margin-top:0 !important;
-    opacity:.9;
-}
-
-.section-intro{
-    margin:0 0 28px !important;
-}
-
-.about-copy{
-    margin-top:28px !important;
-}
-
-.publication-item{
-    padding:26px 0 !important;
-}
-
-.resource-group{
-    margin-top:28px !important;
-}
-
-.other-docs{
-    margin-top:42px !important;
-}
-
-#publications{
-    border-bottom:none !important;
-}
-
-.timeline:before{
-    left:136px !important;
-}
-
-.timeline-marker{
-    margin:6px auto 0 !important;
-}
-
-.resource-card .course-author{
-    margin:2px 0 7px !important;
-    color:var(--muted) !important;
-    font-size:12.5px !important;
-    font-weight:400 !important;
-    line-height:1.4 !important;
-}
-
-.master-course-intro{
-    margin:4px 0 18px;
-    color:var(--muted);
-    font-size:15px;
-    line-height:1.6;
-}
-
-.master-course-intro-professors{
-    margin-top:34px;
-}
-
-.master-grid-written{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-}
-
-.master-grid-professors{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-}
-
-#themeModeToggle{
-    margin-top:auto;
-    margin-bottom:10px;
-    flex:0 0 auto;
-}
-
-.social-button{
-    width:38px !important;
-    height:38px !important;
-    min-width:38px !important;
-    min-height:38px !important;
-    border-radius:5px !important;
-}
-
-.social-button.email svg,
-.social-button.github svg,
-.social-button.cv .icon-letters,
-.social-button.scholar .scholar-logo,
-.social-button.linkedin .linkedin-logo{
-    width:100% !important;
-    height:100% !important;
-    max-width:none !important;
-    max-height:none !important;
-}
-
-.social-button.cv .icon-letters{
-    font-size:19px !important;
-}
-
-@media(max-width:900px){
-    .name{
-        font-size:32px !important;
-    }
-
-    .section{
-        padding:46px 0 !important;
-    }
-
-    .about-section{
-        padding-top:54px !important;
-        padding-bottom:46px !important;
-    }
-
-    .master-grid-written,
-    .master-grid-professors{
-        grid-template-columns:1fr;
-    }
-}
-
-@media(max-width:700px){
-    .name{
-        font-size:30px !important;
-    }
-
-    .section{
-        padding:40px 0 !important;
-    }
-
-    .about-section{
-        min-height:auto !important;
-        padding-top:44px !important;
-        padding-bottom:40px !important;
-    }
-
-    .section-heading-row{
-        gap:18px !important;
-        margin-bottom:22px !important;
-    }
-
-    .about-copy p,
-    .resource-group .section-intro{
-        text-align:left;
-    }
-
-    .timeline:before{
-        left:9px !important;
     }
 }
