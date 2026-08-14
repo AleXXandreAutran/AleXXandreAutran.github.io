@@ -757,7 +757,7 @@ html[data-theme="light"] .sun-icon{
 
 .colles-grid{
     display:grid !important;
-    grid-template-columns:repeat(10,minmax(0,1fr)) !important;
+    grid-template-columns:repeat(8,minmax(0,1fr)) !important;
     gap:9px !important;
 }
 
@@ -777,9 +777,14 @@ html[data-theme="light"] .sun-icon{
 }
 
 .colles-grid .resource-card{
-    width:auto !important;
-    min-height:75px !important;
+    width:100% !important;
+    min-height:0 !important;
+    aspect-ratio:1 / 1;
     padding:10px 12px !important;
+}
+
+.colles-grid .resource-card h4{
+    white-space:nowrap;
 }
 
 .compact-grid:not(.colles-grid) .resource-card{
