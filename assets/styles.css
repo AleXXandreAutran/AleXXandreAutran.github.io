@@ -779,7 +779,8 @@ html[data-theme="light"] .sun-icon{
 .colles-grid .resource-card{
     width:100% !important;
     min-height:0 !important;
-    aspect-ratio:1 / 1;
+    aspect-ratio:auto !important;
+    height:62px !important;
     padding:8px 9px !important;
 }
 
