@@ -818,6 +818,33 @@ html[data-theme="light"] .sun-icon{
     font-size:12px;
 }
 
+.inline-pdf-card{
+    min-height:0 !important;
+    padding-bottom:10px !important;
+}
+
+.resource-title-row{
+    display:flex;
+    align-items:baseline;
+    gap:9px;
+    flex-wrap:wrap;
+    margin-bottom:6px;
+}
+
+.resource-title-row h4{
+    margin:0;
+}
+
+.resource-title-row .pdf-link{
+    flex:0 0 auto;
+    margin:0;
+    line-height:1.3;
+}
+
+.inline-pdf-card > p:last-child{
+    margin-bottom:0;
+}
+
 .resource-card .course-author{
     margin:2px 0 7px !important;
     color:var(--muted) !important;
@@ -1117,5 +1144,114 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 
     .socials{
         gap:7px;
+    }
+}
+
+/* Small overrides that were embedded in the original document head. */
+.site-shell{
+    min-height:100vh;
+}
+
+.mobile-name-break{
+    display:none;
+}
+
+.name{
+    display:inline-block !important;
+    margin-bottom:10px !important;
+}
+
+.affiliation-groups{
+    margin-top:16px !important;
+}
+
+.research-affiliation{
+    margin-top:10px !important;
+    padding-top:12px !important;
+}
+
+.socials{
+    margin-top:22px !important;
+}
+
+.about-copy,
+.about-copy p{
+    width:100% !important;
+    max-width:none !important;
+}
+
+.research-list{
+    display:grid !important;
+    gap:28px !important;
+}
+
+.research-item{
+    display:grid !important;
+    grid-template-columns:max-content minmax(0,1fr) !important;
+    column-gap:16px !important;
+    align-items:start !important;
+}
+
+.research-item .year-badge{
+    grid-column:1 !important;
+    margin:0 !important;
+}
+
+.research-item > div:last-child{
+    grid-column:2 !important;
+    min-width:0 !important;
+}
+
+.research-item h3{
+    font-size:1rem !important;
+    line-height:1.4 !important;
+    margin-top:0 !important;
+    margin-bottom:6px !important;
+}
+
+.research-meta{
+    font-size:.9rem !important;
+    opacity:.72;
+    margin:2px 0 !important;
+    line-height:1.3 !important;
+}
+
+.research-publication-line{
+    display:flex;
+    align-items:baseline;
+    gap:9px;
+    flex-wrap:wrap;
+    opacity:1;
+}
+
+.research-publication-line em{
+    opacity:.72;
+}
+
+.research-publication-line .research-paper-link{
+    margin:0;
+    font-size:inherit;
+}
+
+.site-footer{
+    margin-top:60px;
+    padding:24px 0 30px;
+    font-size:.78rem;
+    opacity:.55;
+    text-align:center;
+}
+
+.site-footer a{
+    color:inherit;
+    text-decoration:none;
+}
+
+.site-footer a:hover{
+    text-decoration:underline;
+}
+
+@media(max-width:700px){
+    .mobile-name-break{
+        display:block;
     }
 }
