@@ -1229,6 +1229,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 }
 
 .research-publication-line em {
+    color: var(--muted) !important;
     opacity: 1;
 }
 
