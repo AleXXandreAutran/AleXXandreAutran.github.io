@@ -1224,8 +1224,12 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     opacity:1;
 }
 
-.research-publication-line em{
-    opacity:.72;
+.research-meta.research-publication-line {
+    opacity: 1 !important;
+}
+
+.research-publication-line em {
+    opacity: 0.72;
 }
 
 .research-publication-line .research-paper-link{
