@@ -909,6 +909,40 @@ html[data-theme="light"] .sun-icon{
     display:none;
 }
 
+/* Holidays gallery */
+.holidays-section{
+    padding-bottom:52px !important;
+}
+
+.holiday-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:22px;
+    margin-top:8px;
+}
+
+.holiday-photo{
+    margin:0;
+    min-width:0;
+}
+
+.holiday-photo img{
+    display:block;
+    width:100%;
+    aspect-ratio:4 / 3;
+    object-fit:cover;
+    border-radius:14px;
+    border:1px solid var(--border);
+}
+
+.holiday-photo figcaption{
+    margin-top:10px;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.4;
+    text-align:center;
+}
+
 footer{
     max-width:var(--content-max);
     margin:0 auto;
@@ -1258,5 +1292,17 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 @media(max-width:700px){
     .mobile-name-break{
         display:block;
+    }
+}
+
+/* Holidays gallery: mobile layout */
+@media(max-width:700px){
+    .holiday-grid{
+        grid-template-columns:1fr;
+        gap:24px;
+    }
+
+    .holiday-photo figcaption{
+        margin-top:8px;
     }
 }
