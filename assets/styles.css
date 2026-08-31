@@ -909,7 +909,6 @@ html[data-theme="light"] .sun-icon{
     display:none;
 }
 
-/* Pictures gallery */
 .pictures-section{
     padding-bottom:52px !important;
 }
@@ -980,6 +979,11 @@ html[data-theme="light"] .resource-card:hover{
 }
 
 html[data-theme="light"] .year-badge{
+    background:#ffe4de;
+    color:#b74f3d;
+}
+
+html[data-theme="light"] .domain-badge{
     background:#ffe4de;
     color:#b74f3d;
 }
@@ -1188,7 +1192,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 }
 
-/* Small overrides that were embedded in the original document head. */
 .site-shell{
     min-height:100vh;
 }
@@ -1233,14 +1236,42 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     align-items:start !important;
 }
 
-.research-item .year-badge{
+.research-item .research-number{
     grid-column:1 !important;
     margin:0 !important;
+    min-height:29px;
+    display:flex;
+    align-items:center;
+    color:var(--muted) !important;
+    font-size:1rem !important;
+    font-weight:700;
+    line-height:1.4;
+    white-space:nowrap;
 }
 
 .research-item > div:last-child{
     grid-column:2 !important;
     min-width:0 !important;
+}
+
+.research-domains{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:6px;
+    min-height:29px;
+    margin:0 0 6px;
+}
+
+.domain-badge{
+    width:max-content;
+    height:max-content;
+    border-radius:999px;
+    background:#5a2b23;
+    color:#ff9b87;
+    font-weight:800;
+    font-size:13px;
+    padding:4px 8px;
 }
 
 .research-item h3{
@@ -1302,14 +1333,12 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 }
 
-/* Pictures gallery: tablet layout */
 @media(max-width:900px){
     .picture-grid{
         gap:16px;
     }
 }
 
-/* Pictures gallery: mobile layout */
 @media(max-width:700px){
     .picture-grid{
         grid-template-columns:1fr;
