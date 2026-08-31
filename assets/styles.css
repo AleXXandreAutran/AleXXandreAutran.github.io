@@ -1272,44 +1272,74 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     padding:4px 8px;
 }
 
-.domain-blue{
-    color:#8eafff;
-    background:#1c3768;
+.domain-probability{
+    color:#a9bfff;
+    background:#253864;
 }
 
-.domain-coral{
-    color:#ff9a86;
-    background:#5a2d24;
+.domain-stochastic{
+    color:#6fe0d2;
+    background:#174541;
 }
 
-.domain-violet{
-    color:#c8acff;
-    background:#402e70;
+.domain-finance{
+    color:#f4cf78;
+    background:#4a391c;
 }
 
-.domain-cyan{
-    color:#73e9f5;
-    background:#164951;
+.domain-control{
+    color:#ff9f8b;
+    background:#5b3027;
 }
 
-html[data-theme="light"] .domain-blue{
-    background:#dfe8ff;
-    color:#4969b5;
+.domain-numerical{
+    color:#cbb2ff;
+    background:#402f70;
 }
 
-html[data-theme="light"] .domain-coral{
+.domain-biology{
+    color:#96e3aa;
+    background:#214b35;
+}
+
+.domain-physics{
+    color:#74e6f2;
+    background:#174b53;
+}
+
+html[data-theme="light"] .domain-probability{
+    background:#e2e9ff;
+    color:#4e68ad;
+}
+
+html[data-theme="light"] .domain-stochastic{
+    background:#dcf6f1;
+    color:#26796f;
+}
+
+html[data-theme="light"] .domain-finance{
+    background:#fff0ca;
+    color:#8c641f;
+}
+
+html[data-theme="light"] .domain-control{
     background:#ffe3dc;
     color:#a94f3e;
 }
 
-html[data-theme="light"] .domain-violet{
+html[data-theme="light"] .domain-numerical{
     background:#eee6ff;
     color:#7355aa;
 }
 
-html[data-theme="light"] .domain-cyan{
-    background:#dff8fa;
-    color:#247c84;
+html[data-theme="light"] .domain-biology{
+    background:#e0f5e6;
+    color:#34734a;
+}
+
+html[data-theme="light"] .domain-physics{
+    background:#ddf7fa;
+    color:#247b84;
 }
 
 .research-item h3{
