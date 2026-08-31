@@ -1267,11 +1267,49 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     width:max-content;
     height:max-content;
     border-radius:999px;
-    background:#5a2b23;
-    color:#ff9b87;
     font-weight:800;
     font-size:13px;
     padding:4px 8px;
+}
+
+.domain-blue{
+    color:#8eafff;
+    background:#1c3768;
+}
+
+.domain-coral{
+    color:#ff9a86;
+    background:#5a2d24;
+}
+
+.domain-violet{
+    color:#c8acff;
+    background:#402e70;
+}
+
+.domain-cyan{
+    color:#73e9f5;
+    background:#164951;
+}
+
+html[data-theme="light"] .domain-blue{
+    background:#dfe8ff;
+    color:#4969b5;
+}
+
+html[data-theme="light"] .domain-coral{
+    background:#ffe3dc;
+    color:#a94f3e;
+}
+
+html[data-theme="light"] .domain-violet{
+    background:#eee6ff;
+    color:#7355aa;
+}
+
+html[data-theme="light"] .domain-cyan{
+    background:#dff8fa;
+    color:#247c84;
 }
 
 .research-item h3{
