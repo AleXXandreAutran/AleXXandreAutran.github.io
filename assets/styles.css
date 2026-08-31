@@ -913,7 +913,6 @@ html[data-theme="light"] .sun-icon{
     display:none;
 }
 
-/* Pictures gallery */
 .pictures-section{
     padding-bottom:52px !important;
 }
@@ -1201,7 +1200,6 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     }
 }
 
-/* Small overrides that were embedded in the original document head. */
 .site-shell{
     min-height:100vh;
 }
@@ -1426,14 +1424,12 @@ html[data-theme="light"] .domain-physics{
     }
 }
 
-/* Pictures gallery: tablet layout */
 @media(max-width:900px){
     .picture-grid{
         gap:16px;
     }
 }
 
-/* Pictures gallery: mobile layout */
 @media(max-width:700px){
     .picture-grid{
         grid-template-columns:1fr;
