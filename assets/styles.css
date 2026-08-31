@@ -584,27 +584,27 @@ html[data-theme="light"] .sun-icon{
     font-size:10px;
     font-weight:700;
     letter-spacing:.04em;
-    color:#a7baf3;
-    background:rgba(142,175,255,.10);
-    border:1px solid rgba(142,175,255,.18);
+    color:#9fb5f5;
+    background:rgba(142,175,255,.18);
+    border:1px solid rgba(142,175,255,.28);
 }
 
 .timeline-item[data-tone="msc"] .category-pill{
-    color:#e9a293;
-    background:rgba(255,154,134,.10);
-    border-color:rgba(255,154,134,.18);
+    color:#f0a08f;
+    background:rgba(255,154,134,.18);
+    border-color:rgba(255,154,134,.28);
 }
 
 .timeline-item[data-tone="reading"] .category-pill{
-    color:#c4b3e8;
-    background:rgba(200,172,255,.10);
-    border-color:rgba(200,172,255,.18);
+    color:#c8b5ef;
+    background:rgba(200,172,255,.18);
+    border-color:rgba(200,172,255,.28);
 }
 
 .timeline-item[data-tone="bsc"] .category-pill{
-    color:#8fd9df;
-    background:rgba(115,233,245,.09);
-    border-color:rgba(115,233,245,.17);
+    color:#86dce4;
+    background:rgba(115,233,245,.17);
+    border-color:rgba(115,233,245,.27);
 }
 
 .timeline-content h3{
@@ -993,27 +993,27 @@ html[data-theme="light"] .domain-badge{
 }
 
 html[data-theme="light"] .category-pill{
-    color:#5e70a8;
-    background:rgba(78,104,173,.07);
-    border-color:rgba(78,104,173,.14);
+    color:#556da9;
+    background:rgba(78,104,173,.11);
+    border-color:rgba(78,104,173,.20);
 }
 
 html[data-theme="light"] .timeline-item[data-tone="msc"] .category-pill{
-    color:#965e53;
-    background:rgba(169,79,62,.07);
-    border-color:rgba(169,79,62,.14);
+    color:#9d5548;
+    background:rgba(169,79,62,.11);
+    border-color:rgba(169,79,62,.20);
 }
 
 html[data-theme="light"] .timeline-item[data-tone="reading"] .category-pill{
-    color:#6d5b94;
-    background:rgba(115,85,170,.07);
-    border-color:rgba(115,85,170,.14);
+    color:#70589e;
+    background:rgba(115,85,170,.11);
+    border-color:rgba(115,85,170,.20);
 }
 
 html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
-    color:#3b7a80;
-    background:rgba(36,123,132,.07);
-    border-color:rgba(36,123,132,.14);
+    color:#337b83;
+    background:rgba(36,123,132,.10);
+    border-color:rgba(36,123,132,.19);
 }
 
 @media(max-width:900px){
@@ -1282,87 +1282,87 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 }
 
 .domain-probability{
-    color:#a7baf3;
-    background:rgba(142,175,255,.10);
-    border-color:rgba(142,175,255,.18);
+    color:#9fb5f5;
+    background:rgba(142,175,255,.18);
+    border-color:rgba(142,175,255,.28);
 }
 
 .domain-stochastic{
-    color:#86d1c7;
-    background:rgba(111,224,210,.09);
-    border-color:rgba(111,224,210,.17);
+    color:#7ed6ca;
+    background:rgba(111,224,210,.17);
+    border-color:rgba(111,224,210,.27);
 }
 
 .domain-finance{
-    color:#d9bd77;
-    background:rgba(244,207,120,.10);
-    border-color:rgba(244,207,120,.18);
+    color:#e3c477;
+    background:rgba(244,207,120,.18);
+    border-color:rgba(244,207,120,.28);
 }
 
 .domain-control{
-    color:#e9a293;
-    background:rgba(255,154,134,.10);
-    border-color:rgba(255,154,134,.18);
+    color:#f0a08f;
+    background:rgba(255,154,134,.18);
+    border-color:rgba(255,154,134,.28);
 }
 
 .domain-numerical{
-    color:#c4b3e8;
-    background:rgba(200,172,255,.10);
-    border-color:rgba(200,172,255,.18);
+    color:#c8b5ef;
+    background:rgba(200,172,255,.18);
+    border-color:rgba(200,172,255,.28);
 }
 
 .domain-biology{
-    color:#9fd3ad;
-    background:rgba(150,227,170,.09);
-    border-color:rgba(150,227,170,.17);
+    color:#9ed8ae;
+    background:rgba(150,227,170,.17);
+    border-color:rgba(150,227,170,.27);
 }
 
 .domain-physics{
-    color:#8fd9df;
-    background:rgba(115,233,245,.09);
-    border-color:rgba(115,233,245,.17);
+    color:#86dce4;
+    background:rgba(115,233,245,.17);
+    border-color:rgba(115,233,245,.27);
 }
 
 html[data-theme="light"] .domain-probability{
-    color:#5e70a8;
-    background:rgba(78,104,173,.07);
-    border-color:rgba(78,104,173,.14);
+    color:#556da9;
+    background:rgba(78,104,173,.11);
+    border-color:rgba(78,104,173,.20);
 }
 
 html[data-theme="light"] .domain-stochastic{
-    color:#3d776f;
-    background:rgba(38,121,111,.07);
-    border-color:rgba(38,121,111,.14);
+    color:#34766c;
+    background:rgba(38,121,111,.10);
+    border-color:rgba(38,121,111,.19);
 }
 
 html[data-theme="light"] .domain-finance{
-    color:#856b32;
-    background:rgba(140,100,31,.07);
-    border-color:rgba(140,100,31,.14);
+    color:#856526;
+    background:rgba(140,100,31,.11);
+    border-color:rgba(140,100,31,.20);
 }
 
 html[data-theme="light"] .domain-control{
-    color:#965e53;
-    background:rgba(169,79,62,.07);
-    border-color:rgba(169,79,62,.14);
+    color:#9d5548;
+    background:rgba(169,79,62,.11);
+    border-color:rgba(169,79,62,.20);
 }
 
 html[data-theme="light"] .domain-numerical{
-    color:#6d5b94;
-    background:rgba(115,85,170,.07);
-    border-color:rgba(115,85,170,.14);
+    color:#70589e;
+    background:rgba(115,85,170,.11);
+    border-color:rgba(115,85,170,.20);
 }
 
 html[data-theme="light"] .domain-biology{
-    color:#4f785b;
-    background:rgba(52,115,74,.07);
-    border-color:rgba(52,115,74,.14);
+    color:#427451;
+    background:rgba(52,115,74,.10);
+    border-color:rgba(52,115,74,.19);
 }
 
 html[data-theme="light"] .domain-physics{
-    color:#3b7a80;
-    background:rgba(36,123,132,.07);
-    border-color:rgba(36,123,132,.14);
+    color:#337b83;
+    background:rgba(36,123,132,.10);
+    border-color:rgba(36,123,132,.19);
 }
 
 .research-item h3{
