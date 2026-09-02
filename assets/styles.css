@@ -1379,7 +1379,6 @@ html[data-theme="light"] .domain-physics{
 }
 
 
-/* Research: hide articles after the first 4 until the button is clicked */
 .research-extra-article{
     display:none !important;
 }
@@ -1388,10 +1387,13 @@ html[data-theme="light"] .domain-physics{
     display:grid !important;
 }
 
-/* Research show-all button: align with the article content */
+.show-more{
+    margin-top:40px;
+}
+
 #showAllResearch{
     margin-left:42px;
-    margin-top:22px;
+    margin-top:40px;
 }
 
 .site-footer{
