@@ -1378,6 +1378,22 @@ html[data-theme="light"] .domain-physics{
     font-size:inherit;
 }
 
+
+/* Research: hide articles after the first 4 until the button is clicked */
+.research-extra-article{
+    display:none !important;
+}
+
+#researchList.expanded .research-extra-article{
+    display:grid !important;
+}
+
+/* Research show-all button: align with the article content */
+#showAllResearch{
+    margin-left:42px;
+    margin-top:22px;
+}
+
 .site-footer{
     margin-top:60px;
     padding:24px 0 30px;
