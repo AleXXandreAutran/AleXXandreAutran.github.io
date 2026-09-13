@@ -1236,6 +1236,10 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     align-items:start !important;
 }
 
+#researchList:not(.expanded) .research-item:nth-child(n + 4){
+    display:none !important;
+}
+
 .research-item .research-number{
     grid-column:1 !important;
     margin:0 !important;
