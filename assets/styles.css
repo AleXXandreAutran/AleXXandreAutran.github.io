@@ -565,6 +565,10 @@ html[data-theme="light"] .sun-icon{
     border-color:var(--coral);
 }
 
+.timeline-item[data-tone="research"] .timeline-marker{
+    border-color:#96e3aa;
+}
+
 .timeline-item[data-tone="reading"] .timeline-marker{
     border-color:var(--violet);
 }
@@ -591,6 +595,11 @@ html[data-theme="light"] .sun-icon{
 .timeline-item[data-tone="msc"] .category-pill{
     color:#ff9a86;
     background:#5a2d24;
+}
+
+.timeline-item[data-tone="research"] .category-pill{
+    color:#96e3aa;
+    background:#214b35;
 }
 
 .timeline-item[data-tone="reading"] .category-pill{
@@ -996,6 +1005,11 @@ html[data-theme="light"] .category-pill{
 html[data-theme="light"] .timeline-item[data-tone="msc"] .category-pill{
     background:#ffe3dc;
     color:#a94f3e;
+}
+
+html[data-theme="light"] .timeline-item[data-tone="research"] .category-pill{
+    background:#e0f5e6;
+    color:#34734a;
 }
 
 html[data-theme="light"] .timeline-item[data-tone="reading"] .category-pill{
