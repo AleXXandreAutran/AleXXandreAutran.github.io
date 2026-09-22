@@ -1,4 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/sugina-dev/latin-modern-web@1.0.1/style/latinmodern-roman.css");
+@import url("https://cdn.jsdelivr.net/gh/vsalvino/computer-modern@main/fonts/bright.css");
 
 :root{
     --bg:#0c161d;
@@ -42,7 +42,7 @@ body{
     margin:0;
     background:var(--bg);
     color:var(--text);
-    font-family:"Latin Modern Roman",serif;
+    font-family:"Computer Modern Bright",sans-serif;
     font-size:16px;
     line-height:1.6;
 }
