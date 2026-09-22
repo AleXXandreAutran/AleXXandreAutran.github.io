@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/gh/sugina-dev/latin-modern-web@1.0.1/style/latinmodern-roman.css");
+
 :root{
     --bg:#0c161d;
     --sidebar:#17242f;
@@ -40,7 +42,7 @@ body{
     margin:0;
     background:var(--bg);
     color:var(--text);
-    font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-family:"Latin Modern Roman",serif;
     font-size:16px;
     line-height:1.6;
 }
@@ -80,8 +82,10 @@ a:hover{
     line-height:1.08 !important;
     font-weight:500;
     white-space:nowrap;
-    background:none;
-    color:#91b5ff;
+    background:linear-gradient(90deg,#8caeff,#69edf2);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
     text-decoration:none;
 }
 
