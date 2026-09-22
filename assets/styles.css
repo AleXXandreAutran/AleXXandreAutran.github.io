@@ -80,10 +80,8 @@ a:hover{
     line-height:1.08 !important;
     font-weight:500;
     white-space:nowrap;
-    background:linear-gradient(90deg,#8caeff,#96e3aa);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
+    background:none;
+    color:#91b5ff;
     text-decoration:none;
 }
 
