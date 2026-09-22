@@ -11,6 +11,8 @@
     --blue:#91b5ff;
     --coral:#ff9b87;
     --violet:#c1a9ff;
+    --link:#ff9b87;
+    --research:#96e3aa;
     --shadow:0 16px 40px rgba(0,0,0,.13);
     --sidebar-w:320px;
     --content-max:1000px;
@@ -25,6 +27,8 @@ html[data-theme="light"]{
     --muted:#566571;
     --subtle:#74838e;
     --border:#cad7df;
+    --link:#b95745;
+    --research:#34734a;
     --shadow:0 14px 36px rgba(50,70,90,.08);
 }
 
@@ -46,7 +50,7 @@ body{
 }
 
 a{
-    color:var(--cyan);
+    color:var(--link);
     text-decoration:none;
 }
 
@@ -80,7 +84,7 @@ a:hover{
     line-height:1.08 !important;
     font-weight:500;
     white-space:nowrap;
-    background:linear-gradient(90deg,#8caeff,#69edf2);
+    background:linear-gradient(90deg,#91b5ff,#ff9b87);
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
@@ -89,6 +93,13 @@ a:hover{
 
 .name:hover{
     text-decoration:none;
+}
+
+html[data-theme="light"] .name{
+    background:linear-gradient(90deg,#4969b5,#c45f4c);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
 }
 
 .affiliation-groups{
@@ -112,7 +123,7 @@ a:hover{
 .affiliation-group a{
     font-size:17px !important;
     line-height:1.6 !important;
-    color:var(--cyan);
+    color:var(--link);
 }
 
 .research-affiliation{
@@ -271,7 +282,7 @@ a:hover{
 
 .side-nav a{
     font-size:17px;
-    color:var(--cyan);
+    color:var(--link);
 }
 
 .side-nav a.active{
@@ -407,8 +418,13 @@ html[data-theme="light"] .sun-icon{
     color:var(--violet);
 }
 
+
 .title-cyan{
     color:var(--cyan);
+}
+
+#research .section-title{
+    color:var(--research);
 }
 
 .section-heading-row{
@@ -424,6 +440,10 @@ html[data-theme="light"] .sun-icon{
     flex:1;
     margin-top:0 !important;
     opacity:.9;
+}
+
+#research .heading-rule{
+    background:linear-gradient(90deg,rgba(150,227,170,.65),var(--border));
 }
 
 .violet-rule{
@@ -453,7 +473,7 @@ html[data-theme="light"] .sun-icon{
 
 .about-copy a{
     font-weight:600;
-    color:var(--cyan);
+    color:var(--link);
 }
 
 .about-copy .email-line{
@@ -512,7 +532,7 @@ html[data-theme="light"] .sun-icon{
     margin-top:8px;
     font-size:14px;
     font-weight:700;
-    color:var(--cyan);
+    color:var(--link);
 }
 
 #publications{
@@ -646,7 +666,7 @@ html[data-theme="light"] .sun-icon{
     margin-left:157px;
     border:0;
     background:none;
-    color:var(--cyan);
+    color:var(--link);
     cursor:pointer;
     font:inherit;
     font-size:14px;
