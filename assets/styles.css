@@ -61,7 +61,7 @@ a:hover{
     top:0;
     bottom:0;
     width:var(--sidebar-w);
-    background:var(--sidebar);
+    background:var(--panel);
     border-right:1px solid var(--border);
     display:flex;
     flex-direction:column;
