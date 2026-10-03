@@ -2,8 +2,8 @@
 
 :root{
     --font-main:"IBM Plex Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    --bg:#0c161d;
-    --sidebar:#17242f;
+    --bg:#13191e;
+    --sidebar:#1e2022;
     --panel:#19272f;
     --panel2:#142129;
     --text:#f0f4f6;
@@ -75,7 +75,7 @@ a:hover{
     top:0;
     bottom:0;
     width:var(--sidebar-w);
-    background:var(--panel);
+    background:var(--sidebar);
     border-right:1px solid var(--border);
     display:flex;
     flex-direction:column;
@@ -1397,20 +1397,19 @@ html[data-theme="light"] .domain-physics{
     opacity:1;
 }
 
-.research-meta.research-publication-line {
-    opacity: 1 !important;
+.research-meta.research-publication-line{
+    opacity:1 !important;
 }
 
-.research-publication-line em {
-    color: var(--muted) !important;
-    opacity: 1;
+.research-publication-line em{
+    color:var(--muted) !important;
+    opacity:1;
 }
 
 .research-publication-line .research-paper-link{
     margin:0;
     font-size:inherit;
 }
-
 
 .research-extra-article{
     display:none !important;
