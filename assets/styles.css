@@ -15,7 +15,7 @@
     --coral:#ff9b87;
     --violet:#c1a9ff;
     --shadow:0 16px 40px rgba(0,0,0,.13);
-    --sidebar-w:325px;
+    --sidebar-w:300px;
     --content-max:920px;
 }
 
@@ -89,6 +89,16 @@ a:hover{
     width:100%;
 }
 
+.profile-photo{
+    display:block;
+    width:110px;
+    height:110px;
+    margin:0 auto 18px;
+    border-radius:50%;
+    object-fit:cover;
+    object-position:center;
+}
+
 .name{
     font-size:32px !important;
     line-height:1.08 !important;
@@ -108,7 +118,7 @@ a:hover{
     margin:14px auto 0 !important;
     display:grid;
     gap:6px;
-    max-width:255px !important;
+    max-width:270px !important;
 }
 
 .affiliation-group{
@@ -379,15 +389,15 @@ html[data-theme="light"] .sun-icon{
 .section{
     max-width:var(--content-max);
     margin:0 auto;
-    padding:60px 0 !important;
+    padding:40px 0 !important;
     border-bottom:1px solid var(--border);
     scroll-margin-top:20px;
 }
 
 .about-section{
     min-height:auto !important;
-    padding-top:64px !important;
-    padding-bottom:60px !important;
+    padding-top:48px !important;
+    padding-bottom:40px !important;
 }
 
 .eyebrow{
@@ -428,7 +438,7 @@ html[data-theme="light"] .sun-icon{
     display:flex;
     align-items:center;
     gap:28px !important;
-    margin-bottom:28px !important;
+    margin-bottom:24px !important;
 }
 
 .heading-rule{
@@ -449,20 +459,20 @@ html[data-theme="light"] .sun-icon{
 
 .section-intro{
     color:var(--muted);
-    margin:0 0 32px !important;
+    margin:0 0 27px !important;
     font-size:13.5px;
     line-height:1.6;
 }
 
 .about-copy{
-    margin-top:32px !important;
+    margin-top:28px !important;
     max-width:830px;
     font-size:15.5px;
     line-height:1.72;
 }
 
 .about-copy p{
-    margin:0 0 24px;
+    margin:0 0 21px;
     text-align:justify;
 }
 
@@ -474,7 +484,7 @@ html[data-theme="light"] .sun-icon{
 .about-copy .email-line{
     font-size:13px;
     color:var(--muted);
-    margin-top:30px;
+    margin-top:26px;
 }
 
 .email-line b{
@@ -495,7 +505,7 @@ html[data-theme="light"] .sun-icon{
     display:grid;
     grid-template-columns:60px 1fr;
     gap:22px;
-    padding:28px 0 !important;
+    padding:25px 0 !important;
     border-bottom:1px solid var(--border);
 }
 
@@ -555,7 +565,7 @@ html[data-theme="light"] .sun-icon{
     grid-template-columns:112px 18px 1fr;
     gap:11px;
     position:relative;
-    padding:0 0 34px;
+    padding:0 0 30px;
 }
 
 .timeline-date{
@@ -677,7 +687,7 @@ html[data-theme="light"] .sun-icon{
 }
 
 .resources-section{
-    padding-bottom:48px;
+    padding-bottom:40px !important;
 }
 
 .resource-controls{
@@ -686,7 +696,7 @@ html[data-theme="light"] .sun-icon{
     gap:14px;
     justify-content:space-between;
     flex-wrap:wrap;
-    margin:0 0 30px;
+    margin:0 0 26px;
 }
 
 .search-box{
@@ -739,7 +749,7 @@ html[data-theme="light"] .sun-icon{
 }
 
 .resource-group{
-    margin-top:34px !important;
+    margin-top:30px !important;
 }
 
 .resource-group .section-intro{
@@ -881,7 +891,7 @@ html[data-theme="light"] .sun-icon{
 }
 
 .other-docs{
-    margin-top:48px !important;
+    margin-top:40px !important;
     border-bottom:1px solid var(--border);
     padding-bottom:14px;
 }
@@ -896,18 +906,18 @@ html[data-theme="light"] .sun-icon{
 .other-intro{
     font-size:13.5px;
     color:var(--muted);
-    margin:14px 0 22px !important;
+    margin:14px 0 20px !important;
 }
 
 .master-course-intro{
-    margin:6px 0 22px;
+    margin:6px 0 20px;
     color:var(--muted);
     font-size:13.5px;
     line-height:1.65;
 }
 
 .master-course-intro-professors{
-    margin-top:38px;
+    margin-top:34px;
 }
 
 .master-grid-written,
@@ -938,7 +948,7 @@ html[data-theme="light"] .sun-icon{
 }
 
 .pictures-section{
-    padding-bottom:60px !important;
+    padding-bottom:44px !important;
 }
 
 .picture-grid{
@@ -985,7 +995,7 @@ footer{
     gap:20px;
     color:#70818b;
     font-size:11px;
-    padding:26px 0 0;
+    padding:22px 0 0;
 }
 
 html[data-theme="light"] .affiliation-group{
@@ -1075,7 +1085,7 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
 
 .research-list{
     display:grid !important;
-    gap:32px !important;
+    gap:28px !important;
 }
 
 .research-item{
@@ -1242,17 +1252,17 @@ html[data-theme="light"] .domain-physics{
 }
 
 .show-more{
-    margin-top:44px;
+    margin-top:34px;
 }
 
 #showAllResearch{
     margin-left:42px;
-    margin-top:44px;
+    margin-top:34px;
 }
 
 .site-footer{
-    margin-top:68px;
-    padding:28px 0 34px;
+    margin-top:46px;
+    padding:24px 0 30px;
     font-size:.72rem;
     opacity:.55;
     text-align:center;
@@ -1276,12 +1286,18 @@ html[data-theme="light"] .domain-physics{
 
 @media(max-width:900px){
     :root{
-        --sidebar-w:205px;
+        --sidebar-w:220px;
         --content-max:760px;
     }
 
     .content{
-        padding:0 34px 50px;
+        padding:0 34px 48px;
+    }
+
+    .profile-photo{
+        width:90px;
+        height:90px;
+        margin-bottom:16px;
     }
 
     .name{
@@ -1318,12 +1334,12 @@ html[data-theme="light"] .domain-physics{
     }
 
     .section{
-        padding:52px 0 !important;
+        padding:38px 0 !important;
     }
 
     .about-section{
-        padding-top:56px !important;
-        padding-bottom:52px !important;
+        padding-top:44px !important;
+        padding-bottom:38px !important;
     }
 
     .section-title{
@@ -1394,7 +1410,13 @@ html[data-theme="light"] .domain-physics{
         margin-left:0;
         padding-left:22px;
         padding-right:22px;
-        padding-bottom:44px;
+        padding-bottom:40px;
+    }
+
+    .profile-photo{
+        width:105px;
+        height:105px;
+        margin-bottom:18px;
     }
 
     .name{
@@ -1423,12 +1445,12 @@ html[data-theme="light"] .domain-physics{
 
     .about-section{
         min-height:auto !important;
-        padding-top:48px !important;
-        padding-bottom:44px !important;
+        padding-top:40px !important;
+        padding-bottom:34px !important;
     }
 
     .section{
-        padding:44px 0 !important;
+        padding:34px 0 !important;
     }
 
     .section-title{
@@ -1437,21 +1459,21 @@ html[data-theme="light"] .domain-physics{
 
     .section-heading-row{
         gap:18px !important;
-        margin-bottom:24px !important;
+        margin-bottom:22px !important;
     }
 
     .section-intro{
-        margin-bottom:26px !important;
+        margin-bottom:24px !important;
     }
 
     .about-copy{
         font-size:14px;
         line-height:1.7;
-        margin-top:28px !important;
+        margin-top:26px !important;
     }
 
     .about-copy p{
-        margin-bottom:20px;
+        margin-bottom:19px;
         text-align:justify;
     }
 
@@ -1483,7 +1505,7 @@ html[data-theme="light"] .domain-physics{
     .timeline-item{
         grid-template-columns:18px 1fr;
         gap:9px;
-        padding-bottom:30px;
+        padding-bottom:28px;
     }
 
     .timeline-date{
@@ -1535,7 +1557,7 @@ html[data-theme="light"] .domain-physics{
 
     .picture-grid{
         grid-template-columns:1fr;
-        gap:28px;
+        gap:26px;
     }
 
     .picture-photo figcaption{
