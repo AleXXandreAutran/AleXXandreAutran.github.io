@@ -1,205 +1,372 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Alexandre Autran — mathematics, probability, statistics and machine learning. ENS de Rennes and Centre Borelli, ENS Paris-Saclay.">
-  <meta name="theme-color" content="#091720">
-  <title>Alexandre Autran</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23091720'/%3E%3Cpath d='M10 30 20 9 30 30M14 24h12' fill='none' stroke='%232bd4e9' stroke-width='3'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css">
-  <script>
-    // Default to the reference image's dark theme. Storage is optional.
-    document.documentElement.classList.add('js');
-    try {
-      const saved = localStorage.getItem('portfolio-theme');
-      if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
-    } catch (_) { /* Private browsing and file:// may deny storage. */ }
-  </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Alexandre Autran">
+<meta name="theme-color" content="#0c161d">
+<title>Alexandre Autran</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/styles.css">
+
+<style>
+.mobile-name-break{
+    display:none;
+}
+
+.name{
+    display:inline-block !important;
+    margin-bottom:10px !important;
+}
+
+.affiliation-groups{
+    margin-top:16px !important;
+}
+
+.research-affiliation{
+    margin-top:10px !important;
+    padding-top:12px !important;
+}
+
+.socials{
+    margin-top:22px !important;
+}
+
+.about-copy{
+    width:100% !important;
+    max-width:none !important;
+}
+
+.about-copy p{
+    width:100% !important;
+    max-width:none !important;
+}
+
+.research-list{
+    display:grid !important;
+    gap:28px !important;
+}
+
+.research-item{
+    display:grid !important;
+    grid-template-columns:max-content minmax(0,1fr) !important;
+    column-gap:16px !important;
+    align-items:start !important;
+}
+
+.research-item .research-number{
+    grid-column:1 !important;
+    margin:0 !important;
+}
+
+.research-item > div:last-child{
+    grid-column:2 !important;
+    min-width:0 !important;
+}
+
+.research-item h3{
+    font-size:1rem !important;
+    line-height:1.4 !important;
+    margin-top:0 !important;
+    margin-bottom:6px !important;
+}
+
+.research-meta{
+    font-size:0.9rem !important;
+    color:var(--muted) !important;
+    opacity:1 !important;
+    margin:2px 0 !important;
+    line-height:1.3 !important;
+}
+
+#researchList:not(.expanded) .research-item:nth-child(n + 5){
+    display:none !important;
+}
+
+#researchList.expanded .research-item{
+    display:grid !important;
+}
+
+.site-footer{
+    margin-top:60px;
+    padding:24px 0 30px;
+    font-size:0.78rem;
+    opacity:0.55;
+    text-align:center;
+}
+
+.site-footer a{
+    color:inherit;
+    text-decoration:none;
+}
+
+.site-footer a:hover{
+    text-decoration:underline;
+}
+
+@media(max-width:700px){
+    .mobile-name-break{
+        display:block;
+    }
+}
+</style>
 </head>
+
 <body>
-  <canvas id="networkBackground" aria-hidden="true"></canvas>
-  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Shared vector icons: no icon library, external script, or icon font. -->
-  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><defs>
-<symbol id="icon-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.8 6.4 8.2 6.2 8.2-6.2"/></symbol>
-<symbol id="icon-home" viewBox="0 0 24 24"><path d="m2.5 10 9.5-8 9.5 8M5.2 8.1V21h13.6V8.1"/></symbol>
-<symbol id="icon-file" viewBox="0 0 24 24"><path d="M6 2.5h8l4.5 4.6V22H6Z"/><path d="M14 2.5v5h4.5M9 12h6.5M9 16h6.5"/></symbol>
-<symbol id="icon-layers" viewBox="0 0 24 24"><path d="m2.5 8 9.5-6 9.5 6-9.5 6Zm0 6 9.5 6 9.5-6"/></symbol>
-<symbol id="icon-briefcase" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="15" rx="2"/><path d="M8 6V3h8v3M2.5 11.5q9.5 4 19 0M10 12.8v2h4v-2"/></symbol>
-<symbol id="icon-book" viewBox="0 0 24 24"><path d="M12 5.2C8.6 2.5 5.1 2.7 2 3.5V21c3.1-.8 6.6-1 10 1.2C15.4 20 18.9 20.2 22 21V3.5c-3.1-.8-6.6-1-10 1.7Zm0 0v17"/></symbol>
-<symbol id="icon-image" viewBox="0 0 24 24"><rect x="2.5" y="3" width="19" height="18" rx="1.7"/><circle cx="8" cy="8.5" r="1.5"/><path d="m3 18 5-5 4 3 4-6 5.5 7"/></symbol>
-<symbol id="icon-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4.5-8.5L2 9Zm0 0L10.5 13.5"/></symbol>
-<symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></symbol>
-<symbol id="icon-moon" viewBox="0 0 24 24"><path d="M20.5 15.2A8.8 8.8 0 0 1 8.8 3.5a8.8 8.8 0 1 0 11.7 11.7Z" fill="currentColor" stroke="none"/></symbol>
-<symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-5-5 5 5-5 5"/></symbol>
-<symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
-<symbol id="icon-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
-<symbol id="icon-close" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></symbol>
-<symbol id="icon-paper" viewBox="0 0 24 24"><path d="M4.8 2.5h14.4v19H4.8Z"/><path d="M7 6.5h9.9M7 10h9.9M7 13.5h9.9M7 17h7.5"/></symbol>
-<symbol id="icon-cv" viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v5h4"/><text x="8" y="12" fill="currentColor" stroke="none" font-family="Arial,sans-serif" font-size="5.4" font-weight="bold">CV</text><path d="M9 15h5M9 18h5"/></symbol>
-  </defs></svg>
+<aside class="sidebar" id="sidebar">
 
-  <aside class="sidebar" id="sidebar" aria-label="Site navigation">
-    <div class="identity">
-      <a class="name" href="#about">Alexandre <span>Autran</span></a>
-      <div class="affiliation-groups" aria-label="Affiliations">
-        <div class="affiliation-group">
-          <a href="https://math.ens-rennes.fr/" target="_blank" rel="noopener noreferrer" title="Mathematics Department — ENS de Rennes">Mathematics Department</a>
-          <a href="https://www.ens-rennes.fr/" target="_blank" rel="noopener noreferrer" title="École Normale Supérieure de Rennes">ENS de Rennes</a>
-        </div>
-        <div class="affiliation-group research-affiliation">
-          <a href="https://centreborelli.ens-paris-saclay.fr/fr" target="_blank" rel="noopener noreferrer" title="Centre Borelli">Centre Borelli</a>
-          <a href="https://ens-paris-saclay.fr/" target="_blank" rel="noopener noreferrer" title="ENS Paris-Saclay">ENS Paris-Saclay</a>
-        </div>
-      </div>
-    </div>
+<div class="identity">
 
-    <div class="socials" aria-label="Profile links">
-      <a class="social-button" href="mailto:alexandre.autran@ens-rennes.fr" aria-label="Email" title="Email"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg></a>
-      <a class="social-button" href="https://github.com/AleXXandreAutran" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg aria-hidden="true" viewbox="0 0 24 24">
-<path d="M12 2C6.48 2 2 6.59 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.9c-2.78.62-3.37-1.21-3.37-1.21-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.86.09-.66.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 6.99c.85 0 1.7.12 2.5.35 1.9-1.33 2.74-1.05 2.74-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.77c0 .27.18.59.69.49A10.25 10.25 0 0 0 22 12.25C22 6.59 17.52 2 12 2Z" fill="currentColor"></path>
-</svg></a>
-      <a class="social-button" href="https://fr.linkedin.com/in/alexandre-autran-85279931b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg aria-hidden="true" class="linkedin-logo" viewbox="0 0 24 24">
+<a class="name" href="#about">Alexandre<br class="mobile-name-break"> Autran</a>
 
-<path d="M5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zM7.119 20.452H3.555V9h3.564v11.452zM20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.352V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z" fill="currentColor"></path>
-</svg></a>
-      <a class="social-button" href="documents/CV.pdf" target="_blank" rel="noopener noreferrer" aria-label="Curriculum vitae (PDF)" title="CV"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-cv"></use></svg></a>
-    </div>
+<div class="affiliation-groups" aria-label="Affiliations">
+<div class="affiliation-group">
+<span>
+<a href="https://math.ens-rennes.fr/" target="_blank" rel="noopener">Mathematics Department</a><br>
+<a href="https://www.ens-rennes.fr/" target="_blank" rel="noopener">ENS de Rennes</a>
+</span>
+</div>
+</div>
 
-    <nav class="side-nav" aria-label="Main navigation">
-      <a href="#about" class="active" aria-current="location"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-home"></use></svg><span>Home</span></a>
-      <a href="#research"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-file"></use></svg><span>Research</span></a>
-      <a href="#publications"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-layers"></use></svg><span>Publications</span></a>
-      <a href="#experiences"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-briefcase"></use></svg><span>Experiences</span></a>
-      <a href="#resources"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-book"></use></svg><span>Resources</span></a>
-      <a href="#pictures"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-image"></use></svg><span>Photographs</span></a>
-      <a href="#contact"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-send"></use></svg><span>Contact</span></a>
-    </nav>
+<div class="affiliation-group research-affiliation">
+<span>
+<a href="https://centreborelli.ens-paris-saclay.fr/fr" target="_blank" rel="noopener">Centre Borelli</a><br>
+<a href="https://ens-paris-saclay.fr/" target="_blank" rel="noopener">ENS Paris-Saclay</a>
+</span>
+</div>
 
-    <div class="sidebar-bottom">
-      <button class="theme-toggle" id="themeModeToggle" type="button" aria-label="Switch to light mode" title="Switch to light mode" aria-pressed="true">
-        <span class="theme-half sun-half"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-sun"></use></svg></span>
-        <span class="theme-half moon-half"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-moon"></use></svg></span>
-      </button>
-      <!-- No quotation, motto, or motivational tagline here. -->
-    </div>
-  </aside>
+</div>
 
-  <button class="mobile-menu" id="mobileMenu" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-menu"></use></svg><span>Menu</span></button>
-  <button class="menu-backdrop" id="menuBackdrop" type="button" aria-label="Close navigation" hidden></button>
+<div class="socials" aria-label="Profile links">
 
-  <main class="content" id="main">
-    <section class="section about-section" id="about" aria-labelledby="about-title">
-      <div class="hero-art" aria-hidden="true"></div>
-      <div class="hero-copy">
-        <h1 class="hero-title" id="about-title">About</h1>
-        <div class="about-copy">
-          <p><strong>Welcome!</strong> I’m Alexandre Autran, a mathematics student (<em>élève normalien</em>)           at the <a href="https://www.ens-rennes.fr/" target="_blank" rel="noopener noreferrer">École Normale Supérieure de Rennes</a>, in the <a href="https://math.ens-rennes.fr/" target="_blank" rel="noopener noreferrer">Department of Mathematics</a>.           I am also a research intern in machine learning at the <a href="https://centreborelli.ens-paris-saclay.fr/fr" target="_blank" rel="noopener noreferrer" title="Centre Borelli">Centre Borelli</a>           at <a href="https://ens-paris-saclay.fr/" target="_blank" rel="noopener noreferrer" title="ENS Paris-Saclay">ENS Paris-Saclay</a>.</p>
+<a class="social-button email" href="mailto:alexandre.autran@ens-rennes.fr" aria-label="Email" title="Email">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M3 5h18v14H3z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+</svg>
+</a>
 
-          <p id="research">I am interested in mathematical approaches to machine learning, particularly           at the intersection of probability, statistics, and optimization. I enjoy understanding           the theory behind learning methods while also exploring their numerical           and computational aspects. My current interests also include graph learning           and generative models.</p>
+<a class="social-button cv" href="documents/CV.pdf" target="_blank" rel="noopener" aria-label="CV" title="CV">
+<span class="icon-letters" aria-hidden="true">CV</span>
+</a>
 
-          <p>Outside of work and studies, I enjoy running, cycling, going to the gym,           and taking <a href="#pictures">landscape photographs</a>.</p>
-        </div>
-        <div class="email-line" aria-label="Email addresses">
-          <span class="email-entry"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg><a href="mailto:alexandre.autran@ens-rennes.fr">alexandre.autran@ens-rennes.fr</a><span class="email-type">(professional)</span></span>
-          <span class="email-entry"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg><a href="mailto:alexandre.autran13@gmail.com">alexandre.autran13@gmail.com</a><span class="email-type">(personal)</span></span>
-        </div>
-      </div>
-    </section>
+<a class="social-button github" href="https://github.com/AleXXandreAutran" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path fill="currentColor" d="M12 2C6.48 2 2 6.59 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.9c-2.78.62-3.37-1.21-3.37-1.21-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.86.09-.66.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 6.99c.85 0 1.7.12 2.5.35 1.9-1.33 2.74-1.05 2.74-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.77c0 .27.18.59.69.49A10.25 10.25 0 0 0 22 12.25C22 6.59 17.52 2 12 2Z"/>
+</svg>
+</a>
 
-    <section class="section publications-section" id="publications" aria-labelledby="publications-title">
-      <div class="section-heading-row">
-        <h2 class="section-title title-coral" id="publications-title">Publications</h2>
-        <span class="heading-rule" aria-hidden="true"></span>
-        <button class="view-all" id="showAllResearch" type="button" aria-controls="researchList" aria-expanded="false"><span>View all</span><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
-      </div>
-      <p class="section-intro">Self-directed research preprints and selected collaborative publications.</p>
-      <div class="research-list" id="researchList">
-        <article class="research-item">
-          <span class="research-number" aria-label="Publication 1">[1]</span>
-          <span class="paper-cover" aria-hidden="true"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-paper"></use></svg></span>
-          <div class="research-body">
-            <div class="research-domains"><span class="domain-badge domain-probability">Probability</span><span class="domain-badge domain-probability">Stochastic Analysis</span><span class="domain-badge domain-probability">Mean-Field Systems</span></div>
-            <h3>Conditional Fluctuations of Mean-Field Systems with Stable Common Noise</h3>
-            <p class="research-meta">Alexandre Autran</p>
-            <p class="research-meta research-publication-line"><span><em>ArXiv preprint</em>, 2026 — under review at <em>Electronic Journal of Probability</em></span>
-              <a class="research-paper-link" href="https://arxiv.org/pdf/2610.01391" target="_blank" rel="noopener noreferrer">paper <span aria-hidden="true">↗</span></a>
-            </p>
-          </div>
-          <a class="card-open" href="https://arxiv.org/pdf/2610.01391" target="_blank" rel="noopener noreferrer" aria-label="Read Conditional Fluctuations of Mean-Field Systems with Stable Common Noise"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-chevron"></use></svg></a>
-        </article>
-        <article class="research-item">
-          <span class="research-number" aria-label="Publication 2">[2]</span>
-          <span class="paper-cover" aria-hidden="true"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-paper"></use></svg></span>
-          <div class="research-body">
-            <div class="research-domains"><span class="domain-badge domain-control">Stochastic Control</span><span class="domain-badge domain-finance">Mathematical Finance</span><span class="domain-badge domain-stochastic">Fractional Brownian Motion</span></div>
-            <h3>Singular Tracking of Fractional Brownian Motion under Proportional Costs</h3>
-            <p class="research-meta">Alexandre Autran</p>
-            <p class="research-meta research-publication-line"><span><em>Preprint</em>, 2026 — submitted to <em>Stochastic Processes and their Applications</em></span>
-              <a class="research-paper-link" href="https://zenodo.org/records/22872310" target="_blank" rel="noopener noreferrer">paper <span aria-hidden="true">↗</span></a>
-            </p>
-          </div>
-          <a class="card-open" href="https://zenodo.org/records/22872310" target="_blank" rel="noopener noreferrer" aria-label="Read Singular Tracking of Fractional Brownian Motion under Proportional Costs"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-chevron"></use></svg></a>
-        </article>
-        <article class="research-item">
-          <span class="research-number" aria-label="Publication 3">[3]</span>
-          <span class="paper-cover" aria-hidden="true"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-paper"></use></svg></span>
-          <div class="research-body">
-            <div class="research-domains"><span class="domain-badge domain-probability">Probability</span><span class="domain-badge domain-probability">Stochastic Analysis</span><span class="domain-badge domain-stochastic">Jump Diffusions</span></div>
-            <h3>Second-Order Wasserstein Response for Lévy Laws</h3>
-            <p class="research-meta">Alexandre Autran</p>
-            <p class="research-meta research-publication-line"><span><em>ArXiv preprint</em>, 2026</span>
-              <a class="research-paper-link" href="https://arxiv.org/pdf/2610.01411" target="_blank" rel="noopener noreferrer">paper <span aria-hidden="true">↗</span></a>
-            </p>
-          </div>
-          <a class="card-open" href="https://arxiv.org/pdf/2610.01411" target="_blank" rel="noopener noreferrer" aria-label="Read Second-Order Wasserstein Response for Lévy Laws"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-chevron"></use></svg></a>
-        </article>
-        <article class="research-item">
-          <span class="research-number" aria-label="Publication 4">[4]</span>
-          <span class="paper-cover" aria-hidden="true"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-paper"></use></svg></span>
-          <div class="research-body">
-            <div class="research-domains"><span class="domain-badge domain-control">Optimal Control</span><span class="domain-badge domain-numerical">Numerical Analysis</span><span class="domain-badge domain-biology">Mathematical Biology</span></div>
-            <h3>Optimization with an Exact Discrete Adjoint for a Diffusive Lotka–Volterra Harvesting Problem</h3>
-            <p class="research-meta">Alexandre Autran</p>
-            <p class="research-meta research-publication-line"><span><em>Preprint</em>, 2026</span>
-              <a class="research-paper-link" href="https://doi.org/10.5281/zenodo.22210980" target="_blank" rel="noopener noreferrer">paper <span aria-hidden="true">↗</span></a>
-            </p>
-          </div>
-          <a class="card-open" href="https://doi.org/10.5281/zenodo.22210980" target="_blank" rel="noopener noreferrer" aria-label="Read Optimization with an Exact Discrete Adjoint for a Diffusive Lotka–Volterra Harvesting Problem"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-chevron"></use></svg></a>
-        </article>
-        <article class="research-item">
-          <span class="research-number" aria-label="Publication 5">[5]</span>
-          <span class="paper-cover" aria-hidden="true"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-paper"></use></svg></span>
-          <div class="research-body">
-            <div class="research-domains"><span class="domain-badge domain-physics">Semiconductor Physics</span><span class="domain-badge domain-physics">Device Modeling</span><span class="domain-badge domain-numerical">Applied Mathematics</span></div>
-            <h3>Multi-Dimensional Charge Diffusion–Collection Model in Semiconductor Devices Subjected to Single Ionizing Particles</h3>
-            <p class="research-meta">Alexandre Autran et al.</p>
-            <p class="research-meta research-publication-line"><span><em>Applied Sciences</em>, 2026</span>
-              <a class="research-paper-link" href="https://www.mdpi.com/2076-3417/16/11/5551" target="_blank" rel="noopener noreferrer">paper <span aria-hidden="true">↗</span></a>
-            </p>
-          </div>
-          <a class="card-open" href="https://www.mdpi.com/2076-3417/16/11/5551" target="_blank" rel="noopener noreferrer" aria-label="Read Multi-Dimensional Charge Diffusion–Collection Model in Semiconductor Devices Subjected to Single Ionizing Particles"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-chevron"></use></svg></a>
-        </article>
-      </div>
-    </section>
+<a class="social-button scholar" href="https://scholar.google.com/citations?user=XlnZs3kAAAAJ&hl=fr" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+<img class="scholar-logo" src="https://arobertson38.github.io/MICRO2D/assets/collab/google_scholar.png" alt="Google Scholar">
+</a>
 
-<section aria-labelledby="experiences-title" class="section" id="experiences">
+<a class="social-button linkedin" href="https://fr.linkedin.com/in/alexandre-autran-85279931b/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+<svg class="linkedin-logo" viewBox="0 0 24 24" aria-hidden="true">
+<rect x="0" y="0" width="24" height="24" rx="3.2" fill="#0A66C2"/>
+<path fill="#ffffff" d="M5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zM7.119 20.452H3.555V9h3.564v11.452zM20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.352V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z"/>
+</svg>
+</a>
+
+</div>
+
+<nav class="side-nav" aria-label="Main navigation">
+<a href="#about">About</a>
+<a href="#research">Publications</a>
+<a href="#experiences">Experiences</a>
+<a href="#resources">Resources</a>
+<a href="#pictures">Photographs</a>
+</nav>
+
+<button class="theme-toggle" id="themeModeToggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+<span class="theme-icon moon-icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" fill="none">
+<path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.6 8.6 0 1 0 20.2 15.1Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</span>
+
+<span class="theme-icon sun-icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" fill="none">
+<circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/>
+<path d="M12 2.5v2M12 19.5v2M4.5 12h-2M21.5 12h-2M5.3 5.3 6.7 6.7M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+</svg>
+</span>
+</button>
+
+</aside>
+
+<button class="mobile-menu" id="mobileMenu" aria-controls="sidebar" aria-expanded="false">Menu</button>
+
+<main class="content">
+
+<section class="section about-section" id="about">
+
+<h1 class="section-title title-blue">About</h1>
+
+<div class="about-copy">
+
+<p>
+<strong>Welcome to my page!</strong> I am a mathematics student (<em>élève normalien</em>) at the <a href="https://www.ens-rennes.fr/" target="_blank" rel="noopener">École Normale Supérieure de Rennes</a>,
+in the <a href="https://math.ens-rennes.fr/" target="_blank" rel="noopener">Department of Mathematics</a>. I am also a research intern in machine learning at the <a href="https://centreborelli.ens-paris-saclay.fr/fr" target="_blank" rel="noopener">Centre Borelli</a> at <a href="https://ens-paris-saclay.fr/" target="_blank" rel="noopener">ENS Paris-Saclay</a>.
+</p>
+
+<p>
+I am interested in mathematical approaches to machine learning, particularly at the intersection of probability, statistics, and optimization. I enjoy understanding the theory behind learning methods while also exploring their numerical and computational aspects. My current interests also include graph learning and generative models.
+</p>
+
+<p>
+Outside of work and studies, I enjoy running, cycling, going to the gym, and taking <a href="#pictures">landscape photographs</a>.
+<p>    
+    
+<p class="email-line">
+<a href="mailto:alexandre.autran@ens-rennes.fr">alexandre.autran@ens-rennes.fr</a>
+<span>(professional)</span>
+<b> </b>
+<a href="mailto:alexandre.autran13@gmail.com">alexandre.autran13@gmail.com</a>
+<span>(personal)</span>
+</p>
+
+</div>
+
+</section>
+
+<section class="section" id="research">
+
 <div class="section-heading-row">
-<h2 class="section-title title-violet" id="experiences-title">Experiences</h2>
+<h2 class="section-title title-coral">Publications</h2>
+<span class="heading-rule"></span>
+</div>
+
+<p class="section-intro">
+Self-directed research preprints and selected collaborative publications.
+</p>   
+
+<div class="research-list" id="researchList">
+  
+    <article class="research-item">
+    <div class="research-number">[1]</div>
+    <div>
+      <div class="research-domains">
+        <span class="domain-badge domain-probability">Probability</span>
+        <span class="domain-badge domain-probability">Stochastic Analysis</span>
+        <span class="domain-badge domain-probability">Mean-Field Systems</span>
+      </div>
+      <h3>Conditional Fluctuations of Mean-Field Systems with Stable Common Noise</h3>
+      <p class="research-meta">Alexandre Autran</p>
+      <p class="research-meta research-publication-line">
+        <span><em>ArXiv preprint</em>, 2026 — under review at <em>Electronic Journal of Probability</em></span>
+          <a class="pdf-link research-paper-link"
+           href="https://arxiv.org/pdf/2610.01391"
+           target="_blank"
+           rel="noopener">paper ↗</a>
+      </p>
+    </div>
+  </article>
+    
+      <article class="research-item">
+    <div class="research-number">[2]</div>
+    <div>
+      <div class="research-domains">
+        <span class="domain-badge domain-control">Stochastic Control</span>
+        <span class="domain-badge domain-finance">Mathematical Finance</span>
+        <span class="domain-badge domain-stochastic">Fractional Brownian Motion</span>
+      </div>
+      <h3>Singular Tracking of Fractional Brownian Motion under Proportional Costs</h3>
+      <p class="research-meta">Alexandre Autran</p>
+      <p class="research-meta research-publication-line">
+        <span><em>Preprint</em>, 2026 — submitted to <em>Stochastic Processes and their Applications</em></span>
+        <a class="pdf-link research-paper-link"
+           href="https://zenodo.org/records/22872310"
+           target="_blank"
+           rel="noopener">paper ↗</a>
+      </p>
+    </div>
+  </article>
+    
+   <article class="research-item">
+    <div class="research-number">[3]</div>
+    <div>
+      <div class="research-domains">
+        <span class="domain-badge domain-probability">Probability</span>
+        <span class="domain-badge domain-probability">Stochastic Analysis</span>
+        <span class="domain-badge domain-stochastic">Jump Diffusions</span>
+      </div>
+      <h3>Second-Order Wasserstein Response for Lévy Laws</h3>
+      <p class="research-meta">Alexandre Autran</p>
+      <p class="research-meta research-publication-line">
+        <span><em>ArXiv preprint</em>, 2026 — submitted to <em>Electronic Journal of Probability</em></span>
+        <a class="pdf-link research-paper-link"
+           href="https://arxiv.org/pdf/2610.01411"
+           target="_blank"
+           rel="noopener">paper ↗</a>
+      </p>
+    </div>
+  </article>
+
+  <article class="research-item">
+    <div class="research-number">[4]</div>
+    <div>
+      <div class="research-domains">
+        <span class="domain-badge domain-control">Optimal Control</span>
+        <span class="domain-badge domain-numerical">Numerical Analysis</span>
+        <span class="domain-badge domain-biology">Mathematical Biology</span>
+      </div>
+      <h3>Optimization with an Exact Discrete Adjoint for a Diffusive Lotka–Volterra Harvesting Problem</h3>
+      <p class="research-meta">Alexandre Autran</p>
+      <p class="research-meta research-publication-line">
+        <span><em>Preprint</em>, 2026</span>
+        <a class="pdf-link research-paper-link"
+           href="https://doi.org/10.5281/zenodo.22210980"
+           target="_blank"
+           rel="noopener">paper ↗</a>
+      </p>
+    </div>
+  </article>
+
+  <article class="research-item">
+    <div class="research-number">[5]</div>
+    <div>
+      <div class="research-domains">
+        <span class="domain-badge domain-physics">Semiconductor Physics</span>
+        <span class="domain-badge domain-physics">Device Modeling</span>
+        <span class="domain-badge domain-numerical">Applied Mathematics</span>
+      </div>
+      <h3>Multi-Dimensional Charge Diffusion–Collection Model in Semiconductor Devices Subjected to Single Ionizing Particles</h3>
+      <p class="research-meta">Alexandre Autran et al.</p>
+      <p class="research-meta research-publication-line">
+        <span><em>Applied Sciences</em>, 2026</span>
+        <a class="pdf-link research-paper-link"
+           href="https://www.mdpi.com/2076-3417/16/11/5551"
+           target="_blank"
+           rel="noopener">paper ↗</a>
+      </p>
+    </div>
+  </article>
+
+</div>
+
+<button class="show-more" id="showAllResearch" type="button" aria-expanded="false">
+  Show all 5 articles <span aria-hidden="true">↓</span>
+</button>
+
+</section>
+
+<section class="section" id="experiences">
+
+<div class="section-heading-row">
+<h2 class="section-title title-violet">Experiences</h2>
 <span class="heading-rule violet-rule"></span>
 </div>
+
 <p class="section-intro">
 A selection of research internships, projects, seminars, and reading groups completed during my studies.
 </p>
+
 <div class="timeline" id="researchTimeline">
+
 <article class="timeline-item" data-tone="ml">
 <div class="timeline-date">SEP 2026 —</div>
-<div aria-hidden="true" class="timeline-marker"></div>
+<div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
 <span class="category-pill">Machine Learning Internship</span>
 <h3>High-Dimensional Density Analysis Using Local Unimodality</h3>
@@ -208,573 +375,619 @@ A selection of research internships, projects, seminars, and reading groups comp
 <div class="timeline-links"></div>
 </div>
 </article>
+
 <article class="timeline-item" data-tone="msc">
 <div class="timeline-date">MAY — AUG 2026</div>
-<div aria-hidden="true" class="timeline-marker"></div>
+<div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
 <span class="category-pill">M1 Research Internship</span>
 <h3>Optical Modeling of Thermochromic VO<sub>2</sub>-Based Oxide Nanocomposites</h3>
 <p>Supervised by Nguyen Ngoc Duy (Full Professor) and Amaury Baret (PhD Student)</p>
 <p class="place">University of Liège, Belgium</p>
 <div class="timeline-links">
-<a class="pdf-link" href="documents/research/msc/VO2_modeling_report.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/msc/VO2_modeling_report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
 </a>
-<a class="pdf-link" href="documents/research/msc/VO2_modeling_beamer.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/msc/VO2_modeling_beamer.pdf" target="_blank" rel="noopener">
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 </div>
 </article>
+
 <article class="timeline-item" data-tone="research">
 <div class="timeline-date">APR — JUN 2026</div>
-<div aria-hidden="true" class="timeline-marker"></div>
+<div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
 <span class="category-pill">Research Internship</span>
 <h3>Numerical Simulation and Optimal Control of Spatial Lotka–Volterra Systems</h3>
 <p>Supervised by Martin J. Gander (Full Professor) and Bastien Chaudet-Dumas (Postdoctoral Researcher)</p>
 <p class="place">University of Geneva, Switzerland</p>
 <div class="timeline-links">
-<a class="pdf-link" href="documents/research/msc/lotka-volterra-optimal-control-report.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/msc/lotka-volterra-optimal-control-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
 </a>
 </div>
 </div>
 </article>
+
 <article class="timeline-item" data-tone="ml">
 <div class="timeline-date">APR — MAY 2026</div>
-<div aria-hidden="true" class="timeline-marker"></div>
+<div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
 <span class="category-pill">Machine Learning Projects</span>
 <h3>Air Pollution and Cardiovascular Disease Prediction</h3>
 <p>Course taught by Myriam Maumy (Full Professor)</p>
 <p class="place">MSc Statistical Learning</p>
 <div class="timeline-links">
-<a class="pdf-link" href="documents/research/machine-learning/air-pollution-prediction-report.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/machine-learning/air-pollution-prediction-report.pdf" target="_blank" rel="noopener">
 air pollution report <span aria-hidden="true">↗</span>
 </a>
-<a class="pdf-link" href="documents/research/machine-learning/cardiovascular-disease-prediction-report.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/machine-learning/cardiovascular-disease-prediction-report.pdf" target="_blank" rel="noopener">
 cardiovascular report <span aria-hidden="true">↗</span>
 </a>
 </div>
 </div>
 </article>
+
 <article class="timeline-item research-extra" data-tone="reading">
 <div class="timeline-date">JAN 2026</div>
-<div aria-hidden="true" class="timeline-marker"></div>
+<div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
 <span class="category-pill">Statistical Reading Group</span>
 <h3>Supervised Statistical Learning: Prediction by Empirical Risk Minimization</h3>
 <p>Supervised by Magalie Fromont (Full Professor)</p>
 <p class="place">ENS de Rennes, France</p>
 <div class="timeline-links">
-<a class="pdf-link" href="documents/research/reading-groups/statistical-learning-erm-slides.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/reading-groups/statistical-learning-erm-slides.pdf" target="_blank" rel="noopener">
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 </div>
 </article>
+
 <article class="timeline-item research-extra" data-tone="msc">
 <div class="timeline-date">NOV 2025 — JAN 2026</div>
-<div aria-hidden="true" class="timeline-marker"></div>
+<div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
 <span class="category-pill">M2 Research Seminar</span>
 <h3>Point Process and Stein’s Method</h3>
 <p>Supervised by Jean-Christophe Breton (Full Professor)</p>
 <p class="place">University of Rennes, France</p>
 <div class="timeline-links">
-<a class="pdf-link" href="documents/research/seminars/stein-point-processes-report.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/seminars/stein-point-processes-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
 </a>
-<a class="pdf-link" href="documents/research/seminars/stein-point-processes-slides.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/seminars/stein-point-processes-slides.pdf" target="_blank" rel="noopener">
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 </div>
 </article>
+    
 <article class="timeline-item research-extra" data-tone="reading">
 <div class="timeline-date">OCT — NOV 2025</div>
-<div aria-hidden="true" class="timeline-marker"></div>
+<div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
 <span class="category-pill">Algebra Reading Group</span>
 <h3>Elimination Theory and Extension</h3>
 <p>Supervised by Jade Nardi (CNRS Research Scientist)</p>
 <p class="place">ENS de Rennes, France</p>
 <div class="timeline-links">
-<a class="pdf-link" href="documents/research/reading-groups/elimination-theory-extension-slides.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/reading-groups/elimination-theory-extension-slides.pdf" target="_blank" rel="noopener">
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 </div>
 </article>
+
 <article class="timeline-item research-extra" data-tone="bsc">
 <div class="timeline-date">JUN — AUG 2025</div>
-<div aria-hidden="true" class="timeline-marker"></div>
+<div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
 <span class="category-pill">L3 Research Internship</span>
 <h3>Lattice-Based Post-Quantum Cryptography</h3>
 <p>Supervised by Pierre-Alain Fouque (Full Professor) and Aurore Guillevic (Inria Research Scientist)</p>
 <p class="place">Inria / IRISA, France</p>
 <div class="timeline-links">
-<a class="pdf-link" href="documents/research/bsc/post-quantum-cryptography-report.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/bsc/post-quantum-cryptography-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
 </a>
-<a class="pdf-link" href="documents/research/bsc/post-quantum-cryptography-slides.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/bsc/post-quantum-cryptography-slides.pdf" target="_blank" rel="noopener">
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 </div>
 </article>
+
 <article class="timeline-item research-extra" data-tone="research">
 <div class="timeline-date">MAY — JUN 2025</div>
-<div aria-hidden="true" class="timeline-marker"></div>
+<div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
 <span class="category-pill">Research Internship</span>
 <h3>Algebraic Counting of the Real Roots of Polynomials</h3>
 <p>Supervised by Marie-Françoise Roy (Professor Emeritus)</p>
 <p class="place">University of Rennes, France</p>
 <div class="timeline-links">
-<a class="pdf-link" href="documents/research/bsc/real-root-counting-report.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/bsc/real-root-counting-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
 </a>
-<a class="pdf-link" href="documents/research/bsc/real-root-counting-slides.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/bsc/real-root-counting-slides.pdf" target="_blank" rel="noopener">
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 </div>
 </article>
+
 <article class="timeline-item research-extra" data-tone="reading">
 <div class="timeline-date">FEB — MAR 2025</div>
-<div aria-hidden="true" class="timeline-marker"></div>
+<div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
 <span class="category-pill">Directed Research Reading</span>
 <h3>Geometry of Numbers</h3>
 <p>Supervised by Juliette Bavard (CNRS Research Scientist)</p>
 <p class="place">ENS de Rennes, France</p>
 <div class="timeline-links">
-<a class="pdf-link" href="documents/research/reading-groups/geometry-of-numbers-report.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/reading-groups/geometry-of-numbers-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
 </a>
-<a class="pdf-link" href="documents/research/reading-groups/geometry-of-numbers-slides.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/reading-groups/geometry-of-numbers-slides.pdf" target="_blank" rel="noopener">
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 </div>
 </article>
+
 <article class="timeline-item research-extra" data-tone="bsc">
 <div class="timeline-date">FEB — MAR 2024</div>
-<div aria-hidden="true" class="timeline-marker"></div>
+<div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
 <span class="category-pill">L2 Research Internship</span>
 <h3>Topological Study of Matrix Groups</h3>
 <p>Supervised by Françoise Dal’Bo (Full Professor) and Jérémy Bettinger (PhD Student)</p>
 <p class="place">University of Rennes, France</p>
 <div class="timeline-links">
-<a class="pdf-link" href="documents/research/bsc/topological-matrix-groups-report.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/bsc/topological-matrix-groups-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
 </a>
 </div>
 </div>
 </article>
+
 <article class="timeline-item research-extra" data-tone="bsc">
 <div class="timeline-date">MAY — JUN 2023</div>
-<div aria-hidden="true" class="timeline-marker"></div>
+<div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
 <span class="category-pill">L1 Research Internship</span>
 <h3>Introduction to Hyperbolic Geometry and Fuchsian Groups</h3>
 <p>Supervised by Frank Loray (CNRS Research Director)</p>
 <p class="place">University of Rennes, France</p>
 <div class="timeline-links">
-<a class="pdf-link" href="documents/research/bsc/hyperbolic-geometry-fuchsian-groups-report.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/bsc/hyperbolic-geometry-fuchsian-groups-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
 </a>
-<a class="pdf-link" href="documents/research/bsc/hyperbolic-geometry-fuchsian-groups-slides.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/research/bsc/hyperbolic-geometry-fuchsian-groups-slides.pdf" target="_blank" rel="noopener">
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 </div>
 </article>
+
 </div>
-<button aria-controls="researchTimeline" aria-expanded="false" class="show-more" id="showResearch" type="button">
+
+<button class="show-more" id="showResearch" aria-expanded="false">
 Show all 12 experiences <span aria-hidden="true">↓</span>
 </button>
+
 </section>
-<section aria-labelledby="resources-title" class="section resources-section" id="resources">
+
+<section class="section resources-section" id="resources">
+
 <div class="section-heading-row">
-<h2 class="section-title title-cyan" id="resources-title">Resources</h2>
+<h2 class="section-title title-cyan">Resources</h2>
 <span class="heading-rule cyan-rule"></span>
 </div>
+
 <p class="section-intro">
 Course notes and oral-exam preparation sheets.
 </p>
+
 <div class="resource-group">
+
 <div class="resource-subhead">
 <h3>Master courses</h3>
 </div>
+
 <p class="master-course-intro">
 Course notes I wrote during my M1/M2 years at ENS de Rennes:
 </p>
+
 <div class="resource-grid master-grid master-grid-written">
+
 <article class="resource-card inline-pdf-card">
 <div class="resource-title-row">
 <h4>EDP appliquées à la biologie</h4>
-<a class="pdf-link" href="documents/courses/applied-pdes-biology.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/courses/applied-pdes-biology.pdf" target="_blank" rel="noopener">
 PDF <span aria-hidden="true">↗</span>
 </a>
 </div>
 <p>Fokker–Planck, entropy methods, Wasserstein flows, Keller–Segel and Fisher–KPP.</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
 <div class="resource-title-row">
 <h4>Modèles aléatoires</h4>
-<a class="pdf-link" href="documents/courses/random-models.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/courses/random-models.pdf" target="_blank" rel="noopener">
 PDF <span aria-hidden="true">↗</span>
 </a>
 </div>
 <p>Galton–Watson trees, Poisson processes, continuous-time Markov chains and queues.</p>
 </article>
+
 </div>
+
 <p class="master-course-intro master-course-intro-professors">
 Here are also four excellent sets of lecture notes:
 </p>
+
 <div class="resource-grid master-grid master-grid-professors">
+
 <article class="resource-card inline-pdf-card">
 <div class="resource-title-row">
 <h4>Processus stochastiques</h4>
-<a class="pdf-link" href="documents/courses/stochastic-processes.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/courses/stochastic-processes.pdf" target="_blank" rel="noopener">
 PDF <span aria-hidden="true">↗</span>
 </a>
 </div>
 <p class="course-author"><em>Course by Jean-Christophe Breton</em></p>
 <p>Gaussian processes, Brownian motion, martingales, semimartingales and stochastic integration.</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
 <div class="resource-title-row">
 <h4>Calcul stochastique</h4>
-<a class="pdf-link" href="documents/courses/stochastic-calculus.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/courses/stochastic-calculus.pdf" target="_blank" rel="noopener">
 PDF <span aria-hidden="true">↗</span>
 </a>
 </div>
 <p class="course-author"><em>Course by Jean-Christophe Breton</em></p>
 <p>Itô formula, Girsanov theorem, SDEs, Feynman–Kac and diffusions.</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
 <div class="resource-title-row">
 <h4>Statistiques</h4>
-<a class="pdf-link" href="documents/courses/statistics.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/courses/statistics.pdf" target="_blank" rel="noopener">
 PDF <span aria-hidden="true">↗</span>
 </a>
 </div>
 <p class="course-author"><em>Course by Clément Levrard</em></p>
 <p>Statistical models, Gaussian linear models, maximum likelihood, Bayesian and nonparametric statistics.</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
 <div class="resource-title-row">
 <h4>Apprentissage statistique et grande dimension</h4>
-<a class="pdf-link" href="documents/courses/statistical-learning-high-dimension.pdf" rel="noopener" target="_blank">
+<a class="pdf-link" href="documents/courses/statistical-learning-high-dimension.pdf" target="_blank" rel="noopener">
 PDF <span aria-hidden="true">↗</span>
 </a>
 </div>
 <p class="course-author"><em>Course by Clément Levrard</em></p>
 <p>ERM, VC dimension, SVMs, convexification, Ridge/Lasso and double descent.</p>
 </article>
+
 </div>
+
 </div>
+
 <div class="resource-group">
+
 <div class="resource-subhead">
 <h3>Colles — ENS oral examinations</h3>
 </div>
+
 <p class="section-intro">
 Mathematics oral examinations for second-year undergraduate students preparing for the Écoles Normales Supérieures entrance examinations (Ulm, Paris-Saclay, Lyon and Rennes).
 </p>
+
 <div class="resource-grid compact-grid colles-grid">
+
 <article class="resource-card">
 <h4>Colle 1</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-01.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-01.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 2</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-02.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-02.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 3</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-03.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-03.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 4</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-04.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-04.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 5</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-05.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-05.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 6</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-06.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-06.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 7</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-07.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-07.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 8</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-08.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-08.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 9</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-09.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-09.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 10</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-10.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-10.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 11</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-11.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-11.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 12</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-12.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-12.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 13</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-13.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-13.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 14</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-14.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-14.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 15</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-15.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-15.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 <article class="resource-card">
 <h4>Colle 16</h4>
-<a class="pdf-link" href="documents/resources/colles/colle-16.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a>
+<a class="pdf-link" href="documents/resources/colles/colle-16.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
 </article>
+
 </div>
+
 </div>
+
 <div class="other-docs">
 <h3 class="other-title">Other documents</h3>
 </div>
+
 <p class="other-intro">L1 exercise sheets.</p>
+
 <div class="resource-group">
+
 <div class="resource-grid compact-grid">
+
 <article class="resource-card inline-pdf-card">
-<div class="resource-title-row"><h4>Feuille 1</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-01.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="resource-title-row"><h4>Feuille 1</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-01.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
 <p>Cesàro lemma, Wilson’s theorem, sets, sequences, continuity and convexity</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
-<div class="resource-title-row"><h4>Feuille 2</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-02.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="resource-title-row"><h4>Feuille 2</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-02.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
 <p>Monomorphisms, epimorphisms, integrals, sequences, norms and prime-valued polynomials</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
-<div class="resource-title-row"><h4>Feuille 3</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-03.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="resource-title-row"><h4>Feuille 3</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-03.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
 <p>Heine’s theorem, arithmetic, Cantor and Cantor–Bernstein–Schröder</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
-<div class="resource-title-row"><h4>Feuille 4</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-04.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="resource-title-row"><h4>Feuille 4</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-04.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
 <p>Fixed points, functional equations, differentiability, compactness and arithmetic</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
-<div class="resource-title-row"><h4>Feuille 5</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-05.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="resource-title-row"><h4>Feuille 5</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-05.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
 <p>Matrix traces, fixed points, functional equations, subsequences and nilpotent matrices</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
-<div class="resource-title-row"><h4>Feuille 6</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-06.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="resource-title-row"><h4>Feuille 6</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-06.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
 <p>Darboux’s theorem, matrix rank, algebraic numbers and divergent series</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
-<div class="resource-title-row"><h4>Feuille 7</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-07.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="resource-title-row"><h4>Feuille 7</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-07.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
 <p>Linear families, Bolzano–Weierstrass, cluster points and asymptotic equivalents</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
-<div class="resource-title-row"><h4>Feuille 8</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-08.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="resource-title-row"><h4>Feuille 8</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-08.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
 <p>Modulus-preserving maps, derivations, stable polynomials and Kürschák’s theorem</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
-<div class="resource-title-row"><h4>Feuille 9</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-09.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="resource-title-row"><h4>Feuille 9</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-09.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
 <p>Common complements, kernels and images, independent maps and lower bounds</p>
 </article>
+
 <article class="resource-card inline-pdf-card">
-<div class="resource-title-row"><h4>Feuille 10</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-10.pdf" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="resource-title-row"><h4>Feuille 10</h4><a class="pdf-link" href="documents/resources/exercise-sheets/feuille-10.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
 <p>Multiplicative maps, dual bases, matrix equations and convergence</p>
 </article>
+
 </div>
+
 </div>
+
 </section>
-<section aria-labelledby="pictures-title" class="section pictures-section" id="pictures">
+
+<section class="section pictures-section" id="pictures">
+
 <div class="section-heading-row">
-<h2 class="section-title title-coral" id="pictures-title">Photographs</h2>
+<h2 class="section-title title-coral">Photographs</h2>
 <span class="heading-rule"></span>
 </div>
+
 <div class="picture-grid">
+
 <figure class="picture-photo">
 <div class="picture-frame">
-<img alt="Pléneuf-Val-André, Brittany" decoding="async" height="720" loading="lazy" src="documents/pictures/Photo1.png" width="960"/>
+<img src="documents/pictures/Photo1.png" alt="Picture 1" loading="lazy">
 </div>
 <figcaption>Pléneuf-Val-André, Brittany</figcaption>
 </figure>
+
 <figure class="picture-photo">
 <div class="picture-frame">
-<img alt="Saint-Malo from Dinard, Brittany" decoding="async" height="720" loading="lazy" src="documents/pictures/Photo2.png" width="960"/>
+<img src="documents/pictures/Photo2.png" alt="Picture 2" loading="lazy">
 </div>
 <figcaption>Saint-Malo from Dinard, Brittany</figcaption>
 </figure>
+
 <figure class="picture-photo">
 <div class="picture-frame">
-<img alt="Cesson-Sévigné, Brittany" decoding="async" height="720" loading="lazy" src="documents/pictures/Photo3.png" width="960"/>
+<img src="documents/pictures/Photo3.png" alt="Picture 3" loading="lazy">
 </div>
 <figcaption>Cesson-Sévigné, Brittany</figcaption>
 </figure>
-</div>
-</section>
 
-    <section class="section contact-section" id="contact" aria-labelledby="contact-title">
-      <div class="section-heading-row">
-        <h2 class="section-title title-coral" id="contact-title">Contact</h2>
-        <span class="heading-rule" aria-hidden="true"></span>
-      </div>
-      <div class="contact-grid">
-        <a class="contact-card" href="mailto:alexandre.autran@ens-rennes.fr"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg><span><span class="contact-label">Professional</span>alexandre.autran@ens-rennes.fr</span><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a>
-        <a class="contact-card" href="mailto:alexandre.autran13@gmail.com"><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg><span><span class="contact-label">Personal</span>alexandre.autran13@gmail.com</span><svg class="icon " aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a>
-      </div>
-      <div class="contact-profiles">
-        <a href="https://scholar.google.com/citations?user=XlnZs3kAAAAJ&amp;hl=fr" target="_blank" rel="noopener noreferrer">Google Scholar <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/AleXXandreAutran" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-        <a href="https://fr.linkedin.com/in/alexandre-autran-85279931b/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
-        <a href="documents/CV.pdf" target="_blank" rel="noopener noreferrer">CV <span aria-hidden="true">↗</span></a>
-      </div>
-    </section>
+</div>
+
+</section>
 
 <footer class="site-footer">
 © 2026 Alexandre Autran
-<a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank">
+<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener">
 CC BY 4.0
 </a>
 </footer>
-  </main>
 
-  <script>
-  (() => {
-    'use strict';
+</main>
+
+<script>
+(() => {
     const root = document.documentElement;
-    const themeButton = document.getElementById('themeModeToggle');
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    function updateThemeButton() {
-      const dark = root.dataset.theme !== 'light';
-      const label = dark ? 'Switch to light mode' : 'Switch to dark mode';
-      themeButton.setAttribute('aria-label', label);
-      themeButton.title = label;
-      themeButton.setAttribute('aria-pressed', String(dark));
-      metaTheme.content = dark ? '#091720' : '#f6f9fc';
+    const toggle = document.getElementById('themeModeToggle');
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+        root.setAttribute('data-theme', savedTheme);
     }
-    themeButton.addEventListener('click', () => {
-      root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
-      try { localStorage.setItem('portfolio-theme', root.dataset.theme); } catch (_) {}
-      updateThemeButton();
-    });
-    updateThemeButton();
 
-    const papers = document.getElementById('researchList');
-    const papersButton = document.getElementById('showAllResearch');
-    const paperCount = papers.querySelectorAll('.research-item').length;
-    papersButton.hidden = paperCount <= 2;
-    papersButton.setAttribute('aria-label', `Show all ${paperCount} publications`);
-    papersButton.addEventListener('click', () => {
-      const expanded = papers.classList.toggle('expanded');
-      papersButton.setAttribute('aria-expanded', String(expanded));
-      papersButton.setAttribute('aria-label', expanded ? 'Show fewer publications' : `Show all ${paperCount} publications`);
-      papersButton.querySelector('span').textContent = expanded ? 'View less' : 'View all';
-    });
+    function updateToggle() {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+        if (!toggle) return;
+        toggle.setAttribute('aria-label', label);
+        toggle.setAttribute('title', label);
+    }
+
+    if (toggle) {
+        toggle.addEventListener('click', () => {
+            const isDark = root.getAttribute('data-theme') === 'dark';
+            const nextTheme = isDark ? 'light' : 'dark';
+            root.setAttribute('data-theme', nextTheme);
+            localStorage.setItem('portfolio-theme', nextTheme);
+            updateToggle();
+        });
+        updateToggle();
+    }
+
+    const researchList = document.getElementById('researchList');
+    const showAllResearch = document.getElementById('showAllResearch');
+
+    if (researchList && showAllResearch) {
+        const articles = Array.from(researchList.querySelectorAll('.research-item'));
+        const totalArticles = articles.length;
+
+        const updateResearchButton = (expanded) => {
+            showAllResearch.innerHTML = expanded
+                ? 'Show fewer articles <span aria-hidden="true">↑</span>'
+                : `Show all ${totalArticles} articles <span aria-hidden="true">↓</span>`;
+        };
+
+        if (totalArticles <= 4) {
+            showAllResearch.hidden = true;
+        } else {
+            updateResearchButton(false);
+
+            showAllResearch.addEventListener('click', () => {
+                const expanded = researchList.classList.toggle('expanded');
+                showAllResearch.setAttribute('aria-expanded', String(expanded));
+                updateResearchButton(expanded);
+            });
+        }
+    }
 
     const timeline = document.getElementById('researchTimeline');
-    const timelineButton = document.getElementById('showResearch');
-    const experienceCount = timeline.querySelectorAll('.timeline-item').length;
-    timelineButton.addEventListener('click', () => {
-      const expanded = timeline.classList.toggle('expanded');
-      timelineButton.setAttribute('aria-expanded', String(expanded));
-      timelineButton.textContent = expanded ? 'Show fewer experiences ↑' : `Show all ${experienceCount} experiences ↓`;
-    });
+    const showMore = document.getElementById('showResearch');
+    if (timeline && showMore) {
+        showMore.addEventListener('click', () => {
+            const expanded = timeline.classList.toggle('expanded');
+            showMore.setAttribute('aria-expanded', String(expanded));
+            showMore.innerHTML = expanded
+                ? 'Show fewer experiences <span aria-hidden="true">↑</span>'
+                : 'Show all 12 experiences <span aria-hidden="true">↓</span>';
+        });
+    }
 
+    const mobileMenu = document.getElementById('mobileMenu');
     const sidebar = document.getElementById('sidebar');
-    const menu = document.getElementById('mobileMenu');
-    const backdrop = document.getElementById('menuBackdrop');
-    const mobile = window.matchMedia('(max-width: 760px)');
-    const navLinks = [...document.querySelectorAll('.side-nav a')];
-    const isOpen = () => sidebar.classList.contains('open');
-    function setMenu(open, restoreFocus = false) {
-      open = Boolean(open && mobile.matches);
-      sidebar.classList.toggle('open', open);
-      sidebar.inert = mobile.matches && !open;
-      menu.setAttribute('aria-expanded', String(open));
-      menu.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-      menu.querySelector('use').setAttribute('href', open ? '#icon-close' : '#icon-menu');
-      backdrop.hidden = !open;
-      document.body.classList.toggle('menu-open', open);
-      if (open) sidebar.querySelector('a').focus({preventScroll:true});
-      if (restoreFocus && mobile.matches) menu.focus({preventScroll:true});
-    }
-    menu.addEventListener('click', () => setMenu(!isOpen()));
-    backdrop.addEventListener('click', () => setMenu(false, true));
-    document.addEventListener('keydown', (event) => {
-      if (!mobile.matches || !isOpen()) return;
-      if (event.key === 'Escape') { setMenu(false, true); return; }
-      // Keep keyboard focus within the open navigation and its close button.
-      if (event.key === 'Tab') {
-        const controls = [...sidebar.querySelectorAll('a[href],button:not([disabled])'), menu];
-        const at = controls.indexOf(document.activeElement);
-        if (event.shiftKey && at === 0) { event.preventDefault(); menu.focus(); }
-        else if (!event.shiftKey && at === controls.length - 1) { event.preventDefault(); controls[0].focus(); }
-      }
-    });
-    if (mobile.addEventListener) mobile.addEventListener('change', () => setMenu(false));
-    else mobile.addListener(() => setMenu(false));
-    setMenu(false);
+    const navLinks = Array.from(document.querySelectorAll('.side-nav a'));
+    const closeMenu = () => {
+        if (!sidebar || !mobileMenu) return;
+        sidebar.classList.remove('open');
+        mobileMenu.setAttribute('aria-expanded', 'false');
+    };
 
-    const targets = navLinks.map(link => ({ link, target: document.getElementById(link.hash.slice(1)) })).filter(item => item.target);
-    function markActive(link) {
-      navLinks.forEach(item => {
-        const active = item === link;
-        item.classList.toggle('active', active);
-        if (active) item.setAttribute('aria-current', 'location');
-        else item.removeAttribute('aria-current');
-      });
+    if (mobileMenu && sidebar) {
+        mobileMenu.addEventListener('click', () => {
+            const open = sidebar.classList.toggle('open');
+            mobileMenu.setAttribute('aria-expanded', String(open));
+        });
+        navLinks.forEach((link) => link.addEventListener('click', closeMenu));
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') closeMenu();
+        });
     }
-    sidebar.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', () => {
-        if (navLinks.includes(link)) markActive(link);
-        if (mobile.matches) {
-          setMenu(false);
-          const target = document.getElementById(link.hash.slice(1));
-          if (target) {
-            target.setAttribute('tabindex', '-1');
-            target.focus({preventScroll:true});
-          }
-        }
-      });
-    });
-    let pending = false;
-    function updateNavigation() {
-      const threshold = mobile.matches ? 105 : 110;
-      let active = targets[0];
-      for (const item of targets) {
-        if (item.target.getBoundingClientRect().top <= threshold) active = item;
-      }
-      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
-        active = targets[targets.length - 1];
-      }
-      if (active) markActive(active.link);
-      pending = false;
+
+    const sections = navLinks
+        .map((link) => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            const visible = entries
+                .filter((entry) => entry.isIntersecting)
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (!visible) return;
+            navLinks.forEach((link) => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${visible.target.id}`);
+            });
+        }, { rootMargin: '-20% 0px -60% 0px', threshold: [0, .2, .6] });
+        sections.forEach((section) => observer.observe(section));
     }
-    window.addEventListener('scroll', () => {
-      if (!pending) { pending = true; requestAnimationFrame(updateNavigation); }
-    }, { passive:true });
-    window.addEventListener('resize', updateNavigation);
-    window.addEventListener('hashchange', () => requestAnimationFrame(updateNavigation));
-    updateNavigation();
-  })();
-  </script>
-  <script src="assets/network-background.js"></script>
+})();
+</script>
+
 </body>
 </html>
