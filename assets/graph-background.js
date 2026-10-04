@@ -10,12 +10,13 @@
     const root = document.documentElement;
     const pointer = { x: 0, y: 0, active: false };
     const settings = {
-        areaPerPoint: 11500,
-        maxPoints: 130,
+        areaPerPoint: 5760,
+        maxPoints: 238,
         connectionDistance: 155,
         pointerRadius: 170,
         displacement: 44,
         speed: 9,
+        opacity: 0.55,
     };
     let width = 0;
     let height = 0;
@@ -57,6 +58,7 @@
 
     function draw(delta) {
         context.clearRect(0, 0, width, height);
+        context.globalAlpha = settings.opacity;
         const ease = delta > 0 ? 1 - Math.exp(-delta * 7) : 1;
         const linkDistance = width < 700 ? 120 : settings.connectionDistance;
         const linkDistanceSquared = linkDistance * linkDistance;
@@ -82,6 +84,7 @@
             point.drawX = point.x + point.offsetX;
             point.drawY = point.y + point.offsetY;
             point.influence = influence;
+            point.intensity = 0;
         }
 
         context.lineWidth = 0.65;
@@ -95,10 +98,19 @@
                 if (squaredDistance >= linkDistanceSquared) continue;
                 const proximity = 1 - Math.sqrt(squaredDistance) / linkDistance;
                 const influence = Math.max(a.influence, b.influence);
-                const opacity = proximity * (0.34 + influence * 0.32);
+                const intensity = Math.min(1, Math.pow(proximity, 1.35) + influence * 0.32);
+                a.intensity = Math.max(a.intensity, intensity);
+                b.intensity = Math.max(b.intensity, intensity);
+                const opacity = 0.02 + intensity * 0.38;
+                const red = Math.round(91 + intensity * 115);
+                const green = Math.round(150 + intensity * 88);
+                const blue = Math.round(209 + intensity * 46);
+                context.lineWidth = 0.4 + intensity * 0.5;
                 context.strokeStyle = lightTheme
-                    ? `rgba(50, 100, 132, ${opacity * 0.65})`
-                    : `rgba(105, 165, 208, ${opacity})`;
+                    ? `rgba(50, 100, 132, ${opacity * 0.58})`
+                    : `rgba(${red}, ${green}, ${blue}, ${opacity})`;
+                context.shadowBlur = !lightTheme && intensity > 0.6 ? intensity * 3 : 0;
+                context.shadowColor = `rgba(${red}, ${green}, ${blue}, ${intensity * 0.38})`;
                 context.beginPath();
                 context.moveTo(a.drawX, a.drawY);
                 context.lineTo(b.drawX, b.drawY);
@@ -106,8 +118,9 @@
             }
         }
 
+        context.shadowBlur = 0;
         for (const point of points) {
-            const opacity = lightTheme ? 0.3 : 0.6 + point.influence * 0.35;
+            const opacity = lightTheme ? 0.3 : Math.min(1, 0.5 + point.intensity * 0.4 + point.influence * 0.1);
             const tone = lightTheme ? '48, 102, 139' : point.tone;
             context.beginPath();
             context.arc(point.drawX, point.drawY, point.radius, 0, Math.PI * 2);
