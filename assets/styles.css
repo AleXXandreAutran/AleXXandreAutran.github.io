@@ -844,7 +844,7 @@ html[data-theme="light"] .sun-icon{
 }
 
 .resource-card p{
-    font-size:11.5px;
+    font-size:13px;
     line-height:1.5;
     margin:0 0 7px;
     color:var(--muted);
