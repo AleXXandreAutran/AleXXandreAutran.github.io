@@ -138,6 +138,14 @@ window.MathJax = {
     inlineMath: [['\\(', '\\)']],
     displayMath: [['\\[', '\\]']]
   },
+  output: {
+    font: 'mathjax-newcm',
+    fontPath: 'https://cdn.jsdelivr.net/npm/@mathjax/%%FONT%%-font@4.0.0'
+  },
+  chtml: {
+    fontURL: 'https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.0.0/chtml/woff2',
+    dynamicPrefix: 'https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.0.0/chtml/dynamic'
+  },
   startup: { typeset: false }
 };
 </script>
@@ -356,7 +364,7 @@ Self-directed research preprints and selected collaborative publications.
           V_{\lambda}(T;a,b,\sigma)\mathrel{\underset{\lambda\downarrow0}{\sim}}\kappa_H T\,a^{\frac{1-H}{1+H}}(\lambda b)^{\frac{2H}{1+H}}\sigma^{\frac{2}{1+H}}.
           \]
         </div>
-        <p>Here \(H\in(0,1)\) describes the target&#x27;s regularity, \(a\) and \(b\) weight the two costs, \(\sigma\) is the target scale and \(\kappa_H&gt;0\) is a long-run cell value. The exponent makes the role of roughness explicit. Knowing the entire past can change finite-horizon costs, but leaves the leading constant unchanged. I also extend the limit to suitable Gaussian Volterra targets and give bounds and constructive approximations for the cell value.</p>
+        <p>Here \(H\in(0,1)\) describes the target's regularity, \(a\) and \(b\) weight the two costs, \(\sigma\) is the target scale and \(\kappa_H&gt;0\) is a long-run cell value. The exponent makes the role of roughness explicit. Knowing the entire past can change finite-horizon costs, but leaves the leading constant unchanged. I also extend the limit to suitable Gaussian Volterra targets and give bounds and constructive approximations for the cell value.</p>
       </div>
     </div>
   </article>   
