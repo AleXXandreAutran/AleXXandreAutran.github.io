@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#13191e">
 <title>Alexandre Autran</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/styles.css?v=4-soft-badges-no-explorer">
+<link rel="stylesheet" href="assets/styles.css?v=5-original-colors">
 
 <style>
 
@@ -134,9 +134,11 @@
 
 <script>
 window.MathJax = {
+  loader: {
+    load: ['input/tex', 'output/chtml', 'a11y/assistive-mml']
+  },
   options: {
-    enableMenu: false,
-    enableExplorer: false
+    enableAssistiveMml: true
   },
   tex: {
     inlineMath: [['\\(', '\\)']],
@@ -154,7 +156,7 @@ window.MathJax = {
 };
 </script>
 <script id="publications-mathjax" defer
-  src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-chtml.js"></script>
+  src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/startup.js"></script>
 
 </head>
 
