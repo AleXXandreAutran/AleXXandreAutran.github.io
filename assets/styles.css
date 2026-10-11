@@ -1653,27 +1653,3 @@ html[data-theme="light"] {
 .domain-generative { --domain-color: var(--interest-violet); }
 .domain-physics,
 .domain-statistics { --domain-color: var(--interest-cyan); }
-.about-interests {
-  margin: 4px 0 22px;
-}
-.about-copy .about-interests-copy p {
-  margin: 0;
-  text-align: left;
-}
-.about-interest-tags {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  padding: 0;
-  margin: 14px 0 0;
-  list-style: none;
-}
-.about-interest-tags .domain-badge {
-  display: inline-flex;
-  max-width: 100%;
-  padding: 4px 9px;
-  font-size: 11.5px;
-  font-weight: 500;
-  line-height: 1.4;
-}
