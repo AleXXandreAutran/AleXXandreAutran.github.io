@@ -1603,6 +1603,7 @@ body {
   --interest-teal: #63d9cb;
   --interest-violet: #c1a9ff;
   --interest-coral: #ff9b87;
+  --interest-yellow: #e7c777;
 }
 html[data-theme="light"] {
   --interest-blue: #325bb5;
@@ -1610,6 +1611,7 @@ html[data-theme="light"] {
   --interest-teal: #08786e;
   --interest-violet: #7851b0;
   --interest-coral: #b9533e;
+  --interest-yellow: #8a6500;
 }
 .domain-badge {
   color: var(--domain-color, var(--interest-blue));
@@ -1646,7 +1648,7 @@ html[data-theme="light"] {
 .domain-biology,
 .domain-learning,
 .domain-graph { --domain-color: var(--interest-teal); }
-.domain-finance,
+.domain-finance { --domain-color: var(--interest-yellow); }
 .domain-control { --domain-color: var(--interest-coral); }
 .domain-numerical,
 .domain-optimization,
