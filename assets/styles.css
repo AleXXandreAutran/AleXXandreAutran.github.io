@@ -1006,8 +1006,8 @@ html[data-theme="light"] .year-badge{
 }
 
 html[data-theme="light"] .domain-badge{
-    background:#ffe4de;
-    color:#b74f3d;
+    background:#f8eee5;
+    color:#b45b16;
 }
 
 html[data-theme="light"] .category-pill{
@@ -1296,79 +1296,80 @@ html[data-theme="light"] .timeline-item[data-tone="bsc"] .category-pill{
     width:max-content;
     height:max-content;
     border-radius:999px;
-    font-weight:800;
+    font-weight:400;
     font-size:9.9px;
-    padding:2px 6px;
+    letter-spacing:0;
+    padding:3px 10px;
 }
 
 .domain-probability{
-    color:#a9bfff;
-    background:#253864;
+    color:#b1c4e5;
+    background:rgba(142,174,220,.10);
 }
 
 .domain-stochastic{
-    color:#6fe0d2;
-    background:#174541;
+    color:#a4d0c5;
+    background:rgba(111,181,166,.10);
 }
 
 .domain-finance{
-    color:#f4cf78;
-    background:#4a391c;
+    color:#d8c39d;
+    background:rgba(204,173,112,.10);
 }
 
 .domain-control{
-    color:#ff9f8b;
-    background:#5b3027;
+    color:#d8b6a3;
+    background:rgba(212,159,132,.10);
 }
 
 .domain-numerical{
-    color:#cbb2ff;
-    background:#402f70;
+    color:#c6b5dd;
+    background:rgba(174,145,207,.10);
 }
 
 .domain-biology{
-    color:#96e3aa;
-    background:#214b35;
+    color:#b0d1b8;
+    background:rgba(140,186,151,.10);
 }
 
 .domain-physics{
-    color:#74e6f2;
-    background:#174b53;
+    color:#b0cfd8;
+    background:rgba(130,183,199,.10);
 }
 
 html[data-theme="light"] .domain-probability{
-    background:#e2e9ff;
-    color:#4e68ad;
+    background:#edf0f6;
+    color:#2b5faf;
 }
 
 html[data-theme="light"] .domain-stochastic{
-    background:#dcf6f1;
-    color:#26796f;
+    background:#eaf2ef;
+    color:#08756f;
 }
 
 html[data-theme="light"] .domain-finance{
-    background:#fff0ca;
-    color:#8c641f;
+    background:#f6f1e7;
+    color:#916b20;
 }
 
 html[data-theme="light"] .domain-control{
-    background:#ffe3dc;
-    color:#a94f3e;
+    background:#f8eee5;
+    color:#b45b16;
 }
 
 html[data-theme="light"] .domain-numerical{
-    background:#eee6ff;
-    color:#7355aa;
+    background:#f2edf6;
+    color:#8050b0;
 }
 
 html[data-theme="light"] .domain-biology{
-    background:#e0f5e6;
-    color:#34734a;
+    background:#ecf3eb;
+    color:#437a52;
 }
 
 html[data-theme="light"] .domain-physics{
-    background:#ddf7fa;
-    color:#247b84;
+    background:#eaf2f4;
+    color:#24778b;
 }
 
 .research-item h3{
