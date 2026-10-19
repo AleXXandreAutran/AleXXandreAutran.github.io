@@ -329,18 +329,28 @@ Self-directed research preprints and selected collaborative publications.
         </span>
       </p>
       
-      <div class="research-summary-panel" id="summary-1"
-        role="region" aria-labelledby="paper-title-1" hidden>
-        <p>Even when a numerical model keeps populations positive, the way it counts the harvest can change the control it recommends. In a diffusive Lotka–Volterra model, I compare harvest rewards evaluated before and after each time step while keeping the same positive state scheme. The old-state rule can overcount the catch; in a pure-removal example, this changes the curvature of the objective and creates a strict local minimum that is not globally optimal. The two discrete harvest densities are</p>
-        <div class="research-summary-equation">
-          \[
-          H_{\mathrm{old}}^{n}=\tau q\,u^{n}v_{2}^{n},\qquad\text{and}\qquad H_{\mathrm{flux}}^{n}=\tau q\,u^{n}v_{2}^{n+1}.
-          \]
-        </div>
-        <p>Here \(v_2\) is the prey density, \(u\) the effort, \(q\) the catchability and \(\tau\) the time step. For the one-dimensional coupled model, I obtain mesh-uniform \(O(\tau)\) bounds on the cost, gradient and Hessian differences under the stated regularity assumptions, and derive exact discrete adjoints. Numerical tests examine the effects on computed controls; global optimality is certified only in the reduced example.</p>
-      </div>
-    </div>
-  </article>
+
+<div class="research-summary-panel" id="summary-1"
+  role="region" aria-labelledby="paper-title-1" hidden>
+
+  <p>Even when a numerical scheme preserves population positivity, the way harvest is counted can change the optimal control. For a diffusive Lotka–Volterra model, we compare two harvest rules:</p>
+
+  <div class="research-summary-equation">
+    \[
+    H_{\mathrm{old}}^{n}=\tau q\,u^{n}v_{2}^{n},
+    \qquad
+    H_{\mathrm{flux}}^{n}=\tau q\,u^{n}v_{2}^{n+1}.
+    \]
+  </div>
+
+  <p>The flux rule counts the prey actually removed by the numerical scheme. In a pure-removal example, the old-state rule overestimates the catch and can create a strict local minimum that is not globally optimal, while the flux cost remains strictly convex.</p>
+
+  <p>For the one-dimensional coupled model, we prove mesh-uniform \(O(\tau)\) bounds on cost, gradient, and Hessian differences, derive exact discrete adjoints, and establish a common variational limit. Numerical experiments show how harvest quadrature affects the computed controls, especially temporal switching on coarse grids.</p>
+
+</div>
+</div>
+</article>
+
 
        <article class="research-item">
     <div class="research-number">[2]</div>
