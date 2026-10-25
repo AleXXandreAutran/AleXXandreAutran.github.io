@@ -2,6 +2,7 @@
 
 :root {
   --font-main: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --name-font-ratio: 1.6;
   --bg: #121418;
   --sidebar: var(--bg);
   --panel: var(--bg);
@@ -56,7 +57,8 @@ body {
 }
 
 .content {
-  --content-font-scale: 0.95;
+  --content-heading-ratio: 2.25;
+  --content-font-scale: calc(var(--name-font-ratio) / var(--content-heading-ratio));
   font-size: calc(1rem * var(--content-font-scale));
 }
 
@@ -76,11 +78,11 @@ body {
 }
 
 .name {
-  font-size: 1.6rem !important;
+  font-size: calc(1rem * var(--name-font-ratio)) !important;
 }
 
 .section-title {
-  font-size: calc(2.25rem * var(--content-font-scale, 1));
+  font-size: calc(1rem * var(--content-heading-ratio, 2.25) * var(--content-font-scale, 1));
 }
 
 .resource-subhead h3 {
@@ -93,18 +95,18 @@ body {
 
 .master-course-intro,
 .other-intro {
-  font-size: calc(0.8125rem * var(--content-font-scale, 1));
+  font-size: calc(1rem * var(--content-font-scale, 1));
 }
 
 @media (min-width: 701px) and (max-width: 1050px) {
-  .name {
-    font-size: 1.4375rem !important;
+  :root {
+    --name-font-ratio: 1.4375;
   }
 }
 
 @media (max-width: 700px) {
-  .section-title {
-    font-size: calc(1.875rem * var(--content-font-scale, 1));
+  .content {
+    --content-heading-ratio: 1.875;
   }
 }
 
