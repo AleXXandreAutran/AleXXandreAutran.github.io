@@ -58,7 +58,29 @@ body {
 
 .content {
   --content-line-height: 1.5;
+  --content-max: 800px;
+  --content-margin-scale: 1.1;
+  --content-font-scale: 0.9302325581;
+  --content-gutter: clamp(56px, 6vw, 108px);
+  padding-inline: calc(var(--content-gutter) * var(--content-margin-scale));
+  font-size: calc(1rem * var(--content-font-scale));
   line-height: var(--content-line-height);
+}
+
+.content .section-title {
+  font-size: calc(36px * var(--content-font-scale));
+}
+
+.content .research-number {
+  font-size: calc(1rem * var(--content-font-scale)) !important;
+}
+
+.resource-subhead h3 {
+  font-size: calc(15.3px * var(--content-font-scale, 1));
+}
+
+.other-title {
+  font-size: calc(17.1px * var(--content-font-scale, 1));
 }
 
 .sidebar {
@@ -84,13 +106,27 @@ body {
 .resource-group .section-intro,
 .master-course-intro,
 .other-intro {
-  font-size: 0.9375rem;
+  font-size: calc(0.9375rem * var(--content-font-scale, 1));
   line-height: var(--content-line-height);
 }
 
 @media (min-width: 701px) and (max-width: 1050px) {
   :root {
     --name-font-ratio: 1.4375;
+  }
+
+  .content {
+    --content-gutter: 44px;
+  }
+}
+
+@media (max-width: 700px) {
+  .content {
+    --content-gutter: 26px;
+  }
+
+  .content .section-title {
+    font-size: calc(30.6px * var(--content-font-scale));
   }
 }
 
@@ -109,7 +145,7 @@ a {
 }
 
 .about-copy {
-  font-size: 1rem;
+  font-size: calc(1rem * var(--content-font-scale, 1));
 }
 
 .about-copy p {
@@ -145,15 +181,23 @@ a:hover {
 }
 
 .research-item h3 {
+  font-size: calc(1rem * var(--content-font-scale, 1)) !important;
   line-height: 1.35 !important;
 }
 
 .timeline-content h3 {
+  font-size: calc(14.4px * var(--content-font-scale, 1));
   line-height: 1.35;
 }
 
 .research-meta {
+  font-size: calc(0.9rem * var(--content-font-scale, 1)) !important;
   line-height: 1.4 !important;
+}
+
+.section-intro,
+.timeline-content p {
+  font-size: calc(0.9375rem * var(--content-font-scale, 1));
 }
 
 .resource-card {
@@ -168,11 +212,13 @@ html[data-theme] .resource-card:hover {
 }
 
 .resource-card h4 {
+  font-size: calc(0.875rem * var(--content-font-scale, 1)) !important;
   line-height: 1.35 !important;
 }
 
 .resource-card p,
 .resource-card .course-author {
+  font-size: calc(0.875rem * var(--content-font-scale, 1)) !important;
   line-height: var(--content-line-height) !important;
 }
 
@@ -186,7 +232,14 @@ html[data-theme] .resource-card:hover {
 }
 
 .timeline-date {
+  font-size: calc(10.8px * var(--content-font-scale, 1));
   color: var(--muted);
+}
+
+.about-copy .email-line,
+.picture-photo figcaption,
+.show-more {
+  font-size: calc(12.6px * var(--content-font-scale, 1));
 }
 
 .timeline-item[data-tone] .timeline-marker {
@@ -195,6 +248,7 @@ html[data-theme] .resource-card:hover {
 
 .site-footer {
   color: var(--subtle);
+  font-size: calc(0.78rem * var(--content-font-scale, 1));
   opacity: 1;
 }
 
@@ -212,6 +266,7 @@ html[data-theme] .domain-badge {
   border-radius: 999px;
   color: var(--domain-color, var(--interest-blue));
   background: color-mix(in srgb, var(--domain-color, var(--interest-blue)) 9%, var(--bg));
+  font-size: calc(9.9px * var(--content-font-scale, 1));
   font-weight: 400;
   line-height: 1.5;
 }
@@ -222,6 +277,7 @@ html[data-theme] .category-pill {
   border-radius: 999px;
   color: var(--pill-color, var(--interest-blue));
   background: color-mix(in srgb, var(--pill-color, var(--interest-blue)) 9%, var(--bg));
+  font-size: calc(9.9px * var(--content-font-scale, 1));
   font-weight: 400;
   line-height: 1.5;
 }
@@ -229,9 +285,15 @@ html[data-theme] .category-pill {
 html[data-theme] .year-badge {
   color: var(--interest-coral);
   background: color-mix(in srgb, var(--interest-coral) 9%, var(--bg));
+  font-size: calc(9.9px * var(--content-font-scale, 1));
+}
+
+.resource-subhead span {
+  font-size: calc(10.8px * var(--content-font-scale, 1));
 }
 
 .filter-chip {
+  font-size: calc(10.8px * var(--content-font-scale, 1));
   color: var(--link);
   border-color: color-mix(in srgb, var(--link) 24%, var(--bg));
   background: color-mix(in srgb, var(--link) 8%, var(--bg));
@@ -252,7 +314,7 @@ html[data-theme] .year-badge {
 }
 
 #research .research-summary-panel {
-  font-size: 0.9rem;
+  font-size: calc(0.9rem * var(--content-font-scale, 1));
   line-height: var(--content-line-height);
 }
 
@@ -368,7 +430,7 @@ a.pdf-link,
   background: color-mix(in srgb, var(--link) 8%, var(--bg));
   color: var(--link);
   font-family: var(--font-main);
-  font-size: 0.875rem;
+  font-size: calc(0.875rem * var(--content-font-scale, 1));
   font-weight: 500;
   line-height: 1.4;
   text-decoration: none !important;
