@@ -56,20 +56,6 @@ body {
   letter-spacing: normal;
 }
 
-.content {
-  --content-font-body: 1rem;
-  --content-font-subtitle: calc(var(--content-font-body) * 18 / 15);
-  --content-font-entry: calc(var(--content-font-body) * 16 / 15);
-  --content-font-meta: calc(var(--content-font-body) * 14 / 15);
-  --content-font-date: calc(var(--content-font-body) * 13 / 15);
-  --content-font-label: calc(var(--content-font-body) * 12 / 15);
-  font-size: var(--content-font-body);
-}
-
-.content .research-number {
-  font-size: var(--content-font-meta) !important;
-}
-
 .sidebar {
   background: var(--bg);
 }
@@ -85,19 +71,15 @@ body {
   font-size: calc(1rem * var(--name-font-ratio)) !important;
 }
 
-.section-title {
-  font-size: calc(1rem * var(--name-font-ratio));
-}
-
 .resource-subhead h3,
 .other-title {
-  font-size: var(--content-font-subtitle);
   line-height: 1.4;
 }
 
+.resource-group .section-intro,
 .master-course-intro,
 .other-intro {
-  font-size: var(--content-font-body);
+  font-size: 0.9375rem;
 }
 
 @media (min-width: 701px) and (max-width: 1050px) {
@@ -121,7 +103,7 @@ a {
 }
 
 .about-copy {
-  font-size: var(--content-font-body);
+  font-size: 1rem;
 }
 
 .about-copy p {
@@ -157,23 +139,15 @@ a:hover {
 }
 
 .research-item h3 {
-  font-size: var(--content-font-entry) !important;
   line-height: 1.55 !important;
 }
 
 .timeline-content h3 {
-  font-size: var(--content-font-entry);
   line-height: 1.55;
 }
 
 .research-meta {
-  font-size: var(--content-font-meta) !important;
   line-height: 1.6 !important;
-}
-
-.section-intro,
-.timeline-content p {
-  font-size: var(--content-font-body);
 }
 
 .resource-card {
@@ -188,18 +162,16 @@ html[data-theme] .resource-card:hover {
 }
 
 .resource-card h4 {
-  font-size: var(--content-font-entry) !important;
   line-height: 1.5 !important;
 }
 
 .resource-card p,
 .resource-card .course-author {
-  font-size: var(--content-font-body) !important;
   line-height: 1.65 !important;
 }
 
 .compact-grid .resource-card h4 {
-  font-size: var(--content-font-body) !important;
+  font-size: 0.9375rem !important;
 }
 
 .colles-grid .resource-card {
@@ -212,7 +184,6 @@ html[data-theme] .resource-card:hover {
 }
 
 .timeline-date {
-  font-size: var(--content-font-date);
   color: var(--muted);
 }
 
@@ -220,23 +191,8 @@ html[data-theme] .resource-card:hover {
   border-color: var(--pill-color, var(--interest-blue));
 }
 
-.about-copy .email-line,
-.picture-photo figcaption {
-  font-size: var(--content-font-meta);
-}
-
-.show-more,
-.pdf-link {
-  font-size: var(--content-font-meta);
-}
-
-.resource-card .pdf-link {
-  font-size: var(--content-font-meta);
-}
-
 .site-footer {
   color: var(--subtle);
-  font-size: var(--content-font-label);
   opacity: 1;
 }
 
@@ -254,7 +210,6 @@ html[data-theme] .domain-badge {
   border-radius: 999px;
   color: var(--domain-color, var(--interest-blue));
   background: color-mix(in srgb, var(--domain-color, var(--interest-blue)) 9%, var(--bg));
-  font-size: var(--content-font-label);
   font-weight: 400;
   line-height: 1.5;
 }
@@ -265,7 +220,6 @@ html[data-theme] .category-pill {
   border-radius: 999px;
   color: var(--pill-color, var(--interest-blue));
   background: color-mix(in srgb, var(--pill-color, var(--interest-blue)) 9%, var(--bg));
-  font-size: var(--content-font-label);
   font-weight: 400;
   line-height: 1.5;
 }
@@ -273,15 +227,9 @@ html[data-theme] .category-pill {
 html[data-theme] .year-badge {
   color: var(--interest-coral);
   background: color-mix(in srgb, var(--interest-coral) 9%, var(--bg));
-  font-size: var(--content-font-label);
-}
-
-.resource-subhead span {
-  font-size: var(--content-font-label);
 }
 
 .filter-chip {
-  font-size: var(--content-font-meta);
   color: var(--link);
   border-color: color-mix(in srgb, var(--link) 24%, var(--bg));
   background: color-mix(in srgb, var(--link) 8%, var(--bg));
@@ -302,7 +250,7 @@ html[data-theme] .year-badge {
 }
 
 #research .research-summary-panel {
-  font-size: var(--content-font-body);
+  font-size: 1rem;
 }
 
 .theme-icon path,
@@ -417,7 +365,7 @@ a.pdf-link,
   background: color-mix(in srgb, var(--link) 8%, var(--bg));
   color: var(--link);
   font-family: var(--font-main);
-  font-size: var(--content-font-meta, 0.9333333333rem);
+  font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.4;
   text-decoration: none !important;
