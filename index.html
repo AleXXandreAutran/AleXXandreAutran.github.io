@@ -3506,8 +3506,9 @@ CC BY 4.0
     return value - Math.floor(value);
   }
 
-  function rgba(alpha) {
-    return `rgba(${ink}, ${Math.round(clamp(alpha, 0, 1) * 1000) / 1000})`;
+  function rgba(alpha, colorIndex = null) {
+    const color = colorIndex === null ? ink : sparkPalette[colorIndex].rgb;
+    return `rgba(${color}, ${Math.round(clamp(alpha, 0, 1) * 1000) / 1000})`;
   }
 
   function synchronizePalette() {
@@ -3601,7 +3602,7 @@ CC BY 4.0
     const packetCount = mobile ? 12 : width < 650 ? 10 : 12;
     packets = Array.from({ length: packetCount }, (_, id) => {
       const from = Math.min(nodes.length - 1, Math.floor((id + 0.35) / packetCount * nodes.length));
-      const packet = { id, from, previous: -1, to: -1, hops: id + 1, direction: id % 2 ? -1 : 1, progress: random(id + 391), speed: 0.17 + random(id + 617) * 0.035, trail: [] };
+      const packet = { id, from, previous: -1, to: -1, hops: id + 1, direction: id % 2 ? -1 : 1, progress: random(id + 391), speed: 0.17 + random(id + 617) * 0.035, colorIndex: null, trail: [] };
       packet.to = chooseNext(from, -1, packet);
       return packet;
     });
@@ -3618,6 +3619,7 @@ CC BY 4.0
     canvas.dataset.sparkColorCounts = sparkColorCounts.join(',');
     canvas.dataset.sparkDuration = String(sparkDuration);
     canvas.dataset.sparkEvents = '0';
+    canvas.dataset.trailColorMode = 'whole-path';
     canvas.dataset.dimensions = '3';
     canvas.dataset.scope = 'about-publications';
     canvas.dataset.distribution = 'irregular-diffuse-volume';
@@ -3714,6 +3716,7 @@ CC BY 4.0
           canvas.dataset.sparkColorCounts = sparkColorCounts.join(',');
           canvas.dataset.sparkEvents = String(++sparkEvents);
           packet.trail.push({ x: vertex.x, y: vertex.y, z: vertex.z, opacity: vertex.opacity, time: arrivalTime });
+          packet.colorIndex = vertex.sparkColorIndex;
           packet.hops++;
           packet.to = chooseNext(packet.from, previous, packet);
           packet.progress = 0;
@@ -3722,20 +3725,20 @@ CC BY 4.0
     }
   }
 
-  function glow(x, y, radius, alpha) {
+  function glow(x, y, radius, alpha, colorIndex = null) {
     if (alpha < 0.002 || x + radius < 0 || x - radius > width || y + radius < 0 || y - radius > height) return;
     const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
-    gradient.addColorStop(0, rgba(alpha));
-    gradient.addColorStop(1, rgba(0));
+    gradient.addColorStop(0, rgba(alpha, colorIndex));
+    gradient.addColorStop(1, rgba(0, colorIndex));
     context.fillStyle = gradient;
     context.fillRect(x - radius, y - radius, radius * 2, radius * 2);
   }
 
-  function circle(x, y, radius, alpha) {
+  function circle(x, y, radius, alpha, colorIndex = null) {
     if (alpha < 0.002 || x + radius < 0 || x - radius > width || y + radius < 0 || y - radius > height) return;
     context.beginPath();
     context.arc(x, y, radius, 0, Math.PI * 2);
-    context.fillStyle = rgba(alpha);
+    context.fillStyle = rgba(alpha, colorIndex);
     context.fill();
   }
 
@@ -3812,6 +3815,18 @@ CC BY 4.0
       context.strokeStyle = rgba(edge.opacity * ((dark ? 0.04 : 0.025) + edge.depth * (dark ? 0.125 : 0.10) + pulse * 0.025));
       context.stroke();
     }
+    for (const packet of packets) {
+      if (packet.colorIndex === null) continue;
+      const a = projected[packet.from], b = projected[packet.to];
+      const depth = (a.depth + b.depth) / 2;
+      const opacity = Math.sqrt(nodes[packet.from].opacity * nodes[packet.to].opacity);
+      context.beginPath();
+      context.moveTo(a.x, a.y);
+      context.lineTo(b.x, b.y);
+      context.lineWidth = 0.75 + depth * 0.5;
+      context.strokeStyle = rgba(opacity * (0.16 + depth * (dark ? 0.32 : 0.24)), packet.colorIndex);
+      context.stroke();
+    }
     projected.slice().sort((a, b) => a.depth - b.depth).forEach(point => {
       const pulse = nodes[point.index].pulse;
       circle(point.x, point.y, 0.8 + point.depth * 1.05 + pulse * 0.5, point.opacity * ((dark ? 0.12 : 0.085) + point.depth * (dark ? 0.40 : 0.34) + pulse * 0.15));
@@ -3829,7 +3844,7 @@ CC BY 4.0
         context.moveTo(a.x, a.y);
         context.lineTo(b.x, b.y);
         context.lineWidth = 0.5 + b.depth * 0.65;
-        context.strokeStyle = rgba(life * life * b.opacity * (0.15 + b.depth * (dark ? 0.52 : 0.40)));
+        context.strokeStyle = rgba(life * life * b.opacity * (0.15 + b.depth * (dark ? 0.52 : 0.40)), packet.colorIndex);
         context.stroke();
         previousTrail = b;
       }
@@ -3838,10 +3853,10 @@ CC BY 4.0
       context.moveTo(previousTrail.x, previousTrail.y);
       context.lineTo(projectedPoint.x, projectedPoint.y);
       context.lineWidth = 0.5 + projectedPoint.depth * 0.65;
-      context.strokeStyle = rgba(projectedPoint.opacity * (0.15 + projectedPoint.depth * (dark ? 0.52 : 0.40)));
+      context.strokeStyle = rgba(projectedPoint.opacity * (0.15 + projectedPoint.depth * (dark ? 0.52 : 0.40)), packet.colorIndex);
       context.stroke();
-      glow(projectedPoint.x, projectedPoint.y, 4 + projectedPoint.depth * 2, projectedPoint.depth * 0.12 * projectedPoint.opacity);
-      circle(projectedPoint.x, projectedPoint.y, 1.0 + projectedPoint.depth * 1.15, projectedPoint.opacity * (0.25 + projectedPoint.depth * (dark ? 0.56 : 0.46)));
+      glow(projectedPoint.x, projectedPoint.y, 4 + projectedPoint.depth * 2, projectedPoint.depth * 0.12 * projectedPoint.opacity, packet.colorIndex);
+      circle(projectedPoint.x, projectedPoint.y, 1.0 + projectedPoint.depth * 1.15, projectedPoint.opacity * (0.25 + projectedPoint.depth * (dark ? 0.56 : 0.46)), packet.colorIndex);
     }
     drawSparks(projected);
   }
