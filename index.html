@@ -1973,6 +1973,14 @@ body {
   background: var(--border);
 }
 
+#research > .section-heading-row > .heading-rule {
+  display: none;
+}
+
+#about {
+  border-bottom: 0;
+}
+
 .research-affiliation {
   border-top-color: var(--border);
 }
@@ -2084,6 +2092,20 @@ html[data-theme="light"] .profile-links .profile-link {
 
 a:hover {
   text-decoration-color: currentColor;
+}
+
+.side-nav {
+  width: 100%;
+  margin-top: 17px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 700px) {
+  .side-nav {
+    margin-top: 14px;
+    padding-top: 15px;
+  }
 }
 
 .side-nav a {
@@ -2375,19 +2397,19 @@ a.pdf-link:hover {
 .about-section {
   --graph-side-space: max(calc(var(--content-gutter) * var(--content-margin-scale)), calc((100vw - var(--sidebar-w) - var(--content-max)) / 2));
   --graph-bleed: max(0px, calc(var(--graph-side-space) - 2px));
+  --graph-sidebar-bleed: 0px;
   position: relative;
   isolation: isolate;
 }
 
 .about-section #graph-preview {
   position: absolute;
-  inset: -64px auto auto calc(var(--graph-bleed) * -1);
-  width: calc(100% + var(--graph-bleed) * 2);
-  height: calc(144% + 200px);
+  inset: 8px auto auto calc((var(--graph-bleed) + var(--graph-sidebar-bleed)) * -1);
+  width: calc(100% + var(--graph-bleed) * 2 + var(--graph-sidebar-bleed));
+  height: var(--graph-height, calc(100% + 200px));
   z-index: 0;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10px, #000 calc(100% - 10px), transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 10px, #000 calc(100% - 10px), transparent);
+  clip-path: ellipse(50% 50% at 50% 50%);
 }
 
 .about-section .section-title,
@@ -2399,6 +2421,22 @@ a.pdf-link:hover {
 .about-section + .section {
   position: relative;
   z-index: 1;
+}
+
+@media (min-width: 701px) {
+  .about-section {
+    --graph-sidebar-bleed: calc(var(--sidebar-w) * 0.5);
+  }
+
+  .sidebar {
+    background: transparent;
+  }
+}
+
+@media (max-width: 700px) {
+  .about-section #graph-preview {
+    clip-path: inset(0);
+  }
 }
 </style>
 </head>
@@ -3433,6 +3471,8 @@ CC BY 4.0
   const context = canvas?.getContext('2d');
   const section = document.getElementById('about');
   if (!context || !section) return;
+  const publications = document.getElementById('research');
+  const firstPublicationTitle = publications?.querySelector('.research-item h3');
   const root = document.documentElement;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let width = 0;
@@ -3450,6 +3490,7 @@ CC BY 4.0
   let previousTime = 0;
   let sampleStart = 0;
   let sampleFrames = 0;
+  let boundsFrame = 0;
 
   function clamp(value, minimum, maximum) {
     return Math.max(minimum, Math.min(maximum, value));
@@ -3493,14 +3534,16 @@ CC BY 4.0
   }
 
   function buildGraph() {
-    const count = width < 430 ? 56 : width < 650 ? 72 : 96;
+    const mobile = root.clientWidth <= 700;
+    const count = mobile ? 128 : width < 650 ? 96 : 120;
     nodes = [];
     edges = [];
     neighbors = [];
     for (let attempt = 0; nodes.length < count && attempt < 12000; attempt++) {
       const angle = random(attempt * 3 + 211) * Math.PI * 2;
       const vertical = random(attempt * 3 + 317) * 2 - 1;
-      const radial = Math.cbrt(random(attempt * 3 + 419));
+      const radialSeed = random(attempt * 3 + 419);
+      const radial = attempt % 3 === 0 ? 0.96 + radialSeed * 0.04 : Math.cbrt(radialSeed);
       const horizontal = Math.sqrt(1 - vertical * vertical);
       const point = { x: Math.cos(angle) * horizontal * radial, y: vertical * radial, z: Math.sin(angle) * horizontal * radial, pulse: 0 };
       if (nodes.some(node => distance(node, point) < 0.19)) continue;
@@ -3548,7 +3591,7 @@ CC BY 4.0
         if (neighbors[other.candidate].length < 7) connect(index, other.candidate);
       }
     });
-    const packetCount = width < 430 ? 6 : width < 650 ? 8 : 10;
+    const packetCount = mobile ? 12 : width < 650 ? 10 : 12;
     packets = Array.from({ length: packetCount }, (_, id) => {
       const from = Math.min(nodes.length - 1, Math.floor((id + 0.35) / packetCount * nodes.length));
       const packet = { id, from, previous: -1, to: -1, hops: id + 1, direction: id % 2 ? -1 : 1, progress: random(id + 391), speed: 0.17 + random(id + 617) * 0.035, trail: [] };
@@ -3564,7 +3607,24 @@ CC BY 4.0
     canvas.dataset.scope = 'about-publications';
     canvas.dataset.distribution = 'random-oval-volume';
     canvas.dataset.horizontalFocus = 'center';
+    canvas.dataset.framing = mobile ? 'wide-mobile' : 'wide-oval';
     canvas.dataset.frameRate = 'auto';
+  }
+
+  function synchronizeBounds() {
+    boundsFrame = 0;
+    const aboutBounds = section.getBoundingClientRect();
+    const boundary = firstPublicationTitle || publications?.querySelector('.section-title');
+    const bottom = boundary ? boundary.getBoundingClientRect().top - aboutBounds.top - 8 : aboutBounds.height + 160;
+    const nextHeight = `${Math.round(Math.max(260, bottom - 8) * 100) / 100}px`;
+    if (section.style.getPropertyValue('--graph-height') !== nextHeight) {
+      section.style.setProperty('--graph-height', nextHeight);
+    }
+    canvas.dataset.boundary = 'about-first-publication';
+  }
+
+  function scheduleBounds() {
+    if (!boundsFrame) boundsFrame = requestAnimationFrame(synchronizeBounds);
   }
 
   function resize() {
@@ -3588,8 +3648,14 @@ CC BY 4.0
     const cy = Math.cos(yaw), sy = Math.sin(yaw);
     const cx = Math.cos(pitch), sx = Math.sin(pitch);
     const cr = Math.cos(roll), sr = Math.sin(roll);
-    const radiusX = Math.max(10, width / 2 - 24) * 1.08;
-    const radiusY = Math.max(10, height / 2 - 24) * 1.06;
+    const cameraDistance = 3.8;
+    const perspectiveFit = Math.sqrt(1 - 1 / (cameraDistance * cameraDistance));
+    const verticalRadius = Math.max(10, height / 2 - 14);
+    const horizontalRadius = root.clientWidth <= 700
+      ? Math.max(width / 2 - 14, verticalRadius * 1.12)
+      : Math.max(10, width / 2 - 14);
+    const radiusX = horizontalRadius * perspectiveFit;
+    const radiusY = verticalRadius * perspectiveFit;
     return point => {
       const y1 = point.y * cx - point.z * sx;
       const z1 = point.y * sx + point.z * cx;
@@ -3597,7 +3663,7 @@ CC BY 4.0
       const z2 = -point.x * sy + z1 * cy;
       const x3 = x2 * cr - y1 * sr;
       const y3 = x2 * sr + y1 * cr;
-      const perspective = 3.8 / (3.8 - z2);
+      const perspective = cameraDistance / (cameraDistance - z2);
       return { x: width / 2 + x3 * radiusX * perspective, y: height / 2 + y3 * radiusY * perspective, depth: clamp((z2 + 1) / 2, 0, 1), z: z2 };
     };
   }
@@ -3737,6 +3803,12 @@ CC BY 4.0
   }
 
   new ResizeObserver(resize).observe(canvas);
+  const boundsObserver = new ResizeObserver(scheduleBounds);
+  boundsObserver.observe(section);
+  if (publications) boundsObserver.observe(publications);
+  window.addEventListener('resize', scheduleBounds);
+  window.addEventListener('pageshow', scheduleBounds);
+  if (document.fonts) document.fonts.ready.then(scheduleBounds);
   new IntersectionObserver(entries => {
     visible = entries[0].isIntersecting;
     synchronizeMotion();
@@ -3748,6 +3820,7 @@ CC BY 4.0
   document.addEventListener('visibilitychange', synchronizeMotion);
   reducedMotion.addEventListener('change', synchronizeMotion);
   synchronizePalette();
+  synchronizeBounds();
   resize();
   synchronizeMotion();
 })();
