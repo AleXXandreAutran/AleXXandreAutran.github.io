@@ -171,11 +171,12 @@ a:hover {
 
 .resource-card {
   border-color: var(--border);
-  transition: border-color 160ms ease;
+  transition: none;
 }
 
 html[data-theme] .resource-card:hover {
-  border-color: var(--link);
+  border-color: var(--border);
+  background: var(--panel);
   transform: none;
 }
 
@@ -399,4 +400,8 @@ a.pdf-link,
 
 a.pdf-link:hover {
   background: color-mix(in srgb, var(--link) 14%, var(--bg));
+}
+
+.resource-card a.pdf-link:hover {
+  background: color-mix(in srgb, var(--link) 8%, var(--bg));
 }
