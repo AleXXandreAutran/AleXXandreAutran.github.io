@@ -55,6 +55,15 @@ body {
   letter-spacing: normal;
 }
 
+.content {
+  --content-font-scale: 0.95;
+  font-size: calc(1rem * var(--content-font-scale));
+}
+
+.content .research-number {
+  font-size: calc(1rem * var(--content-font-scale)) !important;
+}
+
 .sidebar {
   background: var(--bg);
 }
@@ -71,20 +80,20 @@ body {
 }
 
 .section-title {
-  font-size: 2.25rem;
+  font-size: calc(2.25rem * var(--content-font-scale, 1));
 }
 
 .resource-subhead h3 {
-  font-size: 1rem;
+  font-size: calc(1rem * var(--content-font-scale, 1));
 }
 
 .other-title {
-  font-size: 1.0625rem;
+  font-size: calc(1.0625rem * var(--content-font-scale, 1));
 }
 
 .master-course-intro,
 .other-intro {
-  font-size: 0.8125rem;
+  font-size: calc(0.8125rem * var(--content-font-scale, 1));
 }
 
 @media (min-width: 701px) and (max-width: 1050px) {
@@ -95,7 +104,7 @@ body {
 
 @media (max-width: 700px) {
   .section-title {
-    font-size: 1.875rem;
+    font-size: calc(1.875rem * var(--content-font-scale, 1));
   }
 }
 
@@ -114,7 +123,7 @@ a {
 }
 
 .about-copy {
-  font-size: 1rem;
+  font-size: calc(1rem * var(--content-font-scale, 1));
 }
 
 .about-copy p {
@@ -150,23 +159,23 @@ a:hover {
 }
 
 .research-item h3 {
-  font-size: 1rem !important;
+  font-size: calc(1rem * var(--content-font-scale, 1)) !important;
   line-height: 1.55 !important;
 }
 
 .timeline-content h3 {
-  font-size: 1rem;
+  font-size: calc(1rem * var(--content-font-scale, 1));
   line-height: 1.55;
 }
 
 .research-meta {
-  font-size: 0.9375rem !important;
+  font-size: calc(0.9375rem * var(--content-font-scale, 1)) !important;
   line-height: 1.6 !important;
 }
 
 .section-intro,
 .timeline-content p {
-  font-size: 1rem;
+  font-size: calc(1rem * var(--content-font-scale, 1));
 }
 
 .resource-card {
@@ -183,7 +192,7 @@ html[data-theme] .resource-card:hover {
 .resource-card h4,
 .resource-card p,
 .resource-card .course-author {
-  font-size: 0.9375rem !important;
+  font-size: calc(0.9375rem * var(--content-font-scale, 1)) !important;
   line-height: 1.65 !important;
 }
 
@@ -197,7 +206,7 @@ html[data-theme] .resource-card:hover {
 }
 
 .timeline-date {
-  font-size: 0.8125rem;
+  font-size: calc(0.8125rem * var(--content-font-scale, 1));
   color: var(--muted);
 }
 
@@ -207,21 +216,21 @@ html[data-theme] .resource-card:hover {
 
 .about-copy .email-line,
 .picture-photo figcaption {
-  font-size: 0.875rem;
+  font-size: calc(0.875rem * var(--content-font-scale, 1));
 }
 
 .show-more,
 .pdf-link {
-  font-size: 0.9375rem;
+  font-size: calc(0.9375rem * var(--content-font-scale, 1));
 }
 
 .resource-card .pdf-link {
-  font-size: 0.875rem;
+  font-size: calc(0.875rem * var(--content-font-scale, 1));
 }
 
 .site-footer {
   color: var(--subtle);
-  font-size: 0.8125rem;
+  font-size: calc(0.8125rem * var(--content-font-scale, 1));
   opacity: 1;
 }
 
@@ -239,7 +248,7 @@ html[data-theme] .domain-badge {
   border-radius: 999px;
   color: var(--domain-color, var(--interest-blue));
   background: color-mix(in srgb, var(--domain-color, var(--interest-blue)) 9%, var(--bg));
-  font-size: 0.8125rem;
+  font-size: calc(0.8125rem * var(--content-font-scale, 1));
   font-weight: 400;
   line-height: 1.5;
 }
@@ -250,7 +259,7 @@ html[data-theme] .category-pill {
   border-radius: 999px;
   color: var(--pill-color, var(--interest-blue));
   background: color-mix(in srgb, var(--pill-color, var(--interest-blue)) 9%, var(--bg));
-  font-size: 0.75rem;
+  font-size: calc(0.75rem * var(--content-font-scale, 1));
   font-weight: 400;
   line-height: 1.5;
 }
@@ -392,7 +401,7 @@ a.pdf-link,
   background: color-mix(in srgb, var(--link) 8%, var(--bg));
   color: var(--link);
   font-family: var(--font-main);
-  font-size: 0.875rem;
+  font-size: calc(0.875rem * var(--content-font-scale, 1));
   font-weight: 500;
   line-height: 1.4;
   text-decoration: none !important;
