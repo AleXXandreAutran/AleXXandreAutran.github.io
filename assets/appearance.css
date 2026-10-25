@@ -1,0 +1,241 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap");
+
+/* Palette sombre */
+:root {
+  --font-main: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --bg: #121418;
+  --sidebar: var(--bg);
+  --panel: var(--bg);
+  --panel2: var(--bg);
+  --text: #eceae5;
+  --muted: #b7b8bd;
+  --subtle: #85878e;
+  --border: #2a2d34;
+  --link: #8fb2ff;
+  --cyan: var(--link);
+  --blue: var(--link);
+  --coral: #f2b26e;
+  --violet: #c4a5f0;
+  --interest-blue: #92b4ff;
+  --interest-cyan: #6fd1c8;
+  --interest-teal: #6fd1c8;
+  --interest-violet: #c4a5f0;
+  --interest-coral: #f2b26e;
+  --interest-yellow: #f2b26e;
+  color-scheme: dark;
+}
+
+/* Palette claire */
+html[data-theme="light"] {
+  --bg: #f6f4ef;
+  --text: #16181d;
+  --muted: #474a52;
+  --subtle: #6c6f76;
+  --border: #e2ded5;
+  --link: #1f4fa3;
+  --coral: #b0611a;
+  --violet: #7b4fae;
+  --interest-blue: #2f5fb3;
+  --interest-cyan: #17807a;
+  --interest-teal: #17807a;
+  --interest-violet: #7b4fae;
+  --interest-coral: #b0611a;
+  --interest-yellow: #947014;
+  color-scheme: light;
+}
+
+/* Police et lisibilité */
+html {
+  font-size: 16px;
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  font-family: var(--font-main);
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: normal;
+}
+
+.sidebar {
+  background: var(--bg);
+}
+
+.name,
+.section-title,
+.resource-subhead h3 {
+  color: var(--text);
+}
+
+.heading-rule,
+.violet-rule,
+.cyan-rule {
+  background: var(--border);
+}
+
+.research-affiliation {
+  border-top-color: var(--border);
+}
+
+a {
+  color: var(--link);
+}
+
+.about-copy {
+  font-size: 1rem;
+}
+
+.about-copy p,
+.resource-group .section-intro {
+  text-align: left;
+}
+
+.about-copy a,
+.timeline-content a,
+.resource-card a,
+.research-paper-link {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--link) 35%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+.side-nav a {
+  font-size: 1rem;
+}
+
+.affiliation-group,
+.affiliation-group a {
+  font-size: 0.9375rem !important;
+}
+
+.research-item h3 {
+  font-size: 1rem !important;
+  line-height: 1.55 !important;
+}
+
+.timeline-content h3 {
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.research-meta {
+  font-size: 0.9375rem !important;
+  line-height: 1.6 !important;
+}
+
+.section-intro,
+.timeline-content p {
+  font-size: 1rem;
+}
+
+.resource-card {
+  border-color: var(--border);
+}
+
+html[data-theme] .resource-card:hover {
+  border-color: var(--link);
+}
+
+.resource-card h4,
+.resource-card p,
+.resource-card .course-author {
+  font-size: 0.9375rem !important;
+  line-height: 1.65 !important;
+}
+
+.colles-grid .resource-card {
+  height: auto !important;
+  min-height: 76px !important;
+}
+
+.colles-grid .resource-card h4 {
+  white-space: normal;
+}
+
+.timeline-date {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.about-copy .email-line,
+.picture-photo figcaption {
+  font-size: 0.875rem;
+}
+
+.show-more,
+.pdf-link {
+  font-size: 0.9375rem;
+}
+
+.resource-card .pdf-link {
+  font-size: 0.875rem;
+}
+
+.site-footer {
+  color: var(--subtle);
+  font-size: 0.8125rem;
+  opacity: 1;
+}
+
+/* Pastilles des domaines et des expériences */
+.research-domains {
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+html[data-theme] .domain-badge {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 0.3em 0.8em;
+  border: 0;
+  border-radius: 999px;
+  color: var(--domain-color, var(--interest-blue));
+  background: color-mix(in srgb, var(--domain-color, var(--interest-blue)) 9%, var(--bg));
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+html[data-theme] .category-pill {
+  padding: 0.3em 0.8em;
+  border: 0;
+  border-radius: 999px;
+  color: var(--pill-color, var(--interest-blue));
+  background: color-mix(in srgb, var(--pill-color, var(--interest-blue)) 9%, var(--bg));
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+html[data-theme] .year-badge {
+  color: var(--interest-coral);
+  background: color-mix(in srgb, var(--interest-coral) 9%, var(--bg));
+}
+
+.filter-chip {
+  color: var(--link);
+  border-color: color-mix(in srgb, var(--link) 24%, var(--bg));
+  background: color-mix(in srgb, var(--link) 8%, var(--bg));
+}
+
+.filter-chip:hover,
+.filter-chip.active {
+  color: var(--link);
+  border-color: var(--link);
+  background: color-mix(in srgb, var(--link) 16%, var(--bg));
+}
+
+/* Les résumés utilisent le même fond que la page */
+#research,
+:root[data-theme="light"] #research {
+  --summary-surface: var(--bg);
+  --summary-text: var(--text);
+  --summary-border: var(--border);
+}
