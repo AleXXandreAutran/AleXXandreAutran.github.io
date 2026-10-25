@@ -3470,6 +3470,13 @@ CC BY 4.0
   const firstPublicationTitle = publications?.querySelector('.research-item h3');
   const root = document.documentElement;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const sparkPalette = [
+    { color: '#f2b26e', rgb: '242, 178, 110', outline: 'rgba(176, 97, 26, 0.45)' },
+    { color: '#c4a5f0', rgb: '196, 165, 240', outline: 'rgba(123, 79, 174, 0.45)' },
+    { color: '#6fd1c8', rgb: '111, 209, 200', outline: 'rgba(23, 128, 122, 0.45)' },
+    { color: '#92b4ff', rgb: '146, 180, 255', outline: 'rgba(47, 95, 179, 0.45)' }
+  ].map(color => ({ ...color, halo: createSparkHalo(color.rgb) }));
+  const sparkDuration = 0.9;
   let width = 0;
   let height = 0;
   let ratio = 1;
@@ -3486,6 +3493,9 @@ CC BY 4.0
   let sampleStart = 0;
   let sampleFrames = 0;
   let boundsFrame = 0;
+  let sparkEvents = 0;
+  const sparkColorCounts = sparkPalette.map(() => 0);
+  let activeSparkCount = -1;
 
   function clamp(value, minimum, maximum) {
     return Math.max(minimum, Math.min(maximum, value));
@@ -3542,7 +3552,7 @@ CC BY 4.0
       const radial = (0.12 + Math.pow(radialSeed, 0.62) * 1.1) * variation;
       const horizontal = Math.sqrt(1 - vertical * vertical);
       const opacity = Math.max(0.03, Math.pow(1 - clamp((radial - 0.6) / 0.95, 0, 1), 1.25));
-      const point = { x: Math.cos(angle) * horizontal * radial, y: vertical * radial, z: Math.sin(angle) * horizontal * radial, pulse: 0, opacity };
+      const point = { x: Math.cos(angle) * horizontal * radial, y: vertical * radial, z: Math.sin(angle) * horizontal * radial, pulse: 0, opacity, sparkAt: -Infinity, sparkColorIndex: 0 };
       if (nodes.some(node => distance(node, point) < 0.19)) continue;
       nodes.push(point);
     }
@@ -3599,7 +3609,15 @@ CC BY 4.0
     canvas.dataset.vertices = String(nodes.length);
     canvas.dataset.edges = String(edges.length);
     canvas.dataset.packets = String(packets.length);
-    canvas.dataset.colors = '1';
+    sparkEvents = 0;
+    activeSparkCount = -1;
+    sparkColorCounts.fill(0);
+    canvas.dataset.colors = String(sparkPalette.length + 1);
+    canvas.dataset.sparkPalette = sparkPalette.map(color => color.color).join(',');
+    canvas.dataset.sparkDistribution = 'uniform';
+    canvas.dataset.sparkColorCounts = sparkColorCounts.join(',');
+    canvas.dataset.sparkDuration = String(sparkDuration);
+    canvas.dataset.sparkEvents = '0';
     canvas.dataset.dimensions = '3';
     canvas.dataset.scope = 'about-publications';
     canvas.dataset.distribution = 'irregular-diffuse-volume';
@@ -3689,7 +3707,13 @@ CC BY 4.0
           packet.previous = previous;
           nodes[packet.from].pulse = 1;
           const vertex = nodes[packet.from];
-          packet.trail.push({ x: vertex.x, y: vertex.y, z: vertex.z, opacity: vertex.opacity, time: elapsed - travel / packet.speed });
+          const arrivalTime = elapsed - travel / packet.speed;
+          vertex.sparkAt = arrivalTime;
+          vertex.sparkColorIndex = Math.floor(Math.random() * sparkPalette.length);
+          sparkColorCounts[vertex.sparkColorIndex]++;
+          canvas.dataset.sparkColorCounts = sparkColorCounts.join(',');
+          canvas.dataset.sparkEvents = String(++sparkEvents);
+          packet.trail.push({ x: vertex.x, y: vertex.y, z: vertex.z, opacity: vertex.opacity, time: arrivalTime });
           packet.hops++;
           packet.to = chooseNext(packet.from, previous, packet);
           packet.progress = 0;
@@ -3713,6 +3737,56 @@ CC BY 4.0
     context.arc(x, y, radius, 0, Math.PI * 2);
     context.fillStyle = rgba(alpha);
     context.fill();
+  }
+
+  function createSparkHalo(rgb) {
+    const sprite = document.createElement('canvas');
+    sprite.width = 64;
+    sprite.height = 64;
+    const spriteContext = sprite.getContext('2d');
+    if (!spriteContext) return null;
+    const gradient = spriteContext.createRadialGradient(32, 32, 0, 32, 32, 32);
+    gradient.addColorStop(0, `rgba(${rgb}, 0.42)`);
+    gradient.addColorStop(0.25, `rgba(${rgb}, 0.22)`);
+    gradient.addColorStop(0.6, `rgba(${rgb}, 0.05)`);
+    gradient.addColorStop(1, `rgba(${rgb}, 0)`);
+    spriteContext.fillStyle = gradient;
+    spriteContext.fillRect(0, 0, 64, 64);
+    return sprite;
+  }
+
+  function drawSparks(projected) {
+    let count = 0;
+    for (const point of projected) {
+      const node = nodes[point.index];
+      const age = elapsed - node.sparkAt;
+      if (age < 0 || age >= sparkDuration) continue;
+      const life = age / sparkDuration;
+      const attack = Math.min(1, age / 0.025);
+      const fade = age <= 0.1 ? 1 : Math.pow((sparkDuration - age) / (sparkDuration - 0.1), 1.05);
+      const energy = attack * fade * (0.85 + point.depth * 0.15) * (0.5 + Math.sqrt(point.opacity) * 0.5);
+      const diameter = 14 + life * 9;
+      if (energy < 0.01 || point.x + diameter < 0 || point.x - diameter > width || point.y + diameter < 0 || point.y - diameter > height) continue;
+      count++;
+      const color = sparkPalette[node.sparkColorIndex];
+      context.globalAlpha = energy;
+      if (color.halo) context.drawImage(color.halo, point.x - diameter / 2, point.y - diameter / 2, diameter, diameter);
+      context.globalAlpha = Math.min(1, energy * 0.85);
+      context.beginPath();
+      context.arc(point.x, point.y, 1.1 + (1 - life) * 1.0 + point.depth * 0.2, 0, Math.PI * 2);
+      context.fillStyle = color.color;
+      context.fill();
+      if (!dark) {
+        context.lineWidth = 0.45;
+        context.strokeStyle = color.outline;
+        context.stroke();
+      }
+    }
+    context.globalAlpha = 1;
+    if (count !== activeSparkCount) {
+      activeSparkCount = count;
+      canvas.dataset.activeSparks = String(count);
+    }
   }
 
   function paint() {
@@ -3740,7 +3814,6 @@ CC BY 4.0
     }
     projected.slice().sort((a, b) => a.depth - b.depth).forEach(point => {
       const pulse = nodes[point.index].pulse;
-      if (pulse > 0.03) glow(point.x, point.y, 3 + pulse * 4, pulse * point.depth * 0.11 * point.opacity);
       circle(point.x, point.y, 0.8 + point.depth * 1.05 + pulse * 0.5, point.opacity * ((dark ? 0.12 : 0.085) + point.depth * (dark ? 0.40 : 0.34) + pulse * 0.15));
     });
     for (const packet of packets) {
@@ -3770,6 +3843,7 @@ CC BY 4.0
       glow(projectedPoint.x, projectedPoint.y, 4 + projectedPoint.depth * 2, projectedPoint.depth * 0.12 * projectedPoint.opacity);
       circle(projectedPoint.x, projectedPoint.y, 1.0 + projectedPoint.depth * 1.15, projectedPoint.opacity * (0.25 + projectedPoint.depth * (dark ? 0.56 : 0.46)));
     }
+    drawSparks(projected);
   }
 
   function tick(time) {
