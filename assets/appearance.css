@@ -171,12 +171,11 @@ a:hover {
 
 .resource-card {
   border-color: var(--border);
-  transition: border-color 160ms ease, background 160ms ease;
+  transition: border-color 160ms ease;
 }
 
 html[data-theme] .resource-card:hover {
   border-color: var(--link);
-  background: color-mix(in srgb, var(--link) 8%, var(--bg));
   transform: none;
 }
 
@@ -391,7 +390,7 @@ a.pdf-link,
   border-radius: 8px;
   background: color-mix(in srgb, var(--link) 8%, var(--bg));
   color: var(--link);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-main);
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.4;
