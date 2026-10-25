@@ -402,3 +402,11 @@ a.pdf-link:hover {
   background: color-mix(in srgb, var(--link) 14%, var(--bg));
 }
 
+@media (hover: hover) {
+  a[href^="http"]:not([href^="https://alexxandreautran.github.io/"]):not([href^="http://alexxandreautran.github.io/"]):not([href="https://alexxandreautran.github.io"]):not([href="http://alexxandreautran.github.io"]):not(.pdf-link):not(.research-paper-link):not(.social-button):hover {
+    text-decoration-line: underline !important;
+    text-decoration-thickness: 1px !important;
+    text-underline-offset: 0.2em;
+  }
+}
+
