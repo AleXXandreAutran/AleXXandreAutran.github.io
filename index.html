@@ -2408,6 +2408,7 @@ a.pdf-link:hover {
   width: calc(100% + var(--graph-bleed) * 2 + var(--graph-sidebar-bleed));
   height: var(--graph-height, calc(100% + 400px));
   z-index: 0;
+  opacity: 0.9;
   pointer-events: none;
   -webkit-mask-image: linear-gradient(180deg, transparent, #000 32px, #000 calc(100% - 96px), transparent);
   mask-image: linear-gradient(180deg, transparent, #000 32px, #000 calc(100% - 96px), transparent);
@@ -2424,30 +2425,46 @@ a.pdf-link:hover {
   z-index: 1;
 }
 
-.network-controls {
-  position: relative;
+.profile-tools {
   display: flex;
   align-items: center;
-  gap: 8px;
-  width: max-content;
+  flex-wrap: wrap;
+  gap: 10px;
   max-width: 100%;
-  margin-top: 14px;
-  color: var(--subtle);
-  font-size: calc(0.75rem * var(--content-font-scale, 1));
-  line-height: 1;
+}
+
+.network-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 96%, var(--text));
+  color: var(--text);
+  font-size: calc(1rem * var(--content-font-scale, 1));
+  font-weight: 400;
+  line-height: 1.4;
+  transition: border-color 160ms ease;
+}
+
+html[data-theme="light"] .network-controls {
+  background: #fcfbf8;
+}
+
+.network-controls:hover,
+.network-controls:focus-within {
+  border-color: var(--link);
 }
 
 .network-controls label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
   white-space: nowrap;
 }
 
 .network-controls input[type="range"] {
-  width: 88px;
+  width: 56px;
   height: 20px;
   margin: 0;
   background: transparent;
@@ -2469,19 +2486,19 @@ a.pdf-link:hover {
 
 .network-controls input[type="range"]::-webkit-slider-runnable-track {
   height: 1px;
-  background: var(--subtle);
+  background: var(--link);
 }
 
 .network-controls input[type="range"]::-moz-range-track {
   height: 1px;
-  background: var(--subtle);
+  background: var(--link);
 }
 
 .network-controls input[type="range"]::-webkit-slider-thumb {
   width: 9px;
   height: 9px;
   margin-top: -4px;
-  border: 1.5px solid var(--coral);
+  border: 1.5px solid var(--link);
   border-radius: 50%;
   background: var(--bg);
   -webkit-appearance: none;
@@ -2491,17 +2508,17 @@ a.pdf-link:hover {
 .network-controls input[type="range"]::-moz-range-thumb {
   width: 9px;
   height: 9px;
-  border: 1.5px solid var(--coral);
+  border: 1.5px solid var(--link);
   border-radius: 50%;
   background: var(--bg);
 }
 
 .network-controls input[type="range"]:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--coral) 18%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--link) 18%, transparent);
 }
 
 .network-controls input[type="range"]:focus-visible::-moz-range-thumb {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--coral) 18%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--link) 18%, transparent);
 }
 
 @media (pointer: coarse) {
@@ -2511,6 +2528,7 @@ a.pdf-link:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .network-controls,
   .network-controls input[type="range"] {
     transition: none;
   }
@@ -2637,6 +2655,7 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
 <span>Google Scholar</span>
 </a>
 
+<div class="profile-tools">
 <a class="profile-link" href="https://fr.linkedin.com/in/alexandre-autran-85279931b/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
 <svg class="linkedin-logo" viewBox="0 0 24 24" aria-hidden="true">
 
@@ -2644,11 +2663,13 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
 </svg>
 <span>LinkedIn</span>
 </a>
-</div>
 
 <div class="network-controls">
-<label for="movingPointsRange">Moving points</label>
-<input id="movingPointsRange" type="range" min="0" max="100" step="1" value="10">
+<label for="movingPointsRange">numbers of points</label>
+<input id="movingPointsRange" type="range" min="0" max="50" step="1" value="10">
+</div>
+
+</div>
 </div>
 
 </div>
@@ -3568,7 +3589,7 @@ CC BY 4.0
   const root = document.documentElement;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const movingPointsInput = document.getElementById('movingPointsRange');
-  const movingPointLimit = 100;
+  const movingPointLimit = 50;
   const defaultMovingPointCount = 10;
   const sparkPalette = [
     { color: '#f2b26e', rgb: '242, 178, 110', outline: 'rgba(176, 97, 26, 0.45)' },
@@ -3636,7 +3657,7 @@ CC BY 4.0
     if (movingPointsInput) {
       movingPointsInput.max = String(maxMovingPoints);
       movingPointsInput.value = String(movingPointCount);
-      movingPointsInput.title = 'Moving points';
+      movingPointsInput.title = 'numbers of points';
       movingPointsInput.setAttribute('aria-valuetext', `${movingPointCount} moving points`);
     }
   }
@@ -3962,14 +3983,14 @@ CC BY 4.0
       const pulse = nodes[point.index].pulse;
       circle(point.x, point.y, 0.8 + point.depth * 1.05 + pulse * 0.5, point.opacity * ((dark ? 0.12 : 0.085) + point.depth * (dark ? 0.40 : 0.34) + pulse * 0.15));
     });
-    const trailDuration = movingPointCount > 48 ? 0.7 : 1.35;
+    const trailDuration = movingPointCount > 64 ? 0.7 : 1.35;
     const trailSampleLimit = Math.max(3, Math.min(40, Math.floor(1600 / Math.max(1, movingPointCount))));
     const trailSampleInterval = Math.max(0.045, trailDuration / trailSampleLimit);
     for (const packet of packets) {
       if (packet.id >= movingPointCount) continue;
       const point = packetPoint(packet);
       const last = packet.trail[packet.trail.length - 1];
-      const sampleDistance = movingPointCount > 48 ? packet.speed * trailSampleInterval : 0.009;
+      const sampleDistance = movingPointCount > 64 ? packet.speed * trailSampleInterval : 0.009;
       if (!last || distance(last, point) > sampleDistance || elapsed - last.time >= trailSampleInterval) packet.trail.push({ ...point, time: elapsed });
       while (packet.trail.length && (elapsed - packet.trail[0].time > trailDuration || packet.trail.length > trailSampleLimit)) packet.trail.shift();
       let previousTrail = packet.trail.length ? project(packet.trail[0]) : project(point);
