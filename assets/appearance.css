@@ -318,6 +318,11 @@ html[data-theme] .year-badge {
   line-height: var(--content-line-height);
 }
 
+#research .research-summary-panel p {
+  text-align: justify;
+  text-align-last: left;
+}
+
 .theme-icon path,
 .theme-icon circle {
   stroke-width: 1.2;
