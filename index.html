@@ -2424,6 +2424,98 @@ a.pdf-link:hover {
   z-index: 1;
 }
 
+.network-controls {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  max-width: 100%;
+  margin-top: 14px;
+  color: var(--subtle);
+  font-size: calc(0.75rem * var(--content-font-scale, 1));
+  line-height: 1;
+}
+
+.network-controls label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.network-controls input[type="range"] {
+  width: 88px;
+  height: 20px;
+  margin: 0;
+  background: transparent;
+  cursor: ew-resize;
+  opacity: 0.55;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: opacity 160ms ease;
+}
+
+.network-controls input[type="range"]:hover,
+.network-controls input[type="range"]:focus-visible {
+  opacity: 1;
+}
+
+.network-controls input[type="range"]:focus-visible {
+  outline: none;
+}
+
+.network-controls input[type="range"]::-webkit-slider-runnable-track {
+  height: 1px;
+  background: var(--subtle);
+}
+
+.network-controls input[type="range"]::-moz-range-track {
+  height: 1px;
+  background: var(--subtle);
+}
+
+.network-controls input[type="range"]::-webkit-slider-thumb {
+  width: 9px;
+  height: 9px;
+  margin-top: -4px;
+  border: 1.5px solid var(--coral);
+  border-radius: 50%;
+  background: var(--bg);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.network-controls input[type="range"]::-moz-range-thumb {
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid var(--coral);
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.network-controls input[type="range"]:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--coral) 18%, transparent);
+}
+
+.network-controls input[type="range"]:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--coral) 18%, transparent);
+}
+
+@media (pointer: coarse) {
+  .network-controls input[type="range"] {
+    height: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .network-controls input[type="range"] {
+    transition: none;
+  }
+}
+
 @media (min-width: 701px) {
   .about-section {
     --graph-sidebar-bleed: var(--sidebar-w);
@@ -2552,6 +2644,11 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
 </svg>
 <span>LinkedIn</span>
 </a>
+</div>
+
+<div class="network-controls">
+<label for="movingPointsRange">Moving points</label>
+<input id="movingPointsRange" type="range" min="0" max="100" step="1" value="10">
 </div>
 
 </div>
@@ -3470,6 +3567,9 @@ CC BY 4.0
   const firstPublicationTitle = publications?.querySelector('.research-item h3');
   const root = document.documentElement;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const movingPointsInput = document.getElementById('movingPointsRange');
+  const movingPointLimit = 100;
+  const defaultMovingPointCount = 10;
   const sparkPalette = [
     { color: '#f2b26e', rgb: '242, 178, 110', outline: 'rgba(176, 97, 26, 0.45)' },
     { color: '#c4a5f0', rgb: '196, 165, 240', outline: 'rgba(123, 79, 174, 0.45)' },
@@ -3486,6 +3586,9 @@ CC BY 4.0
   let edges = [];
   let neighbors = [];
   let packets = [];
+  let movingPointCount = defaultMovingPointCount;
+  let maxMovingPoints = 0;
+  let movingPointHalo = null;
   let elapsed = 0;
   let frame = 0;
   let visible = true;
@@ -3517,10 +3620,37 @@ CC BY 4.0
       ink = [0, 2, 4].map(offset => parseInt(hex.slice(offset, offset + 2), 16)).join(', ');
     }
     dark = root.dataset.theme === 'dark';
+    movingPointHalo = createSparkHalo(ink);
   }
 
   function distance(a, b) {
     return Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
+  }
+
+  function updateMovingPointsControl() {
+    canvas.dataset.packets = String(movingPointCount);
+    canvas.dataset.maxPackets = String(maxMovingPoints);
+    canvas.dataset.initialPlacement = 'uniform-distinct-edges';
+    canvas.dataset.edgeProbability = String(edges.length ? movingPointCount / edges.length : 0);
+    canvas.dataset.launchSignature = packets.slice(0, Math.min(movingPointCount, 12)).map(packet => packet.launchKey).join('|');
+    if (movingPointsInput) {
+      movingPointsInput.max = String(maxMovingPoints);
+      movingPointsInput.value = String(movingPointCount);
+      movingPointsInput.title = 'Moving points';
+      movingPointsInput.setAttribute('aria-valuetext', `${movingPointCount} moving points`);
+    }
+  }
+
+  function setMovingPointCount(value) {
+    const previousCount = movingPointCount;
+    const requested = Number(value);
+    movingPointCount = clamp(Number.isFinite(requested) ? Math.round(requested) : 0, 0, maxMovingPoints);
+    packets.forEach(packet => {
+      if (packet.id >= movingPointCount || packet.id >= previousCount) packet.trail.length = 0;
+    });
+    if (movingPointCount === 0) nodes.forEach(node => { node.sparkAt = -Infinity; node.pulse = 0; });
+    updateMovingPointsControl();
+    paint();
   }
 
   function chooseNext(from, previous, packet) {
@@ -3540,6 +3670,7 @@ CC BY 4.0
   }
 
   function buildGraph() {
+    const followMaximum = maxMovingPoints > 0 && movingPointCount === maxMovingPoints;
     const mobile = root.clientWidth <= 700;
     const count = mobile ? 160 : width < 650 ? 112 : 156;
     nodes = [];
@@ -3599,17 +3730,21 @@ CC BY 4.0
         if (neighbors[other.candidate].length < 7) connect(index, other.candidate);
       }
     });
-    const packetCount = mobile ? 12 : width < 650 ? 10 : 12;
-    packets = Array.from({ length: packetCount }, (_, id) => {
-      const from = Math.min(nodes.length - 1, Math.floor((id + 0.35) / packetCount * nodes.length));
-      const packet = { id, from, previous: -1, to: -1, hops: id + 1, direction: id % 2 ? -1 : 1, progress: random(id + 391), speed: 0.17 + random(id + 617) * 0.035, colorIndex: null, trail: [] };
-      packet.to = chooseNext(from, -1, packet);
-      return packet;
+    maxMovingPoints = Math.min(movingPointLimit, edges.length);
+    movingPointCount = followMaximum ? maxMovingPoints : Math.min(movingPointCount, maxMovingPoints);
+    const launchEdges = edges.slice();
+    for (let index = launchEdges.length - 1; index > 0; index--) {
+      const other = Math.floor(Math.random() * (index + 1));
+      [launchEdges[index], launchEdges[other]] = [launchEdges[other], launchEdges[index]];
+    }
+    packets = launchEdges.slice(0, maxMovingPoints).map((edge, id) => {
+      const reversed = Math.random() < 0.5;
+      return { id, from: reversed ? edge.b : edge.a, previous: -1, to: reversed ? edge.a : edge.b, hops: id + 1, direction: id % 2 ? -1 : 1, progress: Math.random(), speed: 0.17 + random(id + 617) * 0.035, colorIndex: null, trail: [], launchKey: `${Math.min(edge.a, edge.b)}:${Math.max(edge.a, edge.b)}` };
     });
     canvas.dataset.style = 'rotating-3d-network';
     canvas.dataset.vertices = String(nodes.length);
     canvas.dataset.edges = String(edges.length);
-    canvas.dataset.packets = String(packets.length);
+    canvas.dataset.launchSlots = String(new Set(packets.map(packet => packet.launchKey)).size);
     sparkEvents = 0;
     activeSparkCount = -1;
     sparkColorCounts.fill(0);
@@ -3620,12 +3755,15 @@ CC BY 4.0
     canvas.dataset.sparkDuration = String(sparkDuration);
     canvas.dataset.sparkEvents = '0';
     canvas.dataset.trailColorMode = 'whole-path';
+    canvas.dataset.movingPoints = 'visible';
     canvas.dataset.dimensions = '3';
     canvas.dataset.scope = 'about-publications';
     canvas.dataset.distribution = 'irregular-diffuse-volume';
     canvas.dataset.horizontalFocus = 'center';
     canvas.dataset.framing = mobile ? 'wide-mobile' : 'diffuse-network';
     canvas.dataset.frameRate = 'auto';
+    delete canvas.dataset.frameSample;
+    updateMovingPointsControl();
   }
 
   function synchronizeBounds() {
@@ -3656,7 +3794,8 @@ CC BY 4.0
     ratio = nextRatio;
     canvas.width = Math.round(width * ratio);
     canvas.height = Math.round(height * ratio);
-    buildGraph();
+    const expectedNodeCount = root.clientWidth <= 700 ? 160 : width < 650 ? 112 : 156;
+    if (nodes.length !== expectedNodeCount) buildGraph();
     paint();
   }
 
@@ -3695,6 +3834,7 @@ CC BY 4.0
   function advance(delta) {
     nodes.forEach(node => { node.pulse *= Math.exp(-delta * 2.6); });
     for (const packet of packets) {
+      if (packet.id >= movingPointCount) continue;
       let travel = delta * packet.speed;
       while (travel > 0) {
         const length = Math.max(0.001, distance(nodes[packet.from], nodes[packet.to]));
@@ -3723,15 +3863,6 @@ CC BY 4.0
         }
       }
     }
-  }
-
-  function glow(x, y, radius, alpha, colorIndex = null) {
-    if (alpha < 0.002 || x + radius < 0 || x - radius > width || y + radius < 0 || y - radius > height) return;
-    const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
-    gradient.addColorStop(0, rgba(alpha, colorIndex));
-    gradient.addColorStop(1, rgba(0, colorIndex));
-    context.fillStyle = gradient;
-    context.fillRect(x - radius, y - radius, radius * 2, radius * 2);
   }
 
   function circle(x, y, radius, alpha, colorIndex = null) {
@@ -3816,7 +3947,7 @@ CC BY 4.0
       context.stroke();
     }
     for (const packet of packets) {
-      if (packet.colorIndex === null) continue;
+      if (packet.id >= movingPointCount || packet.colorIndex === null) continue;
       const a = projected[packet.from], b = projected[packet.to];
       const depth = (a.depth + b.depth) / 2;
       const opacity = Math.sqrt(nodes[packet.from].opacity * nodes[packet.to].opacity);
@@ -3831,15 +3962,20 @@ CC BY 4.0
       const pulse = nodes[point.index].pulse;
       circle(point.x, point.y, 0.8 + point.depth * 1.05 + pulse * 0.5, point.opacity * ((dark ? 0.12 : 0.085) + point.depth * (dark ? 0.40 : 0.34) + pulse * 0.15));
     });
+    const trailDuration = movingPointCount > 48 ? 0.7 : 1.35;
+    const trailSampleLimit = Math.max(3, Math.min(40, Math.floor(1600 / Math.max(1, movingPointCount))));
+    const trailSampleInterval = Math.max(0.045, trailDuration / trailSampleLimit);
     for (const packet of packets) {
+      if (packet.id >= movingPointCount) continue;
       const point = packetPoint(packet);
       const last = packet.trail[packet.trail.length - 1];
-      if (!last || distance(last, point) > 0.009 || elapsed - last.time >= 0.045) packet.trail.push({ ...point, time: elapsed });
-      while (packet.trail.length && elapsed - packet.trail[0].time > 1.35) packet.trail.shift();
+      const sampleDistance = movingPointCount > 48 ? packet.speed * trailSampleInterval : 0.009;
+      if (!last || distance(last, point) > sampleDistance || elapsed - last.time >= trailSampleInterval) packet.trail.push({ ...point, time: elapsed });
+      while (packet.trail.length && (elapsed - packet.trail[0].time > trailDuration || packet.trail.length > trailSampleLimit)) packet.trail.shift();
       let previousTrail = packet.trail.length ? project(packet.trail[0]) : project(point);
       for (let index = 1; index < packet.trail.length; index++) {
         const a = previousTrail, b = project(packet.trail[index]);
-        const life = clamp(1 - (elapsed - packet.trail[index].time) / 1.35, 0, 1);
+        const life = clamp(1 - (elapsed - packet.trail[index].time) / trailDuration, 0, 1);
         context.beginPath();
         context.moveTo(a.x, a.y);
         context.lineTo(b.x, b.y);
@@ -3855,8 +3991,23 @@ CC BY 4.0
       context.lineWidth = 0.5 + projectedPoint.depth * 0.65;
       context.strokeStyle = rgba(projectedPoint.opacity * (0.15 + projectedPoint.depth * (dark ? 0.52 : 0.40)), packet.colorIndex);
       context.stroke();
-      glow(projectedPoint.x, projectedPoint.y, 4 + projectedPoint.depth * 2, projectedPoint.depth * 0.12 * projectedPoint.opacity, packet.colorIndex);
-      circle(projectedPoint.x, projectedPoint.y, 1.0 + projectedPoint.depth * 1.15, projectedPoint.opacity * (0.25 + projectedPoint.depth * (dark ? 0.56 : 0.46)), packet.colorIndex);
+      const pointVisibility = 0.65 + Math.sqrt(projectedPoint.opacity) * 0.35;
+      const pointRadius = 1.9 + projectedPoint.depth * 0.7;
+      const halo = packet.colorIndex === null ? movingPointHalo : sparkPalette[packet.colorIndex].halo;
+      const haloDiameter = 10 + projectedPoint.depth * 4;
+      if (halo) {
+        context.globalAlpha = 0.16 * pointVisibility / 0.42;
+        context.drawImage(halo, projectedPoint.x - haloDiameter / 2, projectedPoint.y - haloDiameter / 2, haloDiameter, haloDiameter);
+        context.globalAlpha = 1;
+      }
+      circle(projectedPoint.x, projectedPoint.y, pointRadius, (dark ? 0.86 : 0.96) * pointVisibility, packet.colorIndex);
+      if (!dark && packet.colorIndex !== null) {
+        context.beginPath();
+        context.arc(projectedPoint.x, projectedPoint.y, pointRadius, 0, Math.PI * 2);
+        context.lineWidth = 0.5;
+        context.strokeStyle = sparkPalette[packet.colorIndex].outline;
+        context.stroke();
+      }
     }
     drawSparks(projected);
   }
@@ -3872,6 +4023,7 @@ CC BY 4.0
     sampleFrames++;
     if (time - sampleStart >= 1000) {
       canvas.dataset.frameRate = String(Math.round(sampleFrames * 1000 / (time - sampleStart)));
+      canvas.dataset.frameSample = String(Math.round(time));
       sampleStart = time;
       sampleFrames = 0;
     }
@@ -3896,6 +4048,7 @@ CC BY 4.0
   if (publications) boundsObserver.observe(publications);
   window.addEventListener('resize', scheduleBounds);
   window.addEventListener('pageshow', scheduleBounds);
+  window.addEventListener('pageshow', () => setMovingPointCount(defaultMovingPointCount));
   if (document.fonts) document.fonts.ready.then(scheduleBounds);
   new IntersectionObserver(entries => {
     visible = entries[0].isIntersecting;
@@ -3907,6 +4060,7 @@ CC BY 4.0
   }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   document.addEventListener('visibilitychange', synchronizeMotion);
   reducedMotion.addEventListener('change', synchronizeMotion);
+  movingPointsInput?.addEventListener('input', () => setMovingPointCount(movingPointsInput.value));
   synchronizePalette();
   synchronizeBounds();
   resize();
