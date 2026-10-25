@@ -277,6 +277,11 @@ html[data-theme] .year-badge {
   --summary-border: var(--border);
 }
 
+.theme-icon path,
+.theme-icon circle {
+  stroke-width: 1.2;
+}
+
 .socials {
   gap: 8px;
 }
