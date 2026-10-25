@@ -170,10 +170,6 @@ html[data-theme] .resource-card:hover {
   line-height: 1.65 !important;
 }
 
-.compact-grid .resource-card h4 {
-  font-size: 0.9375rem !important;
-}
-
 .colles-grid .resource-card {
   height: auto !important;
   min-height: 76px !important;
