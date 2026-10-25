@@ -2404,12 +2404,13 @@ a.pdf-link:hover {
 
 .about-section #graph-preview {
   position: absolute;
-  inset: 8px auto auto calc((var(--graph-bleed) + var(--graph-sidebar-bleed)) * -1);
+  inset: var(--graph-top, -72px) auto auto calc((var(--graph-bleed) + var(--graph-sidebar-bleed)) * -1);
   width: calc(100% + var(--graph-bleed) * 2 + var(--graph-sidebar-bleed));
-  height: var(--graph-height, calc(100% + 200px));
+  height: var(--graph-height, calc(100% + 400px));
   z-index: 0;
   pointer-events: none;
-  clip-path: ellipse(50% 50% at 50% 50%);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 32px, #000 calc(100% - 96px), transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 32px, #000 calc(100% - 96px), transparent);
 }
 
 .about-section .section-title,
@@ -2425,17 +2426,11 @@ a.pdf-link:hover {
 
 @media (min-width: 701px) {
   .about-section {
-    --graph-sidebar-bleed: calc(var(--sidebar-w) * 0.5);
+    --graph-sidebar-bleed: var(--sidebar-w);
   }
 
   .sidebar {
     background: transparent;
-  }
-}
-
-@media (max-width: 700px) {
-  .about-section #graph-preview {
-    clip-path: inset(0);
   }
 }
 </style>
@@ -3535,7 +3530,7 @@ CC BY 4.0
 
   function buildGraph() {
     const mobile = root.clientWidth <= 700;
-    const count = mobile ? 128 : width < 650 ? 96 : 120;
+    const count = mobile ? 160 : width < 650 ? 112 : 156;
     nodes = [];
     edges = [];
     neighbors = [];
@@ -3543,9 +3538,11 @@ CC BY 4.0
       const angle = random(attempt * 3 + 211) * Math.PI * 2;
       const vertical = random(attempt * 3 + 317) * 2 - 1;
       const radialSeed = random(attempt * 3 + 419);
-      const radial = attempt % 3 === 0 ? 0.96 + radialSeed * 0.04 : Math.cbrt(radialSeed);
+      const variation = 1 + Math.sin(angle * 3 + vertical * 2.4) * 0.12 + Math.cos(angle * 5 - vertical * 3.1) * 0.10;
+      const radial = (0.12 + Math.pow(radialSeed, 0.62) * 1.1) * variation;
       const horizontal = Math.sqrt(1 - vertical * vertical);
-      const point = { x: Math.cos(angle) * horizontal * radial, y: vertical * radial, z: Math.sin(angle) * horizontal * radial, pulse: 0 };
+      const opacity = Math.max(0.03, Math.pow(1 - clamp((radial - 0.6) / 0.95, 0, 1), 1.25));
+      const point = { x: Math.cos(angle) * horizontal * radial, y: vertical * radial, z: Math.sin(angle) * horizontal * radial, pulse: 0, opacity };
       if (nodes.some(node => distance(node, point) < 0.19)) continue;
       nodes.push(point);
     }
@@ -3556,7 +3553,7 @@ CC BY 4.0
       const key = `${Math.min(a, b)}:${Math.max(a, b)}`;
       if (connectedEdges.has(key)) return;
       connectedEdges.add(key);
-      edges.push({ a, b });
+      edges.push({ a, b, opacity: Math.sqrt(nodes[a].opacity * nodes[b].opacity) });
       neighbors[a].push(b);
       neighbors[b].push(a);
     }
@@ -3605,9 +3602,9 @@ CC BY 4.0
     canvas.dataset.colors = '1';
     canvas.dataset.dimensions = '3';
     canvas.dataset.scope = 'about-publications';
-    canvas.dataset.distribution = 'random-oval-volume';
+    canvas.dataset.distribution = 'irregular-diffuse-volume';
     canvas.dataset.horizontalFocus = 'center';
-    canvas.dataset.framing = mobile ? 'wide-mobile' : 'wide-oval';
+    canvas.dataset.framing = mobile ? 'wide-mobile' : 'diffuse-network';
     canvas.dataset.frameRate = 'auto';
   }
 
@@ -3615,12 +3612,14 @@ CC BY 4.0
     boundsFrame = 0;
     const aboutBounds = section.getBoundingClientRect();
     const boundary = firstPublicationTitle || publications?.querySelector('.section-title');
-    const bottom = boundary ? boundary.getBoundingClientRect().top - aboutBounds.top - 8 : aboutBounds.height + 160;
-    const nextHeight = `${Math.round(Math.max(260, bottom - 8) * 100) / 100}px`;
+    const top = root.clientWidth <= 700 ? -48 : -72;
+    const bottom = boundary ? boundary.getBoundingClientRect().top - aboutBounds.top + 120 : aboutBounds.height + 280;
+    const nextHeight = `${Math.round(Math.max(320, bottom - top) * 100) / 100}px`;
+    section.style.setProperty('--graph-top', `${top}px`);
     if (section.style.getPropertyValue('--graph-height') !== nextHeight) {
       section.style.setProperty('--graph-height', nextHeight);
     }
-    canvas.dataset.boundary = 'about-first-publication';
+    canvas.dataset.boundary = 'about-publications-soft';
   }
 
   function scheduleBounds() {
@@ -3649,13 +3648,13 @@ CC BY 4.0
     const cx = Math.cos(pitch), sx = Math.sin(pitch);
     const cr = Math.cos(roll), sr = Math.sin(roll);
     const cameraDistance = 3.8;
-    const perspectiveFit = Math.sqrt(1 - 1 / (cameraDistance * cameraDistance));
+    const perspectiveScale = Math.sqrt(1 - 1 / (cameraDistance * cameraDistance));
     const verticalRadius = Math.max(10, height / 2 - 14);
     const horizontalRadius = root.clientWidth <= 700
       ? Math.max(width / 2 - 14, verticalRadius * 1.12)
       : Math.max(10, width / 2 - 14);
-    const radiusX = horizontalRadius * perspectiveFit;
-    const radiusY = verticalRadius * perspectiveFit;
+    const radiusX = horizontalRadius * perspectiveScale;
+    const radiusY = verticalRadius * perspectiveScale;
     return point => {
       const y1 = point.y * cx - point.z * sx;
       const z1 = point.y * sx + point.z * cx;
@@ -3664,13 +3663,13 @@ CC BY 4.0
       const x3 = x2 * cr - y1 * sr;
       const y3 = x2 * sr + y1 * cr;
       const perspective = cameraDistance / (cameraDistance - z2);
-      return { x: width / 2 + x3 * radiusX * perspective, y: height / 2 + y3 * radiusY * perspective, depth: clamp((z2 + 1) / 2, 0, 1), z: z2 };
+      return { x: width / 2 + x3 * radiusX * perspective, y: height / 2 + y3 * radiusY * perspective, depth: clamp((z2 + 1) / 2, 0, 1), z: z2, opacity: point.opacity };
     };
   }
 
   function packetPoint(packet) {
     const a = nodes[packet.from], b = nodes[packet.to];
-    return { x: a.x + (b.x - a.x) * packet.progress, y: a.y + (b.y - a.y) * packet.progress, z: a.z + (b.z - a.z) * packet.progress };
+    return { x: a.x + (b.x - a.x) * packet.progress, y: a.y + (b.y - a.y) * packet.progress, z: a.z + (b.z - a.z) * packet.progress, opacity: a.opacity + (b.opacity - a.opacity) * packet.progress };
   }
 
   function advance(delta) {
@@ -3690,7 +3689,7 @@ CC BY 4.0
           packet.previous = previous;
           nodes[packet.from].pulse = 1;
           const vertex = nodes[packet.from];
-          packet.trail.push({ x: vertex.x, y: vertex.y, z: vertex.z, time: elapsed - travel / packet.speed });
+          packet.trail.push({ x: vertex.x, y: vertex.y, z: vertex.z, opacity: vertex.opacity, time: elapsed - travel / packet.speed });
           packet.hops++;
           packet.to = chooseNext(packet.from, previous, packet);
           packet.progress = 0;
@@ -3736,13 +3735,13 @@ CC BY 4.0
       context.moveTo(a.x, a.y);
       context.lineTo(b.x, b.y);
       context.lineWidth = 0.45 + edge.depth * 0.35;
-      context.strokeStyle = rgba((dark ? 0.04 : 0.025) + edge.depth * (dark ? 0.125 : 0.10) + pulse * 0.025);
+      context.strokeStyle = rgba(edge.opacity * ((dark ? 0.04 : 0.025) + edge.depth * (dark ? 0.125 : 0.10) + pulse * 0.025));
       context.stroke();
     }
     projected.slice().sort((a, b) => a.depth - b.depth).forEach(point => {
       const pulse = nodes[point.index].pulse;
-      if (pulse > 0.03) glow(point.x, point.y, 3 + pulse * 4, pulse * point.depth * 0.11);
-      circle(point.x, point.y, 0.8 + point.depth * 1.05 + pulse * 0.5, (dark ? 0.12 : 0.085) + point.depth * (dark ? 0.40 : 0.34) + pulse * 0.15);
+      if (pulse > 0.03) glow(point.x, point.y, 3 + pulse * 4, pulse * point.depth * 0.11 * point.opacity);
+      circle(point.x, point.y, 0.8 + point.depth * 1.05 + pulse * 0.5, point.opacity * ((dark ? 0.12 : 0.085) + point.depth * (dark ? 0.40 : 0.34) + pulse * 0.15));
     });
     for (const packet of packets) {
       const point = packetPoint(packet);
@@ -3757,7 +3756,7 @@ CC BY 4.0
         context.moveTo(a.x, a.y);
         context.lineTo(b.x, b.y);
         context.lineWidth = 0.5 + b.depth * 0.65;
-        context.strokeStyle = rgba(life * life * (0.15 + b.depth * (dark ? 0.52 : 0.40)));
+        context.strokeStyle = rgba(life * life * b.opacity * (0.15 + b.depth * (dark ? 0.52 : 0.40)));
         context.stroke();
         previousTrail = b;
       }
@@ -3766,10 +3765,10 @@ CC BY 4.0
       context.moveTo(previousTrail.x, previousTrail.y);
       context.lineTo(projectedPoint.x, projectedPoint.y);
       context.lineWidth = 0.5 + projectedPoint.depth * 0.65;
-      context.strokeStyle = rgba(0.15 + projectedPoint.depth * (dark ? 0.52 : 0.40));
+      context.strokeStyle = rgba(projectedPoint.opacity * (0.15 + projectedPoint.depth * (dark ? 0.52 : 0.40)));
       context.stroke();
-      glow(projectedPoint.x, projectedPoint.y, 4 + projectedPoint.depth * 2, projectedPoint.depth * 0.12);
-      circle(projectedPoint.x, projectedPoint.y, 1.0 + projectedPoint.depth * 1.15, 0.25 + projectedPoint.depth * (dark ? 0.56 : 0.46));
+      glow(projectedPoint.x, projectedPoint.y, 4 + projectedPoint.depth * 2, projectedPoint.depth * 0.12 * projectedPoint.opacity);
+      circle(projectedPoint.x, projectedPoint.y, 1.0 + projectedPoint.depth * 1.15, projectedPoint.opacity * (0.25 + projectedPoint.depth * (dark ? 0.56 : 0.46)));
     }
   }
 
