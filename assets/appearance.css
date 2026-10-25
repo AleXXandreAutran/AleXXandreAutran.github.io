@@ -211,6 +211,30 @@ html[data-theme="light"] .profile-links .profile-link {
   text-align: left;
 }
 
+#resources .resource-group {
+  margin-top: 28px !important;
+}
+
+#resources .resource-subhead,
+#resources .other-docs {
+  padding-bottom: 8px;
+  margin-bottom: 13px;
+}
+
+#resources .other-docs {
+  margin-top: 28px !important;
+}
+
+#resources .master-course-intro,
+#resources .section-intro,
+#resources .other-intro {
+  margin: 0 0 18px !important;
+}
+
+#resources .other-intro + .resource-group {
+  margin-top: 0 !important;
+}
+
 .about-copy a,
 .timeline-content a,
 .resource-card a,
