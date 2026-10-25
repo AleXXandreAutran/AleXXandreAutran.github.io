@@ -375,3 +375,26 @@ a:focus,
 a:active {
   text-decoration: none !important;
 }
+
+a.pdf-link,
+.research-publication-line a.research-paper-link,
+.resource-card a.pdf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin: 0;
+  padding: 0.35rem 0.75rem;
+  border: 0;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--link) 8%, var(--bg));
+  color: var(--link);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: none !important;
+}
+
+a.pdf-link:hover {
+  background: color-mix(in srgb, var(--link) 14%, var(--bg));
+}
