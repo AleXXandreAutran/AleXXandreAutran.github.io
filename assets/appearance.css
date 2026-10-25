@@ -57,9 +57,8 @@ body {
 }
 
 .content {
-  --content-heading-ratio: 2.25;
-  --content-font-scale: calc(var(--name-font-ratio) / var(--content-heading-ratio));
-  font-size: calc(1rem * var(--content-font-scale));
+  --content-font-scale: 1;
+  font-size: 1rem;
 }
 
 .content .research-number {
@@ -82,7 +81,7 @@ body {
 }
 
 .section-title {
-  font-size: calc(1rem * var(--content-heading-ratio, 2.25) * var(--content-font-scale, 1));
+  font-size: calc(1rem * var(--name-font-ratio));
 }
 
 .resource-subhead h3 {
@@ -101,12 +100,6 @@ body {
 @media (min-width: 701px) and (max-width: 1050px) {
   :root {
     --name-font-ratio: 1.4375;
-  }
-}
-
-@media (max-width: 700px) {
-  .content {
-    --content-heading-ratio: 1.875;
   }
 }
 
@@ -194,7 +187,7 @@ html[data-theme] .resource-card:hover {
 .resource-card h4,
 .resource-card p,
 .resource-card .course-author {
-  font-size: calc(0.9375rem * var(--content-font-scale, 1)) !important;
+  font-size: calc(1rem * var(--content-font-scale, 1)) !important;
   line-height: 1.65 !important;
 }
 
@@ -289,6 +282,10 @@ html[data-theme] .year-badge {
   --summary-surface: var(--bg);
   --summary-text: var(--text);
   --summary-border: var(--border);
+}
+
+#research .research-summary-panel {
+  font-size: 1rem;
 }
 
 .theme-icon path,
