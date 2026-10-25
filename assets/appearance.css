@@ -276,3 +276,90 @@ html[data-theme] .year-badge {
   --summary-text: var(--text);
   --summary-border: var(--border);
 }
+
+.socials {
+  gap: 8px;
+}
+
+.socials .social-button {
+  position: relative;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  padding: 0 !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  color: var(--link) !important;
+  overflow: visible !important;
+  transition: background 160ms ease, border-color 160ms ease !important;
+}
+
+.socials .social-button:hover {
+  border-color: var(--link) !important;
+  background: color-mix(in srgb, var(--link) 8%, var(--bg)) !important;
+  filter: none !important;
+}
+
+.socials .social-button:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+}
+
+.socials .social-button svg,
+.socials .social-button .scholar-logo,
+.socials .social-button .linkedin-logo {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  max-width: 20px !important;
+  max-height: 20px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  object-fit: contain !important;
+  transform: none;
+}
+
+.socials .social-button.email svg path {
+  stroke-width: 1.7 !important;
+}
+
+.socials .social-button.cv .icon-letters {
+  width: auto !important;
+  height: auto !important;
+  background: transparent !important;
+  color: inherit !important;
+  border-radius: 0 !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  letter-spacing: normal;
+}
+
+@media (pointer: coarse) {
+  .socials {
+    gap: 10px;
+  }
+
+  .socials .social-button {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+  }
+
+  .socials .social-button::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .socials .social-button {
+    transition: none !important;
+  }
+}
