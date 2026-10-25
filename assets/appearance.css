@@ -153,6 +153,60 @@ a {
   text-align-last: left;
 }
 
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.profile-links .profile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 96%, var(--text));
+  color: var(--text);
+  font-size: calc(1rem * var(--content-font-scale, 1));
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-decoration: none !important;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+html[data-theme="light"] .profile-links .profile-link {
+  background: #fcfbf8;
+}
+
+.profile-links .profile-link svg {
+  display: block;
+  flex: 0 0 19px;
+  width: 19px;
+  height: 19px;
+}
+
+.profile-links .profile-link:hover {
+  border-color: var(--link);
+  color: var(--link);
+}
+
+.profile-links .profile-link:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-links .profile-link {
+    transition: none;
+  }
+}
+
 .resource-group .section-intro {
   text-align: left;
 }
@@ -448,8 +502,8 @@ a.pdf-link:hover {
 @media (hover: hover) {
   .side-nav a:hover,
   .about-copy a[href^="#"]:hover,
-  a[href^="mailto:"]:not(.social-button):hover,
-  a[href^="http"]:not([href^="https://alexxandreautran.github.io/"]):not([href^="http://alexxandreautran.github.io/"]):not([href="https://alexxandreautran.github.io"]):not([href="http://alexxandreautran.github.io"]):not(.pdf-link):not(.research-paper-link):not(.social-button):hover {
+  a[href^="mailto:"]:not(.social-button):not(.profile-link):hover,
+  a[href^="http"]:not([href^="https://alexxandreautran.github.io/"]):not([href^="http://alexxandreautran.github.io/"]):not([href="https://alexxandreautran.github.io"]):not([href="http://alexxandreautran.github.io"]):not(.pdf-link):not(.research-paper-link):not(.social-button):not(.profile-link):hover {
     text-decoration-line: underline !important;
     text-decoration-thickness: 1px !important;
     text-underline-offset: 0.2em;
