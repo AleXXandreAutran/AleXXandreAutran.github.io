@@ -2425,47 +2425,44 @@ a.pdf-link:hover {
   z-index: 1;
 }
 
-.profile-tools {
+.display-controls {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
+  width: 100%;
   max-width: 100%;
+  margin-top: auto;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.display-controls #themeModeToggle {
+  margin: 0;
 }
 
 .network-controls {
-  display: inline-flex;
+  position: relative;
+  display: flex;
   align-items: center;
-  gap: 8px;
   max-width: 100%;
   margin: 0;
-  padding: 0.5rem 0.7rem;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--bg) 96%, var(--text));
-  color: var(--text);
-  font-size: calc(1rem * var(--content-font-scale, 1));
-  font-weight: 400;
-  line-height: 1.4;
-  transition: border-color 160ms ease;
-}
-
-html[data-theme="light"] .network-controls {
-  background: #fcfbf8;
-}
-
-.network-controls:hover,
-.network-controls:focus-within {
-  border-color: var(--link);
+  padding: 0;
+  background: transparent;
 }
 
 .network-controls label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
   white-space: nowrap;
 }
 
 .network-controls input[type="range"] {
-  width: 56px;
-  height: 20px;
+  width: 132px;
+  height: 28px;
   margin: 0;
   background: transparent;
   cursor: ew-resize;
@@ -2485,20 +2482,20 @@ html[data-theme="light"] .network-controls {
 }
 
 .network-controls input[type="range"]::-webkit-slider-runnable-track {
-  height: 1px;
+  height: 2px;
   background: var(--link);
 }
 
 .network-controls input[type="range"]::-moz-range-track {
-  height: 1px;
+  height: 2px;
   background: var(--link);
 }
 
 .network-controls input[type="range"]::-webkit-slider-thumb {
-  width: 9px;
-  height: 9px;
-  margin-top: -4px;
-  border: 1.5px solid var(--link);
+  width: 12px;
+  height: 12px;
+  margin-top: -5px;
+  border: 2px solid var(--link);
   border-radius: 50%;
   background: var(--bg);
   -webkit-appearance: none;
@@ -2506,9 +2503,9 @@ html[data-theme="light"] .network-controls {
 }
 
 .network-controls input[type="range"]::-moz-range-thumb {
-  width: 9px;
-  height: 9px;
-  border: 1.5px solid var(--link);
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--link);
   border-radius: 50%;
   background: var(--bg);
 }
@@ -2523,12 +2520,11 @@ html[data-theme="light"] .network-controls {
 
 @media (pointer: coarse) {
   .network-controls input[type="range"] {
-    height: 28px;
+    height: 32px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .network-controls,
   .network-controls input[type="range"] {
     transition: none;
   }
@@ -2584,6 +2580,13 @@ html[data-theme="light"] .network-controls {
 <a href="#pictures">Photographs</a>
 </nav>
 
+
+
+<div class="display-controls" role="group" aria-label="Display controls">
+<div class="network-controls">
+<label for="movingPointsRange">Moving points</label>
+<input id="movingPointsRange" type="range" min="0" max="50" step="1" value="5">
+</div>
 <button class="theme-toggle" id="themeModeToggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
 <span class="theme-icon moon-icon" aria-hidden="true">
 <svg viewBox="0 0 24 24" fill="none">
@@ -2598,8 +2601,11 @@ html[data-theme="light"] .network-controls {
 </svg>
 </span>
 </button>
+</div>
 
 </aside>
+
+
 
 <button class="mobile-menu" id="mobileMenu" aria-controls="sidebar" aria-expanded="false">Menu</button>
 
@@ -2655,7 +2661,6 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
 <span>Google Scholar</span>
 </a>
 
-<div class="profile-tools">
 <a class="profile-link" href="https://fr.linkedin.com/in/alexandre-autran-85279931b/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
 <svg class="linkedin-logo" viewBox="0 0 24 24" aria-hidden="true">
 
@@ -2663,13 +2668,6 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
 </svg>
 <span>LinkedIn</span>
 </a>
-
-<div class="network-controls">
-<label for="movingPointsRange">numbers of points</label>
-<input id="movingPointsRange" type="range" min="0" max="50" step="1" value="10">
-</div>
-
-</div>
 </div>
 
 </div>
@@ -3590,7 +3588,7 @@ CC BY 4.0
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const movingPointsInput = document.getElementById('movingPointsRange');
   const movingPointLimit = 50;
-  const defaultMovingPointCount = 10;
+  const defaultMovingPointCount = 5;
   const sparkPalette = [
     { color: '#f2b26e', rgb: '242, 178, 110', outline: 'rgba(176, 97, 26, 0.45)' },
     { color: '#c4a5f0', rgb: '196, 165, 240', outline: 'rgba(123, 79, 174, 0.45)' },
@@ -3657,7 +3655,7 @@ CC BY 4.0
     if (movingPointsInput) {
       movingPointsInput.max = String(maxMovingPoints);
       movingPointsInput.value = String(movingPointCount);
-      movingPointsInput.title = 'numbers of points';
+      movingPointsInput.removeAttribute('title');
       movingPointsInput.setAttribute('aria-valuetext', `${movingPointCount} moving points`);
     }
   }
