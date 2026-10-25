@@ -403,6 +403,9 @@ a.pdf-link:hover {
 }
 
 @media (hover: hover) {
+  .side-nav a:hover,
+  .about-copy a[href^="#"]:hover,
+  a[href^="mailto:"]:not(.social-button):hover,
   a[href^="http"]:not([href^="https://alexxandreautran.github.io/"]):not([href^="http://alexxandreautran.github.io/"]):not([href="https://alexxandreautran.github.io"]):not([href="http://alexxandreautran.github.io"]):not(.pdf-link):not(.research-paper-link):not(.social-button):hover {
     text-decoration-line: underline !important;
     text-decoration-thickness: 1px !important;
