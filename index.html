@@ -2408,7 +2408,7 @@ a.pdf-link:hover {
   width: calc(100% + var(--graph-bleed) * 2 + var(--graph-sidebar-bleed));
   height: var(--graph-height, calc(100% + 400px));
   z-index: 0;
-  opacity: 0.95;
+  opacity: 0.97;
   pointer-events: none;
   -webkit-mask-image: linear-gradient(180deg, transparent, #000 32px, #000 calc(100% - 96px), transparent);
   mask-image: linear-gradient(180deg, transparent, #000 32px, #000 calc(100% - 96px), transparent);
@@ -2624,7 +2624,7 @@ in the <a href="https://math.ens-rennes.fr/" target="_blank" rel="noopener">Depa
 </p>
 
 <p>
-I am interested in probability, statistics, and optimization, particularly their applications to machine learning, time-series modeling, and quantitative analysis. I enjoy understanding the theoretical foundations of these fields while also exploring their numerical and computational aspects. My current interests also include graph learning and generative models.
+I am interested in probability, statistics, and optimization, particularly their applications to machine learning, time-series analysis, and quantitative finance. I enjoy understanding the theoretical foundations of these fields while also exploring their numerical and computational aspects. My current interests also include graph learning and generative models.
 </p>
 
 <p>
@@ -3596,6 +3596,7 @@ CC BY 4.0
     { color: '#92b4ff', rgb: '146, 180, 255', outline: 'rgba(47, 95, 179, 0.45)' }
   ].map(color => ({ ...color, halo: createSparkHalo(color.rgb) }));
   const sparkDuration = 0.9;
+  const pointSizeScale = 0.85;
   let width = 0;
   let height = 0;
   let ratio = 1;
@@ -3918,7 +3919,7 @@ CC BY 4.0
       const attack = Math.min(1, age / 0.025);
       const fade = age <= 0.1 ? 1 : Math.pow((sparkDuration - age) / (sparkDuration - 0.1), 1.05);
       const energy = attack * fade * (0.85 + point.depth * 0.15) * (0.5 + Math.sqrt(point.opacity) * 0.5);
-      const diameter = 14 + life * 9;
+      const diameter = (14 + life * 9) * pointSizeScale;
       if (energy < 0.01 || point.x + diameter < 0 || point.x - diameter > width || point.y + diameter < 0 || point.y - diameter > height) continue;
       count++;
       const color = sparkPalette[node.sparkColorIndex];
@@ -3926,7 +3927,7 @@ CC BY 4.0
       if (color.halo) context.drawImage(color.halo, point.x - diameter / 2, point.y - diameter / 2, diameter, diameter);
       context.globalAlpha = Math.min(1, energy * 0.85);
       context.beginPath();
-      context.arc(point.x, point.y, 1.1 + (1 - life) * 1.0 + point.depth * 0.2, 0, Math.PI * 2);
+      context.arc(point.x, point.y, (1.1 + (1 - life) * 1.0 + point.depth * 0.2) * pointSizeScale, 0, Math.PI * 2);
       context.fillStyle = color.color;
       context.fill();
       if (!dark) {
@@ -3979,7 +3980,7 @@ CC BY 4.0
     }
     projected.slice().sort((a, b) => a.depth - b.depth).forEach(point => {
       const pulse = nodes[point.index].pulse;
-      circle(point.x, point.y, 0.8 + point.depth * 1.05 + pulse * 0.5, point.opacity * ((dark ? 0.12 : 0.085) + point.depth * (dark ? 0.40 : 0.34) + pulse * 0.15));
+      circle(point.x, point.y, (0.8 + point.depth * 1.05 + pulse * 0.5) * pointSizeScale, point.opacity * ((dark ? 0.12 : 0.085) + point.depth * (dark ? 0.40 : 0.34) + pulse * 0.15));
     });
     const trailDuration = movingPointCount > 64 ? 0.7 : 1.35;
     const trailSampleLimit = Math.max(3, Math.min(40, Math.floor(1600 / Math.max(1, movingPointCount))));
@@ -4011,9 +4012,9 @@ CC BY 4.0
       context.strokeStyle = rgba(projectedPoint.opacity * (0.15 + projectedPoint.depth * (dark ? 0.52 : 0.40)), packet.colorIndex);
       context.stroke();
       const pointVisibility = 0.65 + Math.sqrt(projectedPoint.opacity) * 0.35;
-      const pointRadius = 1.9 + projectedPoint.depth * 0.7;
+      const pointRadius = (1.9 + projectedPoint.depth * 0.7) * pointSizeScale;
       const halo = packet.colorIndex === null ? movingPointHalo : sparkPalette[packet.colorIndex].halo;
-      const haloDiameter = 10 + projectedPoint.depth * 4;
+      const haloDiameter = (10 + projectedPoint.depth * 4) * pointSizeScale;
       if (halo) {
         context.globalAlpha = 0.16 * pointVisibility / 0.42;
         context.drawImage(halo, projectedPoint.x - haloDiameter / 2, projectedPoint.y - haloDiameter / 2, haloDiameter, haloDiameter);
