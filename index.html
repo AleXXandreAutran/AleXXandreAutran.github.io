@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -2585,9 +2585,9 @@ a.pdf-link:hover {
 <div class="display-controls" role="group" aria-label="Display controls">
 <div class="network-controls">
 <label for="movingPointsRange">Moving points</label>
-<input id="movingPointsRange" type="range" min="0" max="50" step="1" value="5">
+<input id="movingPointsRange" type="range" min="0" max="50" step="1" value="15">
 </div>
-<button class="theme-toggle" id="themeModeToggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+<button class="theme-toggle" id="themeModeToggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
 <span class="theme-icon moon-icon" aria-hidden="true">
 <svg viewBox="0 0 24 24" fill="none">
 <path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.6 8.6 0 1 0 20.2 15.1Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -3588,13 +3588,26 @@ CC BY 4.0
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const movingPointsInput = document.getElementById('movingPointsRange');
   const movingPointLimit = 50;
-  const defaultMovingPointCount = 5;
-  const sparkPalette = [
-    { color: '#f2b26e', rgb: '242, 178, 110', outline: 'rgba(176, 97, 26, 0.45)' },
-    { color: '#c4a5f0', rgb: '196, 165, 240', outline: 'rgba(123, 79, 174, 0.45)' },
-    { color: '#6fd1c8', rgb: '111, 209, 200', outline: 'rgba(23, 128, 122, 0.45)' },
-    { color: '#92b4ff', rgb: '146, 180, 255', outline: 'rgba(47, 95, 179, 0.45)' }
-  ].map(color => ({ ...color, halo: createSparkHalo(color.rgb) }));
+  const defaultMovingPointCount = 15;
+  const movingPointSpeedScale = 0.9;
+  const sparkPalettes = {
+    dark: [
+      { color: '#f2b26e', rgb: '242, 178, 110', outline: 'rgba(176, 97, 26, 0.45)' },
+      { color: '#c4a5f0', rgb: '196, 165, 240', outline: 'rgba(123, 79, 174, 0.45)' },
+      { color: '#6fd1c8', rgb: '111, 209, 200', outline: 'rgba(23, 128, 122, 0.45)' },
+      { color: '#92b4ff', rgb: '146, 180, 255', outline: 'rgba(47, 95, 179, 0.45)' }
+    ],
+    light: [
+      { color: '#b0611a', rgb: '176, 97, 26', outline: 'rgba(176, 97, 26, 0.45)' },
+      { color: '#7b4fae', rgb: '123, 79, 174', outline: 'rgba(123, 79, 174, 0.45)' },
+      { color: '#17807a', rgb: '23, 128, 122', outline: 'rgba(23, 128, 122, 0.45)' },
+      { color: '#2f5fb3', rgb: '47, 95, 179', outline: 'rgba(47, 95, 179, 0.45)' }
+    ]
+  };
+  Object.values(sparkPalettes).forEach(palette => {
+    palette.forEach(color => { color.halo = createSparkHalo(color.rgb); });
+  });
+  let sparkPalette = sparkPalettes.dark;
   const sparkDuration = 0.9;
   const movingPointSizeScale = 0.85;
   let width = 0;
@@ -3640,6 +3653,9 @@ CC BY 4.0
       ink = [0, 2, 4].map(offset => parseInt(hex.slice(offset, offset + 2), 16)).join(', ');
     }
     dark = root.dataset.theme === 'dark';
+    sparkPalette = dark ? sparkPalettes.dark : sparkPalettes.light;
+    canvas.dataset.sparkPalette = sparkPalette.map(color => color.color).join(',');
+    canvas.dataset.paletteMode = dark ? 'dark' : 'light';
     movingPointHalo = createSparkHalo(ink);
   }
 
@@ -3759,7 +3775,7 @@ CC BY 4.0
     }
     packets = launchEdges.slice(0, maxMovingPoints).map((edge, id) => {
       const reversed = Math.random() < 0.5;
-      return { id, from: reversed ? edge.b : edge.a, previous: -1, to: reversed ? edge.a : edge.b, hops: id + 1, direction: id % 2 ? -1 : 1, progress: Math.random(), speed: 0.17 + random(id + 617) * 0.035, colorIndex: null, trail: [], launchKey: `${Math.min(edge.a, edge.b)}:${Math.max(edge.a, edge.b)}` };
+      return { id, from: reversed ? edge.b : edge.a, previous: -1, to: reversed ? edge.a : edge.b, hops: id + 1, direction: id % 2 ? -1 : 1, progress: Math.random(), speed: (0.17 + random(id + 617) * 0.035) * movingPointSpeedScale, colorIndex: null, trail: [], launchKey: `${Math.min(edge.a, edge.b)}:${Math.max(edge.a, edge.b)}` };
     });
     canvas.dataset.style = 'rotating-3d-network';
     canvas.dataset.vertices = String(nodes.length);
