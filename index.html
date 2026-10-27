@@ -3613,7 +3613,8 @@ CC BY 4.0
   });
   let sparkPalette = sparkPalettes.dark;
   const sparkDuration = 0.9;
-  const movingPointSizeScale = 0.85;
+  const edgeVisibilityScale = 1.05;
+  const vertexPointSizeScale = 0.95;
   let width = 0;
   let height = 0;
   let ratio = 1;
@@ -3625,7 +3626,6 @@ CC BY 4.0
   let packets = [];
   let movingPointCount = defaultMovingPointCount;
   let maxMovingPoints = 0;
-  let movingPointHalo = null;
   let elapsed = 0;
   let frame = 0;
   let visible = true;
@@ -3660,7 +3660,6 @@ CC BY 4.0
     sparkPalette = dark ? sparkPalettes.dark : sparkPalettes.light;
     canvas.dataset.sparkPalette = sparkPalette.map(color => color.color).join(',');
     canvas.dataset.paletteMode = dark ? 'dark' : 'light';
-    movingPointHalo = createSparkHalo(ink);
   }
 
   function distance(a, b) {
@@ -3795,7 +3794,8 @@ CC BY 4.0
     canvas.dataset.sparkDuration = String(sparkDuration);
     canvas.dataset.sparkEvents = '0';
     canvas.dataset.trailColorMode = 'whole-path';
-    canvas.dataset.movingPoints = 'visible';
+    canvas.dataset.movingPoints = 'hidden';
+    canvas.dataset.edgeVisibilityScale = String(edgeVisibilityScale);
     canvas.dataset.dimensions = '3';
     canvas.dataset.scope = 'about-publications';
     canvas.dataset.distribution = 'irregular-diffuse-volume';
@@ -3983,7 +3983,7 @@ CC BY 4.0
       context.moveTo(a.x, a.y);
       context.lineTo(b.x, b.y);
       context.lineWidth = 0.45 + edge.depth * 0.35;
-      context.strokeStyle = rgba(edge.opacity * ((dark ? 0.04 : 0.025) + edge.depth * (dark ? 0.125 : 0.10) + pulse * 0.025));
+      context.strokeStyle = rgba(edgeVisibilityScale * edge.opacity * ((dark ? 0.04 : 0.025) + edge.depth * (dark ? 0.125 : 0.10) + pulse * 0.025));
       context.stroke();
     }
     for (const packet of packets) {
@@ -3995,12 +3995,12 @@ CC BY 4.0
       context.moveTo(a.x, a.y);
       context.lineTo(b.x, b.y);
       context.lineWidth = 0.75 + depth * 0.5;
-      context.strokeStyle = rgba(opacity * (0.16 + depth * (dark ? 0.32 : 0.24)), packet.colorIndex);
+      context.strokeStyle = rgba(edgeVisibilityScale * opacity * (0.16 + depth * (dark ? 0.32 : 0.24)), packet.colorIndex);
       context.stroke();
     }
     projected.slice().sort((a, b) => a.depth - b.depth).forEach(point => {
       const pulse = nodes[point.index].pulse;
-      circle(point.x, point.y, 0.8 + point.depth * 1.05 + pulse * 0.5, point.opacity * ((dark ? 0.12 : 0.085) + point.depth * (dark ? 0.40 : 0.34) + pulse * 0.15));
+      circle(point.x, point.y, (0.8 + point.depth * 1.05 + pulse * 0.5) * vertexPointSizeScale, point.opacity * ((dark ? 0.12 : 0.085) + point.depth * (dark ? 0.40 : 0.34) + pulse * 0.15));
     });
     const trailDuration = movingPointCount > 64 ? 0.7 : 1.35;
     const trailSampleLimit = Math.max(3, Math.min(40, Math.floor(1600 / Math.max(1, movingPointCount))));
@@ -4020,7 +4020,7 @@ CC BY 4.0
         context.moveTo(a.x, a.y);
         context.lineTo(b.x, b.y);
         context.lineWidth = 0.5 + b.depth * 0.65;
-        context.strokeStyle = rgba(life * life * b.opacity * (0.15 + b.depth * (dark ? 0.52 : 0.40)), packet.colorIndex);
+        context.strokeStyle = rgba(edgeVisibilityScale * life * life * b.opacity * (0.15 + b.depth * (dark ? 0.52 : 0.40)), packet.colorIndex);
         context.stroke();
         previousTrail = b;
       }
@@ -4029,25 +4029,8 @@ CC BY 4.0
       context.moveTo(previousTrail.x, previousTrail.y);
       context.lineTo(projectedPoint.x, projectedPoint.y);
       context.lineWidth = 0.5 + projectedPoint.depth * 0.65;
-      context.strokeStyle = rgba(projectedPoint.opacity * (0.15 + projectedPoint.depth * (dark ? 0.52 : 0.40)), packet.colorIndex);
+      context.strokeStyle = rgba(edgeVisibilityScale * projectedPoint.opacity * (0.15 + projectedPoint.depth * (dark ? 0.52 : 0.40)), packet.colorIndex);
       context.stroke();
-      const pointVisibility = 0.65 + Math.sqrt(projectedPoint.opacity) * 0.35;
-      const pointRadius = (1.9 + projectedPoint.depth * 0.7) * movingPointSizeScale;
-      const halo = packet.colorIndex === null ? movingPointHalo : sparkPalette[packet.colorIndex].halo;
-      const haloDiameter = (10 + projectedPoint.depth * 4) * movingPointSizeScale;
-      if (halo) {
-        context.globalAlpha = 0.16 * pointVisibility / 0.42;
-        context.drawImage(halo, projectedPoint.x - haloDiameter / 2, projectedPoint.y - haloDiameter / 2, haloDiameter, haloDiameter);
-        context.globalAlpha = 1;
-      }
-      circle(projectedPoint.x, projectedPoint.y, pointRadius, (dark ? 0.86 : 0.96) * pointVisibility, packet.colorIndex);
-      if (!dark && packet.colorIndex !== null) {
-        context.beginPath();
-        context.arc(projectedPoint.x, projectedPoint.y, pointRadius, 0, Math.PI * 2);
-        context.lineWidth = 0.5;
-        context.strokeStyle = sparkPalette[packet.colorIndex].outline;
-        context.stroke();
-      }
     }
     drawSparks(projected);
   }
