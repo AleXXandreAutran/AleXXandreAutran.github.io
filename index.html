@@ -5,6 +5,22 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Alexandre Autran">
 <title>Alexandre Autran's webpage</title>
+<script>
+(() => {
+  let theme = null;
+  try {
+    theme = localStorage.getItem('portfolio-theme');
+  } catch {}
+
+  if (theme !== 'light' && theme !== 'dark') {
+    theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+  }
+
+  document.documentElement.dataset.theme = theme;
+})();
+</script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <style>
 
@@ -2589,7 +2605,7 @@ a.pdf-link:hover {
 <div class="display-controls" role="group" aria-label="Display controls">
 <div class="network-controls">
 <label for="movingPointsRange">Moving points</label>
-<input id="movingPointsRange" type="range" min="0" max="50" step="1" value="15">
+<input id="movingPointsRange" type="range" min="0" max="50" step="1" value="25">
 </div>
 <button class="theme-toggle" id="themeModeToggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
 <span class="theme-icon moon-icon" aria-hidden="true">
