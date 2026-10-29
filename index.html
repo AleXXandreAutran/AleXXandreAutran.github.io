@@ -2461,6 +2461,40 @@ a.pdf-link:hover {
   margin: 0;
 }
 
+.theme-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-system-reset {
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: var(--subtle);
+  font: inherit;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.theme-system-reset[hidden] {
+  display: none;
+}
+
+.theme-system-reset:hover {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.theme-system-reset:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 .network-controls {
   position: relative;
   display: flex;
@@ -2652,6 +2686,7 @@ a.pdf-link:hover {
 <label for="movingPointsRange">Background signals</label>
 </div>
 </div>
+<div class="theme-controls">
 <button class="theme-toggle" id="themeModeToggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
 <span class="theme-icon moon-icon" aria-hidden="true">
 <svg viewBox="0 0 24 24" fill="none">
@@ -2666,6 +2701,8 @@ a.pdf-link:hover {
 </svg>
 </span>
 </button>
+<button class="theme-system-reset" id="themeSystemReset" type="button" hidden>Use system theme</button>
+</div>
 </div>
 
 </aside>
@@ -3494,6 +3531,8 @@ CC BY 4.0
     }
 
     const toggle = document.getElementById('themeModeToggle');
+    const systemReset = document.getElementById('themeSystemReset');
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
     let savedTheme = null;
     try { savedTheme = localStorage.getItem('portfolio-theme'); } catch {}
     if (savedTheme === 'light' || savedTheme === 'dark') {
@@ -3501,6 +3540,9 @@ CC BY 4.0
     }
 
     function updateToggle() {
+        const isManual = savedTheme === 'light' || savedTheme === 'dark';
+        root.dataset.themeSource = isManual ? 'manual' : 'system';
+        if (systemReset) systemReset.hidden = !isManual;
         const isDark = root.getAttribute('data-theme') === 'dark';
         const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
         if (!toggle) return;
@@ -3508,10 +3550,34 @@ CC BY 4.0
         toggle.setAttribute('title', label);
     }
 
+    function followSystemTheme() {
+        if (savedTheme === 'light' || savedTheme === 'dark') return;
+        root.setAttribute('data-theme', systemTheme.matches ? 'dark' : 'light');
+        updateToggle();
+    }
+
+    if (systemTheme.addEventListener) {
+        systemTheme.addEventListener('change', followSystemTheme);
+    } else {
+        systemTheme.addListener(followSystemTheme);
+    }
+    window.addEventListener('pageshow', followSystemTheme);
+    window.addEventListener('focus', followSystemTheme);
+    followSystemTheme();
+
+    if (systemReset) {
+        systemReset.addEventListener('click', () => {
+            savedTheme = null;
+            try { localStorage.removeItem('portfolio-theme'); } catch {}
+            followSystemTheme();
+        });
+    }
+
     if (toggle) {
         toggle.addEventListener('click', () => {
             const isDark = root.getAttribute('data-theme') === 'dark';
             const nextTheme = isDark ? 'light' : 'dark';
+            savedTheme = nextTheme;
             root.setAttribute('data-theme', nextTheme);
             try { localStorage.setItem('portfolio-theme', nextTheme); } catch {}
             updateToggle();
