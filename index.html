@@ -2464,26 +2464,65 @@ a.pdf-link:hover {
 .network-controls {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 2px;
   max-width: 100%;
   margin: 0;
   padding: 0;
   background: transparent;
 }
 
-.network-controls label {
+.network-control-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.network-slider {
+  position: relative;
+  width: 132px;
+  max-width: 100%;
+  margin-top: 20px;
+}
+
+.network-slider output {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
+  left: var(--signal-position, 50%);
+  bottom: calc(50% + 10px);
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg);
+  color: var(--link);
+  font-size: 0.75rem;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 120ms ease, visibility 120ms ease;
+}
+
+.network-slider.is-adjusting output {
+  opacity: 1;
+  visibility: visible;
 }
 
 .network-controls input[type="range"] {
-  width: 132px;
+  display: block;
+  width: 100%;
   height: 28px;
   margin: 0;
+  padding: 0;
   background: transparent;
   cursor: ew-resize;
   opacity: 0.55;
@@ -2545,7 +2584,8 @@ a.pdf-link:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .network-controls input[type="range"] {
+  .network-controls input[type="range"],
+  .network-slider output {
     transition: none;
   }
 }
@@ -2604,8 +2644,13 @@ a.pdf-link:hover {
 
 <div class="display-controls" role="group" aria-label="Display controls">
 <div class="network-controls">
-<label for="movingPointsRange">Moving points</label>
-<input id="movingPointsRange" type="range" min="0" max="50" step="1" value="25">
+<div class="network-slider">
+<output id="movingPointsPercentage" for="movingPointsRange" aria-hidden="true">6%</output>
+<input id="movingPointsRange" type="range" min="0" max="445" step="1" value="25">
+</div>
+<div class="network-control-heading">
+<label for="movingPointsRange">Background signals</label>
+</div>
 </div>
 <button class="theme-toggle" id="themeModeToggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
 <span class="theme-icon moon-icon" aria-hidden="true">
@@ -3607,7 +3652,9 @@ CC BY 4.0
   const root = document.documentElement;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const movingPointsInput = document.getElementById('movingPointsRange');
-  const movingPointLimit = 50;
+  const movingPointsPercentage = document.getElementById('movingPointsPercentage');
+  const movingPointsSlider = movingPointsInput?.closest('.network-slider');
+  let movingPointsPercentageTimer = 0;
   const defaultMovingPointCount = 25;
   const movingPointSpeedScale = 0.9;
   const sparkPalettes = {
@@ -3688,12 +3735,28 @@ CC BY 4.0
     canvas.dataset.initialPlacement = 'uniform-distinct-edges';
     canvas.dataset.edgeProbability = String(edges.length ? movingPointCount / edges.length : 0);
     canvas.dataset.launchSignature = packets.slice(0, Math.min(movingPointCount, 12)).map(packet => packet.launchKey).join('|');
+    const progress = maxMovingPoints ? movingPointCount / maxMovingPoints : 0;
+    const percentage = Math.round(progress * 100);
+    canvas.dataset.signalPercentage = String(percentage);
+    movingPointsSlider?.style.setProperty('--signal-position', `calc(6px + (100% - 12px) * ${progress})`);
+    if (movingPointsPercentage) movingPointsPercentage.textContent = `${percentage}%`;
     if (movingPointsInput) {
       movingPointsInput.max = String(maxMovingPoints);
       movingPointsInput.value = String(movingPointCount);
       movingPointsInput.removeAttribute('title');
-      movingPointsInput.setAttribute('aria-valuetext', `${movingPointCount} moving points`);
+      movingPointsInput.setAttribute('aria-valuetext', `${percentage}%`);
     }
+  }
+
+  function hideMovingPointsPercentage() {
+    window.clearTimeout(movingPointsPercentageTimer);
+    movingPointsSlider?.classList.remove('is-adjusting');
+  }
+
+  function showMovingPointsPercentage() {
+    window.clearTimeout(movingPointsPercentageTimer);
+    movingPointsSlider?.classList.add('is-adjusting');
+    movingPointsPercentageTimer = window.setTimeout(hideMovingPointsPercentage, 800);
   }
 
   function setMovingPointCount(value) {
@@ -3725,7 +3788,7 @@ CC BY 4.0
   }
 
   function buildGraph() {
-    const followMaximum = maxMovingPoints > 0 && movingPointCount === maxMovingPoints;
+    const previousProgress = maxMovingPoints ? movingPointCount / maxMovingPoints : null;
     const mobile = root.clientWidth <= 700;
     const count = mobile ? 160 : width < 650 ? 112 : 156;
     nodes = [];
@@ -3785,14 +3848,16 @@ CC BY 4.0
         if (neighbors[other.candidate].length < 7) connect(index, other.candidate);
       }
     });
-    maxMovingPoints = Math.min(movingPointLimit, edges.length);
-    movingPointCount = followMaximum ? maxMovingPoints : Math.min(movingPointCount, maxMovingPoints);
+    maxMovingPoints = edges.length;
+    movingPointCount = previousProgress === null
+      ? Math.min(defaultMovingPointCount, maxMovingPoints)
+      : Math.round(maxMovingPoints * previousProgress);
     const launchEdges = edges.slice();
     for (let index = launchEdges.length - 1; index > 0; index--) {
       const other = Math.floor(Math.random() * (index + 1));
       [launchEdges[index], launchEdges[other]] = [launchEdges[other], launchEdges[index]];
     }
-    packets = launchEdges.slice(0, maxMovingPoints).map((edge, id) => {
+    packets = launchEdges.map((edge, id) => {
       const reversed = Math.random() < 0.5;
       return { id, from: reversed ? edge.b : edge.a, previous: -1, to: reversed ? edge.a : edge.b, hops: id + 1, direction: id % 2 ? -1 : 1, progress: Math.random(), speed: (0.17 + random(id + 617) * 0.035) * movingPointSpeedScale, colorIndex: null, trail: [], launchKey: `${Math.min(edge.a, edge.b)}:${Math.max(edge.a, edge.b)}` };
     });
@@ -4087,7 +4152,10 @@ CC BY 4.0
   if (publications) boundsObserver.observe(publications);
   window.addEventListener('resize', scheduleBounds);
   window.addEventListener('pageshow', scheduleBounds);
-  window.addEventListener('pageshow', () => setMovingPointCount(defaultMovingPointCount));
+  window.addEventListener('pageshow', () => {
+    hideMovingPointsPercentage();
+    setMovingPointCount(defaultMovingPointCount);
+  });
   if (document.fonts) document.fonts.ready.then(scheduleBounds);
   new IntersectionObserver(entries => {
     visible = entries[0].isIntersecting;
@@ -4099,7 +4167,11 @@ CC BY 4.0
   }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   document.addEventListener('visibilitychange', synchronizeMotion);
   reducedMotion.addEventListener('change', synchronizeMotion);
-  movingPointsInput?.addEventListener('input', () => setMovingPointCount(movingPointsInput.value));
+  movingPointsInput?.addEventListener('input', () => {
+    setMovingPointCount(movingPointsInput.value);
+    showMovingPointsPercentage();
+  });
+  movingPointsInput?.addEventListener('blur', hideMovingPointsPercentage);
   synchronizePalette();
   synchronizeBounds();
   resize();
