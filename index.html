@@ -2062,6 +2062,65 @@ html[data-theme="light"] .profile-links .profile-link {
   outline-offset: 3px;
 }
 
+.email-contact-panel {
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.email-contact-panel[hidden] {
+  display: none;
+}
+
+.email-contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.email-contact-address {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+.email-copy-button {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.email-copy-button:hover {
+  color: var(--link);
+  border-color: var(--link);
+}
+
+.email-copy-button:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+}
+
+.email-copy-status {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.875em;
+}
+
+.email-copy-status:empty {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .profile-links .profile-link {
     transition: none;
@@ -2734,7 +2793,7 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
 </p>    
     
 <div class="profile-links" aria-label="Contact and profile links">
-<a class="profile-link" href="mailto:alexandre.autran@ens-rennes.fr" aria-label="Email">
+<a class="profile-link" id="emailContactLink" href="mailto:alexandre.autran@ens-rennes.fr" aria-label="Email" aria-controls="emailContactPanel" aria-expanded="false">
 <svg viewBox="0 0 24 24" aria-hidden="true">
 <path d="M3 5h18v14H3z" fill="none" stroke="currentColor" stroke-width="1.8"/>
 <path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8"/>
@@ -2770,6 +2829,14 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
 </svg>
 <span>LinkedIn</span>
 </a>
+</div>
+
+<div class="email-contact-panel" id="emailContactPanel" role="region" aria-label="Email address" hidden>
+<div class="email-contact-row">
+<a class="email-contact-address" id="emailContactAddress" href="mailto:alexandre.autran@ens-rennes.fr">alexandre.autran@ens-rennes.fr</a>
+<button class="email-copy-button" id="emailCopyButton" type="button">Copy address</button>
+</div>
+<span class="email-copy-status" id="emailCopyStatus" role="status"></span>
 </div>
 
 </div>
@@ -3261,18 +3328,18 @@ Show all 12 experiences <span aria-hidden="true">↓</span>
 <div class="resource-group">
 
 <div class="resource-subhead">
-<h3>Master courses (2025/2026)</h3>
+<h3>Master courses</h3>
 </div>
 
 <p class="master-course-intro">
-Course notes I wrote during my M1/M2 year at ENS:
+Course notes I wrote during my M1/M2 years at ENS de Rennes:
 </p>
 
 <div class="resource-grid master-grid master-grid-written">
 
 <article class="resource-card inline-pdf-card">
 <div class="resource-title-row">
-<h4>EDP appliquées à la biologie (M2)</h4>
+<h4>EDP appliquées à la biologie</h4>
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/courses/applied-pdes-biology.pdf" target="_blank" rel="noopener">
 PDF <span aria-hidden="true">↗</span>
 </a>
@@ -3282,7 +3349,7 @@ PDF <span aria-hidden="true">↗</span>
 
 <article class="resource-card inline-pdf-card">
 <div class="resource-title-row">
-<h4>Modèles aléatoires (M1)</h4>
+<h4>Modèles aléatoires</h4>
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/courses/random-models.pdf" target="_blank" rel="noopener">
 PDF <span aria-hidden="true">↗</span>
 </a>
@@ -3298,13 +3365,12 @@ PDF <span aria-hidden="true">↗</span>
 <div class="resource-group">
 
 <div class="resource-subhead">
-<h3>Colles — ENS oral examinations (2024/2025)</h3>
+<h3>Colles — ENS oral examinations</h3>
 </div>
 
-<p class="section-intro" style="text-align: justify;">
-  Mathematics oral examinations for L2 students preparing for the Écoles Normales Supérieures entrance examinations (Ulm, Paris-Saclay, Lyon and Rennes):
+<p class="section-intro">
+Mathematics oral examinations for second-year undergraduate students preparing for the Écoles Normales Supérieures entrance examinations (Ulm, Paris-Saclay, Lyon and Rennes).
 </p>
-
 
 <div class="resource-grid compact-grid colles-grid">
 
@@ -3393,10 +3459,10 @@ PDF <span aria-hidden="true">↗</span>
 </div>
 
 <div class="other-docs">
-<h3 class="other-title">Exercise sheets (2022/2023)</h3>
+<h3 class="other-title">Other documents</h3>
 </div>
 
-<p class="other-intro">Exercises I wrote during my L1 Mathematics in Rennes:</p>
+<p class="other-intro">L1 exercise sheets.</p>
 
 <div class="resource-group">
 
@@ -3500,6 +3566,57 @@ CC BY 4.0
 </footer>
 
 </main>
+
+<script>
+(() => {
+    const emailLink = document.getElementById('emailContactLink');
+    const emailPanel = document.getElementById('emailContactPanel');
+    const emailAddress = document.getElementById('emailContactAddress');
+    const copyButton = document.getElementById('emailCopyButton');
+    const copyStatus = document.getElementById('emailCopyStatus');
+    if (!emailLink || !emailPanel || !emailAddress || !copyButton || !copyStatus) return;
+
+    emailLink.addEventListener('click', event => {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        emailPanel.hidden = !emailPanel.hidden;
+        emailLink.setAttribute('aria-expanded', String(!emailPanel.hidden));
+        copyStatus.textContent = '';
+    });
+
+    function closeWithEscape(event) {
+        if (event.key !== 'Escape' || emailPanel.hidden) return;
+        event.preventDefault();
+        emailPanel.hidden = true;
+        emailLink.setAttribute('aria-expanded', 'false');
+        emailLink.focus();
+    }
+
+    emailLink.addEventListener('keydown', closeWithEscape);
+    emailPanel.addEventListener('keydown', closeWithEscape);
+
+    copyButton.addEventListener('click', async () => {
+        copyButton.disabled = true;
+        copyStatus.textContent = '';
+        try {
+            if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+            await navigator.clipboard.writeText(emailAddress.textContent.trim());
+            copyStatus.textContent = 'Address copied.';
+        } catch {
+            const selection = window.getSelection();
+            if (selection) {
+                const range = document.createRange();
+                range.selectNodeContents(emailAddress);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+            copyStatus.textContent = 'Select and copy the address above.';
+        } finally {
+            copyButton.disabled = false;
+        }
+    });
+})();
+</script>
 
 <script>
 (() => {
