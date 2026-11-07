@@ -2904,7 +2904,7 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
 <div class="research-summary-panel" id="summary-1"
   role="region" aria-labelledby="paper-title-1" hidden>
 
-  <p>Even when a numerical scheme preserves population positivity, the way harvest is counted can change the optimal control. For a diffusive Lotka–Volterra model, we compare two harvest rules:</p>
+  <p>A numerical scheme can keep populations positive and still miscount the catch. We compare two harvest rules in a diffusive Lotka–Volterra model.</p>
 
   <div class="research-summary-equation">
     \[
@@ -2915,7 +2915,7 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
   </div>
 
   <p>
-    The flux rule counts the prey actually removed by the numerical scheme. In a pure-removal example, the old-state rule overestimates the catch and can create a strict local minimum that is not globally optimal, while the flux cost remains strictly convex. For the one-dimensional coupled model, we prove mesh-uniform \(O(\tau)\) bounds on cost, gradient, and Hessian differences, derive exact discrete adjoints, and establish a common variational limit. Numerical experiments show how harvest quadrature affects the computed controls, especially temporal switching on coarse grids.
+    The flux rule counts the prey the scheme actually removes. In a pure-removal example, the old-state rule overcounts the catch and can create a strict but suboptimal local minimum. The flux cost stays strictly convex. For the coupled model in one dimension, we show that the differences in cost, gradient, and Hessian are \(O(\tau)\), uniformly in the mesh. We also derive exact discrete adjoints and prove that both rules have the same variational limit. In the numerical tests, the choice of rule changes the computed controls, especially the timing of switches on coarse grids.
   </p>
 
 </div>
@@ -2955,13 +2955,13 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
       
       <div class="research-summary-panel" id="summary-2"
         role="region" aria-labelledby="paper-title-2" hidden>
-        <p>Tracking a fluctuating target involves a trade-off: adjusting too often is expensive, but waiting too long increases the error. I study this balance for fractional Brownian motion, using causal controls of finite variation, quadratic tracking loss and proportional adjustment costs. As the cost parameter \(\lambda\) tends to zero, the optimal value satisfies</p>
+        <p>Each adjustment has a cost. Wait too long, and the tracking error can grow. I study this trade-off for fractional Brownian motion with causal controls of finite variation, a quadratic tracking loss, and a cost proportional to the amount of adjustment. As the cost parameter \(\lambda\) goes to zero, the optimal value follows a power law.</p>
         <div class="research-summary-equation">
           \[
           V_{\lambda}(T;a,b,\sigma)\mathrel{\underset{\lambda\downarrow0}{\sim}}\kappa_H T\,a^{\frac{1-H}{1+H}}(\lambda b)^{\frac{2H}{1+H}}\sigma^{\frac{2}{1+H}}.
           \]
         </div>
-        <p>Here \(H\in(0,1)\) describes the target's regularity, \(a\) and \(b\) weight the two costs, \(\sigma\) is the target scale and \(\kappa_H&gt;0\) is a long-run cell value. The exponent makes the role of roughness explicit. Knowing the entire past can change finite-horizon costs, but leaves the leading constant unchanged. I also extend the limit to suitable Gaussian Volterra targets and give bounds and constructive approximations for the cell value.</p>
+        <p>The exponent depends on \(H\in(0,1)\), which measures how rough the target is. The weights \(a\) and \(b\) set the two costs, and \(\sigma\) sets the scale of the target. The constant \(\kappa_H&gt;0\) is the value of a long-run cell problem. Knowing the entire past can change the cost over a finite horizon. The leading constant stays the same. I extend the limit to suitable Gaussian Volterra targets and show how to bound and approximate the cell value.</p>
       </div>
     </div>
   </article>   
@@ -2998,13 +2998,13 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
       
       <div class="research-summary-panel" id="summary-3"
         role="region" aria-labelledby="paper-title-3" hidden>
-        <p>In a large interacting population, individual randomness is mixed with shocks shared by everyone. I study a smooth particle system on a torus whose common shocks have a symmetric stable law with \(0&lt;\alpha&lt;1\). Under a common Poisson construction, conditioning on the full source of common jumps reveals a Gaussian limit for the sampling fluctuations:</p>
+        <p>In a large system, particles interact and share shocks. Each also has its own randomness. I study a smooth particle system on a torus with symmetric stable common noise, where \(0&lt;\alpha&lt;1\). In a common Poisson construction, I condition on the full source of common jumps. The conditional law of the sampling fluctuations converges in probability to a Gaussian law.</p>
         <div class="research-summary-equation">
           \[
           \mathcal{L}\!\left(\sqrt{N}(\mu^{N}-\mu)\,\middle|\,\mathscr{G}^{0}\right)\mathrel{\underset{N\to\infty}{\overset{\mathbb{P}}{\longrightarrow}}}\mathcal{K}_{\mathscr{G}^{0}}.
           \]
         </div>
-        <p>Here \(\mu^N\) is the empirical measure, \(\mu\) its conditional mean-field limit and \(\mathcal{K}_{\mathscr{G}^{0}}\) a centered Gaussian kernel depending on the common noise. For one-dimensional microscopic approximations, I identify the tail threshold at which a correction shifts the conditional mean or overtakes sampling noise. A final example shows why coupling matters: the same microscopic laws can have different path fluctuations depending on how they are linked to the limiting common signal.</p>
+        <p>The empirical measure \(\mu^N\) approaches the conditional mean-field limit \(\mu\). The centered Gaussian kernel \(\mathcal{K}_{\mathscr{G}^{0}}\) depends on the common noise. For one-dimensional microscopic approximations, I find the tail threshold at which a correction shifts the conditional mean or outweighs the sampling noise. Coupling matters too. In the final example, the microscopic laws stay the same, but the path fluctuations differ depending on how they are linked to the limiting common signal.</p>
       </div>
     </div>
   </article>   
@@ -3041,13 +3041,13 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
       
       <div class="research-summary-panel" id="summary-4"
         role="region" aria-labelledby="paper-title-4" hidden>
-        <p>Two small changes to a jump model can look equally close at the level of their Lévy characteristics and still produce very different errors in the resulting distributions. I study this sensitivity for infinitely divisible laws with Gaussian smoothing, deriving first- and second-order responses in the Wasserstein-1 distance. In particular, a balanced redistribution of jumps can cancel the first-order effect and leave a quadratic error:</p>
+        <p>Two perturbations can change the Lévy characteristics by similar amounts and have very different effects on the resulting laws. I compute the first- and second-order responses of Gaussian-smoothed infinitely divisible laws in the Wasserstein-1 distance. A balanced redistribution of jumps can cancel the linear term. The remaining error has a quadratic expansion.</p>
         <div class="research-summary-equation">
           \[
           W_1(\lambda_{\varepsilon},\lambda_0)\mathrel{\underset{\varepsilon\to0}{=}}\varepsilon^2\lVert Q\rVert_{L^1}+o(\varepsilon^2).
           \]
         </div>
-        <p>Here \(Q\) is the second-order response of the cumulative distribution function when the first response vanishes. Under the stated moment assumptions, its norm is positive if the displacement dispersion is nonzero. The analysis gives sharp error rates for local balanced remeshing, a linear-programming approach to jump approximation, and the transition as Gaussian smoothing disappears.</p>
+        <p>The function \(Q\) gives the second-order change in the cumulative distribution function when the first-order change vanishes. Under the moment assumptions in the paper, its norm is positive if the jump displacements have nonzero dispersion. The expansion gives sharp error rates for local balanced remeshing. I also give a linear programming method for approximating jumps and describe what happens as Gaussian smoothing vanishes.</p>
       </div>
     </div>
   </article>
@@ -3084,13 +3084,13 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
       
       <div class="research-summary-panel" id="summary-5"
         role="region" aria-labelledby="paper-title-5" hidden>
-        <p>An ionizing particle crossing a semiconductor creates a cloud of charge carriers. Some spread toward a sensitive node, while others recombine before they can be collected. We develop a unified analytical description of this diffusion–collection process in one, two and three dimensions, using an idealized medium and a finite carrier lifetime:</p>
+        <p>An ionizing particle crossing a semiconductor creates a cloud of charge carriers. Some diffuse toward a sensitive node. Others recombine before they reach it. We use one model for diffusion and collection in one, two, and three dimensions, assuming an idealized medium and a finite carrier lifetime.</p>
         <div class="research-summary-equation">
           \[
           \frac{\partial n}{\partial t}=D\Delta n-\frac{n}{\tau},\qquad\text{and}\qquad Q_{\mathrm{col}}(t)=\int_0^t I_{\mathrm{col}}(s)\,\mathrm{d}s.
           \]
         </div>
-        <p>Here \(n\) is the carrier density, \(D\) the diffusion coefficient and \(\tau\) the carrier lifetime. From the point-source solution, we derive expressions for the density, diffusion current and collected charge, including a Bessel-function representation. The analysis makes the role of geometry explicit and shows that the current peaks before the carrier density in every dimension considered. A minimal Python implementation supports integration into simulation workflows and single-event sensitivity studies.</p>
+        <p>In the equations, \(n\) is the carrier density, \(D\) is the diffusion coefficient, and \(\tau\) is the carrier lifetime. Starting from a point source, we derive formulas for the density, diffusion current, and collected charge, with a representation in terms of Bessel functions. The formulas show how geometry affects the response. In all three dimensions, the current peaks before the carrier density. We include a short Python implementation for simulations and single-event sensitivity studies.</p>
       </div>
     </div>
   </article>
