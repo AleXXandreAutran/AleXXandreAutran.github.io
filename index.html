@@ -2693,6 +2693,38 @@ a.pdf-link:hover,
   }
 }
 </style>
+<style>
+#experiences .timeline-content {
+  display: grid;
+  align-content: start;
+  min-width: 0;
+  gap: 10px;
+}
+
+#experiences .timeline-content > h3 {
+  margin: 0;
+  font-size: calc(1rem * var(--content-font-scale, 1));
+  line-height: 1.35;
+}
+
+#experiences .experience-details > h4 {
+  margin: 0 0 4px;
+  color: var(--text);
+  font-size: calc(0.95rem * var(--content-font-scale, 1));
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+#experiences .experience-details > p {
+  margin: 2px 0 0;
+  font-size: calc(0.875rem * var(--content-font-scale, 1));
+}
+
+#experiences .research-domains {
+  min-height: 0;
+  margin: 0;
+}
+</style>
 </head>
 
 <body>
@@ -3097,11 +3129,16 @@ A selection of research internships, projects, seminars, and reading groups comp
 <div class="timeline-date">SEP — FEB 2027</div>
 <div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
-<span class="category-pill">Machine Learning Internship</span>
-<h3>High-Dimensional Density Clustering Using Local Unimodality</h3>
+<h3>Machine Learning Internship</h3>
+<div class="experience-details">
+<h4>High-Dimensional Density Clustering Using Local Unimodality</h4>
 <p>Supervised by Argyris Kalogeratos (Senior Research Scientist)</p>
 <p class="place">Centre Borelli, ENS Paris-Saclay, France</p>
-<div class="timeline-links"></div>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-learning">Machine Learning</span>
+<span class="domain-badge domain-probability">Statistics</span>
+</div>
 </div>
 </article>
 
@@ -3109,10 +3146,12 @@ A selection of research internships, projects, seminars, and reading groups comp
 <div class="timeline-date">JUN — AUG 2026</div>
 <div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
-<span class="category-pill">M1 Research Internship</span>
-<h3>Optical Modeling of Thermochromic VO<sub>2</sub>-Based Oxide Nanocomposites</h3>
+<h3>M1 Research Internship</h3>
+<div class="experience-details">
+<h4>Optical Modeling of Thermochromic VO<sub>2</sub>-Based Oxide Nanocomposites</h4>
 <p>Supervised by Nguyen Ngoc Duy (Full Professor) and Amaury Baret (PhD Student)</p>
 <p class="place">University of Liège, Belgium</p>
+</div>
 <div class="timeline-links">
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/msc/VO2_modeling_report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
@@ -3121,6 +3160,11 @@ report <span aria-hidden="true">↗</span>
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
+<div class="research-domains">
+<span class="domain-badge domain-physics">Applied Physics</span>
+<span class="domain-badge domain-physics">Materials Science</span>
+<span class="domain-badge domain-optimization">Optimization</span>
+</div>
 </div>
 </article>
 
@@ -3128,14 +3172,21 @@ slides <span aria-hidden="true">↗</span>
 <div class="timeline-date">APR — JUN 2026</div>
 <div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
-<span class="category-pill">Research Internship</span>
-<h3>Numerical Simulation and Optimal Control of Spatial Lotka–Volterra Systems</h3>
+<h3>Research Internship</h3>
+<div class="experience-details">
+<h4>Numerical Simulation and Optimal Control of Spatial Lotka–Volterra Systems</h4>
 <p>Supervised by Martin J. Gander (Full Professor) and Bastien Chaudet-Dumas (Postdoctoral Researcher)</p>
 <p class="place">University of Geneva, Switzerland</p>
+</div>
 <div class="timeline-links">
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/msc/lotka-volterra-optimal-control-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
 </a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-control">Optimal Control</span>
+<span class="domain-badge domain-numerical">Numerical Analysis</span>
+<span class="domain-badge domain-biology">Mathematical Biology</span>
 </div>
 </div>
 </article>
@@ -3144,10 +3195,12 @@ report <span aria-hidden="true">↗</span>
 <div class="timeline-date">APR — MAY 2026</div>
 <div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
-<span class="category-pill">Machine Learning Projects</span>
-<h3>Air Pollution and Cardiovascular Disease Prediction</h3>
+<h3>Machine Learning Projects</h3>
+<div class="experience-details">
+<h4>Air Pollution and Cardiovascular Disease Prediction</h4>
 <p>Course taught by Myriam Maumy (Full Professor)</p>
 <p class="place">MSc Statistical Learning</p>
+</div>
 <div class="timeline-links">
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/machine-learning/air-pollution-prediction-report.pdf" target="_blank" rel="noopener">
 air pollution report <span aria-hidden="true">↗</span>
@@ -3156,6 +3209,10 @@ air pollution report <span aria-hidden="true">↗</span>
 cardiovascular report <span aria-hidden="true">↗</span>
 </a>
 </div>
+<div class="research-domains">
+<span class="domain-badge domain-learning">Machine Learning</span>
+<span class="domain-badge domain-probability">Applied Statistics</span>
+</div>
 </div>
 </article>
 
@@ -3163,14 +3220,20 @@ cardiovascular report <span aria-hidden="true">↗</span>
 <div class="timeline-date">JAN 2026</div>
 <div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
-<span class="category-pill">Statistical Reading Group</span>
-<h3>Supervised Statistical Learning: Prediction by Empirical Risk Minimization</h3>
+<h3>Statistical Reading Group</h3>
+<div class="experience-details">
+<h4>Supervised Statistical Learning: Prediction by Empirical Risk Minimization</h4>
 <p>Supervised by Magalie Fromont (Full Professor)</p>
 <p class="place">ENS de Rennes, France</p>
+</div>
 <div class="timeline-links">
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/reading-groups/statistical-learning-erm-slides.pdf" target="_blank" rel="noopener">
 slides <span aria-hidden="true">↗</span>
 </a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-learning">Statistical Learning</span>
+<span class="domain-badge domain-optimization">Optimization</span>
 </div>
 </div>
 </article>
@@ -3179,10 +3242,12 @@ slides <span aria-hidden="true">↗</span>
 <div class="timeline-date">NOV — JAN 2026</div>
 <div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
-<span class="category-pill">M2 Research Seminar</span>
-<h3>Point Process and Stein’s Method</h3>
+<h3>M2 Research Seminar</h3>
+<div class="experience-details">
+<h4>Point Process and Stein’s Method</h4>
 <p>Supervised by Jean-Christophe Breton (Full Professor)</p>
 <p class="place">University of Rennes, France</p>
+</div>
 <div class="timeline-links">
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/seminars/stein-point-processes-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
@@ -3191,6 +3256,10 @@ report <span aria-hidden="true">↗</span>
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
+<div class="research-domains">
+<span class="domain-badge domain-probability">Probability</span>
+<span class="domain-badge domain-stochastic">Stochastic Processes</span>
+</div>
 </div>
 </article>
     
@@ -3198,14 +3267,20 @@ slides <span aria-hidden="true">↗</span>
 <div class="timeline-date">OCT — NOV 2025</div>
 <div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
-<span class="category-pill">Algebra Reading Group</span>
-<h3>Elimination Theory and Extension</h3>
+<h3>Algebra Reading Group</h3>
+<div class="experience-details">
+<h4>Elimination Theory and Extension</h4>
 <p>Supervised by Jade Nardi (CNRS Research Scientist)</p>
 <p class="place">ENS de Rennes, France</p>
+</div>
 <div class="timeline-links">
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/reading-groups/elimination-theory-extension-slides.pdf" target="_blank" rel="noopener">
 slides <span aria-hidden="true">↗</span>
 </a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-graph">Algebraic Geometry</span>
+<span class="domain-badge domain-numerical">Computational Algebra</span>
 </div>
 </div>
 </article>
@@ -3214,10 +3289,12 @@ slides <span aria-hidden="true">↗</span>
 <div class="timeline-date">JUN — AUG 2025</div>
 <div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
-<span class="category-pill">L3 Research Internship</span>
-<h3>Lattice-Based Post-Quantum Cryptography</h3>
+<h3>L3 Research Internship</h3>
+<div class="experience-details">
+<h4>Lattice-Based Post-Quantum Cryptography</h4>
 <p>Supervised by Pierre-Alain Fouque (Full Professor) and Aurore Guillevic (Inria Research Scientist)</p>
 <p class="place">Inria / IRISA, France</p>
+</div>
 <div class="timeline-links">
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/bsc/post-quantum-cryptography-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
@@ -3226,6 +3303,10 @@ report <span aria-hidden="true">↗</span>
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
+<div class="research-domains">
+<span class="domain-badge domain-probability">Cryptography</span>
+<span class="domain-badge domain-numerical">Discrete Mathematics</span>
+</div>
 </div>
 </article>
 
@@ -3233,10 +3314,12 @@ slides <span aria-hidden="true">↗</span>
 <div class="timeline-date">MAY — JUN 2025</div>
 <div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
-<span class="category-pill">Research Internship</span>
-<h3>Algebraic Counting of the Real Roots of Polynomials</h3>
+<h3>Research Internship</h3>
+<div class="experience-details">
+<h4>Algebraic Counting of the Real Roots of Polynomials</h4>
 <p>Supervised by Marie-Françoise Roy (Professor Emeritus)</p>
 <p class="place">University of Rennes, France</p>
+</div>
 <div class="timeline-links">
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/bsc/real-root-counting-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
@@ -3245,6 +3328,10 @@ report <span aria-hidden="true">↗</span>
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
+<div class="research-domains">
+<span class="domain-badge domain-graph">Real Algebraic Geometry</span>
+<span class="domain-badge domain-numerical">Computational Algebra</span>
+</div>
 </div>
 </article>
 
@@ -3252,10 +3339,12 @@ slides <span aria-hidden="true">↗</span>
 <div class="timeline-date">FEB — MAR 2025</div>
 <div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
-<span class="category-pill">Directed Research Reading</span>
-<h3>Geometry of Numbers</h3>
+<h3>Directed Research Reading</h3>
+<div class="experience-details">
+<h4>Geometry of Numbers</h4>
 <p>Supervised by Juliette Bavard (CNRS Research Scientist)</p>
 <p class="place">ENS de Rennes, France</p>
+</div>
 <div class="timeline-links">
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/reading-groups/geometry-of-numbers-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
@@ -3264,6 +3353,10 @@ report <span aria-hidden="true">↗</span>
 slides <span aria-hidden="true">↗</span>
 </a>
 </div>
+<div class="research-domains">
+<span class="domain-badge domain-probability">Number Theory</span>
+<span class="domain-badge domain-graph">Geometry</span>
+</div>
 </div>
 </article>
 
@@ -3271,14 +3364,20 @@ slides <span aria-hidden="true">↗</span>
 <div class="timeline-date">FEB — MAR 2024</div>
 <div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
-<span class="category-pill">L2 Research Internship</span>
-<h3>Topological Study of Matrix Groups</h3>
+<h3>L2 Research Internship</h3>
+<div class="experience-details">
+<h4>Topological Study of Matrix Groups</h4>
 <p>Supervised by Françoise Dal’Bo (Full Professor) and Jérémy Bettinger (PhD Student)</p>
 <p class="place">University of Rennes, France</p>
+</div>
 <div class="timeline-links">
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/bsc/topological-matrix-groups-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
 </a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-graph">Topology</span>
+<span class="domain-badge domain-numerical">Linear Algebra</span>
 </div>
 </div>
 </article>
@@ -3287,10 +3386,12 @@ report <span aria-hidden="true">↗</span>
 <div class="timeline-date">MAY — JUN 2023</div>
 <div class="timeline-marker" aria-hidden="true"></div>
 <div class="timeline-content">
-<span class="category-pill">L1 Research Internship</span>
-<h3>Introduction to Hyperbolic Geometry and Fuchsian Groups</h3>
+<h3>L1 Research Internship</h3>
+<div class="experience-details">
+<h4>Introduction to Hyperbolic Geometry and Fuchsian Groups</h4>
 <p>Supervised by Frank Loray (CNRS Research Director)</p>
 <p class="place">University of Rennes, France</p>
+</div>
 <div class="timeline-links">
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/bsc/hyperbolic-geometry-fuchsian-groups-report.pdf" target="_blank" rel="noopener">
 report <span aria-hidden="true">↗</span>
@@ -3298,6 +3399,10 @@ report <span aria-hidden="true">↗</span>
 <a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/bsc/hyperbolic-geometry-fuchsian-groups-slides.pdf" target="_blank" rel="noopener">
 slides <span aria-hidden="true">↗</span>
 </a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-graph">Geometry</span>
+<span class="domain-badge domain-numerical">Group Theory</span>
 </div>
 </div>
 </article>
