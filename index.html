@@ -1733,28 +1733,8 @@ html[data-theme="light"] {
   white-space: nowrap;
 }
 
-#research .research-summary-separator {
-  opacity: 0.5;
-}
-
 #research .research-summary-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  padding: 0.15em 0;
-  border: 0;
-  border-radius: 2px;
-  background: transparent;
-  color: var(--summary-accent);
-  font: inherit;
-  font-weight: 600;
-  line-height: inherit;
   cursor: pointer;
-}
-
-#research .research-summary-toggle:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
 }
 
 #research .research-summary-toggle:focus-visible {
@@ -2462,7 +2442,8 @@ a:active {
 
 a.pdf-link,
 .research-publication-line a.research-paper-link,
-.resource-card a.pdf-link {
+.resource-card a.pdf-link,
+#research .research-summary-toggle {
   display: inline-flex;
   align-items: center;
   gap: 0.35em;
@@ -2479,7 +2460,8 @@ a.pdf-link,
   text-decoration: none !important;
 }
 
-a.pdf-link:hover {
+a.pdf-link:hover,
+#research .research-summary-toggle:hover {
   background: color-mix(in srgb, var(--link) 14%, var(--bg));
 }
 
@@ -2890,7 +2872,6 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
         <span>A. Autran, <em>ArXiv preprint</em>, 2026</span>
         <span class="research-meta">PDF soon</span>
         <span class="research-summary-action">
-          <span class="research-summary-separator" aria-hidden="true">|</span>
           <button class="research-summary-toggle" type="button"
             id="summary-toggle-1" aria-expanded="false"
             aria-controls="summary-1" aria-label="Show summary: Quadrature-Induced Local Minima in Structure-Preserving Lotka-Volterra Control">
@@ -2943,7 +2924,6 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
            target="_blank"
            rel="noopener">paper ↗</a>
         <span class="research-summary-action">
-          <span class="research-summary-separator" aria-hidden="true">|</span>
           <button class="research-summary-toggle" type="button"
             id="summary-toggle-2" aria-expanded="false"
             aria-controls="summary-2" aria-label="Show summary: Singular Tracking of Fractional Brownian Motion under Proportional Costs">
@@ -2986,7 +2966,6 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
            target="_blank"
            rel="noopener">paper ↗</a>
         <span class="research-summary-action">
-          <span class="research-summary-separator" aria-hidden="true">|</span>
           <button class="research-summary-toggle" type="button"
             id="summary-toggle-3" aria-expanded="false"
             aria-controls="summary-3" aria-label="Show summary: Conditional Fluctuations of Mean-Field Systems with Stable Common Noise">
@@ -3029,7 +3008,6 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
            target="_blank"
            rel="noopener">paper ↗</a>
         <span class="research-summary-action">
-          <span class="research-summary-separator" aria-hidden="true">|</span>
           <button class="research-summary-toggle" type="button"
             id="summary-toggle-4" aria-expanded="false"
             aria-controls="summary-4" aria-label="Show summary: Second-Order Wasserstein Response for Lévy Laws">
@@ -3072,7 +3050,6 @@ Outside of work and studies, I enjoy running (&sim; 30km per week), cycling, gym
            target="_blank"
            rel="noopener">paper ↗</a>
         <span class="research-summary-action">
-          <span class="research-summary-separator" aria-hidden="true">|</span>
           <button class="research-summary-toggle" type="button"
             id="summary-toggle-5" aria-expanded="false"
             aria-controls="summary-5" aria-label="Show summary: Multi-Dimensional Charge Diffusion–Collection Model in Semiconductor Devices Subjected to Single Ionizing Particles">
