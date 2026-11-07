@@ -1697,6 +1697,18 @@ html[data-theme="light"] {
   --summary-text: #283c47;
 }
 
+@supports (grid-template-columns: subgrid) {
+  #researchList {
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 16px !important;
+  }
+
+  #researchList > .research-item {
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid !important;
+  }
+}
+
 #research .research-item > div:last-child {
   min-width: 0;
 }
@@ -1705,6 +1717,8 @@ html[data-theme="light"] {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
+  align-content: center;
+  min-height: 28px;
   gap: 0.35rem 0.75rem;
 }
 
