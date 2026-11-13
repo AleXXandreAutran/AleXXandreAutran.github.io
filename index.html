@@ -3963,6 +3963,7 @@ CC BY 4.0
   const sparkDuration = 0.9;
   const edgeVisibilityScale = 1.05;
   const vertexPointSizeScale = 0.95;
+  const graphExtentScale = 1.35;
   let width = 0;
   let height = 0;
   let ratio = 1;
@@ -4178,8 +4179,11 @@ CC BY 4.0
     const boundary = firstPublicationTitle || publications?.querySelector('.section-title');
     const top = root.clientWidth <= 700 ? -48 : -72;
     const bottom = boundary ? boundary.getBoundingClientRect().top - aboutBounds.top + 120 : aboutBounds.height + 280;
-    const nextHeight = `${Math.round(Math.max(320, bottom - top) * 100) / 100}px`;
-    section.style.setProperty('--graph-top', `${top}px`);
+    const baseHeight = Math.max(320, bottom - top);
+    const scaledHeight = baseHeight * graphExtentScale;
+    const scaledTop = top - (scaledHeight - baseHeight) / 2;
+    const nextHeight = `${Math.round(scaledHeight * 100) / 100}px`;
+    section.style.setProperty('--graph-top', `${scaledTop}px`);
     if (section.style.getPropertyValue('--graph-height') !== nextHeight) {
       section.style.setProperty('--graph-height', nextHeight);
     }
@@ -4215,9 +4219,10 @@ CC BY 4.0
     const cameraDistance = 3.8;
     const perspectiveScale = Math.sqrt(1 - 1 / (cameraDistance * cameraDistance));
     const verticalRadius = Math.max(10, height / 2 - 14);
+    const viewportRadius = Math.max(10, width / 2 - 14) * graphExtentScale;
     const horizontalRadius = root.clientWidth <= 700
-      ? Math.max(width / 2 - 14, verticalRadius * 1.12)
-      : Math.max(10, width / 2 - 14);
+      ? Math.max(viewportRadius, verticalRadius * 1.12)
+      : viewportRadius;
     const radiusX = horizontalRadius * perspectiveScale;
     const radiusY = verticalRadius * perspectiveScale;
     return point => {
