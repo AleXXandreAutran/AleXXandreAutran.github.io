@@ -1672,18 +1672,43 @@ html[data-theme="light"] {
   border-color: var(--interest-cyan);
   background: color-mix(in srgb, var(--interest-cyan) 16%, var(--bg));
 }
-.domain-probability { --domain-color: var(--interest-blue); }
-.domain-stochastic,
-.domain-biology,
+.research-domains {
+  --badge-probability: #92b4ff;
+  --badge-learning: #6fd1c8;
+  --badge-control: #f2b26e;
+  --badge-numerical: #c4a5f0;
+  --badge-algebra: #e6a0c4;
+  --badge-finance: #e2c57c;
+  --badge-biology: #a6cd8c;
+  --badge-physics: #89c5df;
+}
+
+html[data-theme="light"] .research-domains {
+  --badge-probability: #2f5fb3;
+  --badge-learning: #126e65;
+  --badge-control: #995015;
+  --badge-numerical: #7b4fae;
+  --badge-algebra: #914166;
+  --badge-finance: #795906;
+  --badge-biology: #4a6c32;
+  --badge-physics: #27687b;
+}
+
+.domain-probability,
+.domain-stochastic { --domain-color: var(--badge-probability); }
 .domain-learning,
+.domain-statistics { --domain-color: var(--badge-learning); }
+.domain-control,
+.domain-optimization { --domain-color: var(--badge-control); }
+.domain-numerical { --domain-color: var(--badge-numerical); }
+.domain-algebra,
+.domain-geometry { --domain-color: var(--badge-algebra); }
+.domain-finance { --domain-color: var(--badge-finance); }
+.domain-biology { --domain-color: var(--badge-biology); }
+.domain-physics { --domain-color: var(--badge-physics); }
+
 .domain-graph { --domain-color: var(--interest-teal); }
-.domain-finance { --domain-color: var(--interest-yellow); }
-.domain-control { --domain-color: var(--interest-coral); }
-.domain-numerical,
-.domain-optimization,
 .domain-generative { --domain-color: var(--interest-violet); }
-.domain-physics,
-.domain-statistics { --domain-color: var(--interest-cyan); }
 </style>
 
 <style>
@@ -3142,7 +3167,7 @@ A selection of research internships, projects, seminars, and reading groups comp
 <div class="research-domains">
 <span class="domain-badge domain-learning">Machine Learning</span>
 <span class="domain-badge domain-learning">Clustering</span>
-<span class="domain-badge domain-probability">Statistics</span>
+<span class="domain-badge domain-statistics">Statistics</span>
 </div>
 </div>
 </article>
@@ -3216,7 +3241,7 @@ cardiovascular report <span aria-hidden="true">↗</span>
 </div>
 <div class="research-domains">
 <span class="domain-badge domain-learning">Machine Learning</span>
-<span class="domain-badge domain-probability">Applied Statistics</span>
+<span class="domain-badge domain-statistics">Applied Statistics</span>
 </div>
 </div>
 </article>
@@ -3284,8 +3309,8 @@ slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 <div class="research-domains">
-<span class="domain-badge domain-graph">Algebraic Geometry</span>
-<span class="domain-badge domain-numerical">Computational Algebra</span>
+<span class="domain-badge domain-geometry">Algebraic Geometry</span>
+<span class="domain-badge domain-algebra">Computational Algebra</span>
 </div>
 </div>
 </article>
@@ -3309,8 +3334,8 @@ slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 <div class="research-domains">
-<span class="domain-badge domain-probability">Cryptography</span>
-<span class="domain-badge domain-numerical">Discrete Mathematics</span>
+<span class="domain-badge domain-algebra">Cryptography</span>
+<span class="domain-badge domain-algebra">Discrete Mathematics</span>
 </div>
 </div>
 </article>
@@ -3334,8 +3359,8 @@ slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 <div class="research-domains">
-<span class="domain-badge domain-graph">Real Algebraic Geometry</span>
-<span class="domain-badge domain-numerical">Computational Algebra</span>
+<span class="domain-badge domain-geometry">Real Algebraic Geometry</span>
+<span class="domain-badge domain-algebra">Computational Algebra</span>
 </div>
 </div>
 </article>
@@ -3359,8 +3384,8 @@ slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 <div class="research-domains">
-<span class="domain-badge domain-probability">Number Theory</span>
-<span class="domain-badge domain-graph">Geometry</span>
+<span class="domain-badge domain-algebra">Number Theory</span>
+<span class="domain-badge domain-geometry">Geometry</span>
 </div>
 </div>
 </article>
@@ -3381,8 +3406,8 @@ report <span aria-hidden="true">↗</span>
 </a>
 </div>
 <div class="research-domains">
-<span class="domain-badge domain-graph">Topology</span>
-<span class="domain-badge domain-numerical">Linear Algebra</span>
+<span class="domain-badge domain-geometry">Topology</span>
+<span class="domain-badge domain-algebra">Linear Algebra</span>
 </div>
 </div>
 </article>
@@ -3406,8 +3431,8 @@ slides <span aria-hidden="true">↗</span>
 </a>
 </div>
 <div class="research-domains">
-<span class="domain-badge domain-graph">Geometry</span>
-<span class="domain-badge domain-numerical">Group Theory</span>
+<span class="domain-badge domain-geometry">Geometry</span>
+<span class="domain-badge domain-algebra">Group Theory</span>
 </div>
 </div>
 </article>
