@@ -2787,8 +2787,9 @@ a.pdf-link:hover,
   vertical-align: -0.13em;
   background: currentColor;
 }
-.welcome-typewriter[data-stage="hold"] .welcome-caret {
-  animation: welcome-caret-blink 0.85s step-end infinite;
+.welcome-typewriter[data-stage="hold"] .welcome-caret,
+.welcome-typewriter[data-stage="done"] .welcome-caret {
+  animation: welcome-caret-blink 1s step-end infinite;
 }
 @keyframes welcome-caret-blink {
   0%, 100% { opacity: 1; }
@@ -4567,7 +4568,6 @@ CC BY 4.0
         if (phraseIndex === phrases.length - 1) {
           stage = 'done';
           paint();
-          delete welcome.dataset.typing;
           return;
         }
         stage = 'hold';
