@@ -2760,6 +2760,44 @@ a.pdf-link:hover,
   margin: 0;
 }
 </style>
+<style>
+/* The animated welcome keeps the existing paragraph's typography and height. */
+.welcome-typewriter {
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
+}
+.welcome-accessible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.welcome-caret { display: none; }
+.welcome-typewriter[data-typing] .welcome-caret {
+  display: inline-block;
+  width: 1.5px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.13em;
+  background: currentColor;
+}
+.welcome-typewriter[data-stage="hold"] .welcome-caret {
+  animation: welcome-caret-blink 0.85s step-end infinite;
+}
+@keyframes welcome-caret-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .welcome-typewriter .welcome-caret { display: none !important; animation: none !important; }
+}
+</style>
 </head>
 
 <body>
@@ -2847,7 +2885,7 @@ a.pdf-link:hover,
 <div class="about-copy">
 
 <p>
-<strong>Welcome to my page!</strong> 
+<strong class="welcome-typewriter"><span class="welcome-accessible">Welcome to my page!</span><span class="welcome-animated" aria-hidden="true">Welcome to my page!</span><span class="welcome-caret" aria-hidden="true"></span></strong> 
 </p>
 
 <p> 
@@ -4503,5 +4541,85 @@ CC BY 4.0
 })();
 </script>
 
+<script>
+(() => {
+  const welcome = document.querySelector('.welcome-typewriter');
+  if (!welcome) return;
+  const text = welcome.querySelector('.welcome-animated');
+  const phrases = ['Welcome to my page!', 'Hello there!'];
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let phraseIndex = 0, position = 0, stage = 'typing';
+  let visible = false, started = false, timer = null;
+
+  function paint() {
+    text.textContent = phrases[phraseIndex].slice(0, position);
+    welcome.dataset.stage = stage;
+  }
+
+  function tick() {
+    timer = null;
+    if (!visible || document.hidden || reducedMotion.matches) return;
+    let delay;
+    if (stage === 'typing') {
+      position++;
+      if (position >= phrases[phraseIndex].length) {
+        position = phrases[phraseIndex].length;
+        stage = 'hold';
+        delay = 1450;
+      } else delay = 110;
+    } else if (stage === 'hold') {
+      stage = 'deleting';
+      delay = 38;
+    } else if (stage === 'deleting') {
+      position--;
+      if (position <= 0) {
+        position = 0;
+        stage = 'between';
+        delay = 160;
+      } else delay = 38;
+    } else {
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+      position = 0;
+      stage = 'typing';
+      delay = 110;
+    }
+    paint();
+    timer = window.setTimeout(tick, delay);
+  }
+
+  function synchronize() {
+    if (timer !== null) window.clearTimeout(timer);
+    timer = null;
+    if (reducedMotion.matches) {
+      started = false;
+      phraseIndex = position = 0;
+      stage = 'typing';
+      text.textContent = phrases[0];
+      delete welcome.dataset.typing;
+      delete welcome.dataset.stage;
+      return;
+    }
+    if (!visible || document.hidden) return;
+    welcome.dataset.typing = 'true';
+    if (!started) {
+      started = true;
+      paint();
+    }
+    timer = window.setTimeout(tick, stage === 'hold' ? 1450 : 105);
+  }
+
+  document.addEventListener('visibilitychange', synchronize);
+  reducedMotion.addEventListener('change', synchronize);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      synchronize();
+    }).observe(welcome);
+  } else {
+    visible = true;
+    synchronize();
+  }
+})();
+</script>
 </body>
 </html>
