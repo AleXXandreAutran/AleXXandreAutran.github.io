@@ -4564,6 +4564,12 @@ CC BY 4.0
       position++;
       if (position >= phrases[phraseIndex].length) {
         position = phrases[phraseIndex].length;
+        if (phraseIndex === phrases.length - 1) {
+          stage = 'done';
+          paint();
+          delete welcome.dataset.typing;
+          return;
+        }
         stage = 'hold';
         delay = 1450;
       } else delay = 110;
@@ -4578,7 +4584,7 @@ CC BY 4.0
         delay = 160;
       } else delay = 38;
     } else {
-      phraseIndex = (phraseIndex + 1) % phrases.length;
+      phraseIndex++;
       position = 0;
       stage = 'typing';
       delay = 110;
@@ -4590,13 +4596,14 @@ CC BY 4.0
   function synchronize() {
     if (timer !== null) window.clearTimeout(timer);
     timer = null;
+    if (stage === 'done') return;
     if (reducedMotion.matches) {
-      started = false;
-      phraseIndex = position = 0;
-      stage = 'typing';
-      text.textContent = phrases[0];
+      started = true;
+      phraseIndex = phrases.length - 1;
+      position = phrases[phraseIndex].length;
+      stage = 'done';
+      paint();
       delete welcome.dataset.typing;
-      delete welcome.dataset.stage;
       return;
     }
     if (!visible || document.hidden) return;
