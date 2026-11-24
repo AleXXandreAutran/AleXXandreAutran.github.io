@@ -1890,7 +1890,7 @@ body {
 
 .content {
   --content-line-height: 1.5;
-  --content-max: 800px;
+  --content-max: 740px;
   --content-margin-scale: 1.1;
   --content-font-scale: 0.9302325581;
   --content-gutter: clamp(56px, 6vw, 108px);
@@ -2781,7 +2781,7 @@ body {
   background: var(--bg);
 }
 .site-header-inner {
-  width: min(800px, calc(100% - 2 * var(--header-gutter)));
+  width: min(740px, calc(100% - 2 * var(--header-gutter)));
   margin-inline: auto;
   padding: 28px 0 18px;
   display: flex;
