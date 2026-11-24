@@ -1228,13 +1228,12 @@ html[data-theme="light"] .resource-card:hover{
 .research-item .research-number{
     grid-column:1 !important;
     margin:0 !important;
-    min-height:24px;
-    display:flex;
-    align-items:center;
+    min-height:0;
+    display:block;
     color:var(--muted) !important;
     font-size:1rem !important;
     font-weight:700;
-    line-height:1.4;
+    line-height:1.35;
     white-space:nowrap;
 }
 
@@ -1672,7 +1671,7 @@ html[data-theme="light"] {
   --badge-control: #f2b26e;
   --badge-numerical: #c4a5f0;
   --badge-algebra: #e6a0c4;
-  --badge-finance: #e2c57c;
+  --badge-finance: #f0a1ae;
   --badge-biology: #a6cd8c;
   --badge-physics: #89c5df;
 }
@@ -1683,7 +1682,7 @@ html[data-theme="light"] .research-domains {
   --badge-control: #995015;
   --badge-numerical: #7b4fae;
   --badge-algebra: #914166;
-  --badge-finance: #795906;
+  --badge-finance: #a13b4d;
   --badge-biology: #4a6c32;
   --badge-physics: #27687b;
 }
@@ -1905,7 +1904,7 @@ body {
 }
 
 .content .research-number {
-  font-size: calc(1rem * var(--content-font-scale)) !important;
+  font-size: calc(15.3px * var(--content-font-scale, 1)) !important;
 }
 
 .resource-subhead h3 {
