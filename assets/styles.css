@@ -2948,6 +2948,9 @@ body[data-page="home"] .content { overflow: clip; }
 @media (max-width: 800px) { .site-header .side-nav { column-gap: 10px; } }
 @media (max-width: 700px) { .site-header-inner > #themeModeToggle { order: 1; } }
 #about .about-copy > p { text-align: justify; text-align-last: start; text-justify: inter-word; }
+#resources > .resource-group:first-of-type { margin-top: 0 !important; }
+#resources .resource-subhead h3,
+#resources .other-title { line-height: 1.35; }
 #resources > .resource-group + .resource-group,
 #resources > .other-docs { margin-top: 48px !important; }
 body:not([data-page="home"]) .content > .section { padding-top: 76px !important; }
