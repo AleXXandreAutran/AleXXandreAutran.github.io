@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-page="home">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,30 +23,85 @@
 </script>
 <script>
 (() => {
-  const routes = {'#research': 'publications/', '#experiences': 'experiences/', '#resources': 'resources/', '#pictures': 'photographs/'};
-  const redirect = () => { if (routes[location.hash]) location.replace(new URL(routes[location.hash], location.href)); };
-  redirect();
-  window.addEventListener('hashchange', redirect);
+  const titles = { home: "AA's webpage", publications: 'Publications', experiences: 'Experiences', resources: 'Resources', photographs: 'Photographs' };
+  const legacy = { '#about': 'home', '#home': 'home', '#research': 'publications', '#publications': 'publications', '#experiences': 'experiences', '#resources': 'resources', '#pictures': 'photographs', '#photographs': 'photographs' };
+  const url = new URL(location.href);
+  const requested = url.searchParams.get('page');
+  const fromHash = legacy[url.hash];
+  const page = Object.hasOwn(titles, requested) ? requested : (fromHash || 'home');
+  document.documentElement.dataset.page = page;
+  document.title = page === 'home' ? titles.home : titles[page] + ' — Alexandre Autran';
+  if (!requested && fromHash && fromHash !== 'home') {
+    url.searchParams.set('page', fromHash);
+    url.hash = '';
+    history.replaceState(null, '', url);
+  }
+  window.addEventListener('hashchange', () => {
+    const target = legacy[location.hash];
+    if (!target || target === document.documentElement.dataset.page) return;
+    const destination = new URL(location.href);
+    destination.hash = '';
+    if (target === 'home') destination.searchParams.delete('page');
+    else destination.searchParams.set('page', target);
+    location.replace(destination);
+  });
 })();
 </script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/site.css">
-
-<script defer src="assets/site.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+<script>
+if (document.documentElement.dataset.page === 'publications') {
+window.MathJax = {
+  loader: {
+    load: ['input/tex', 'output/chtml', 'ui/menu', 'a11y/assistive-mml']
+  },
+  options: {
+    enableMenu: false,
+    enableAssistiveMml: true,
+    menuOptions: {
+      settings: {
+        enrich: false,
+        speech: false,
+        braille: false,
+        assistiveMml: true
+      }
+    }
+  },
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  },
+  output: {
+    font: 'mathjax-newcm',
+    fontPath: 'https://cdn.jsdelivr.net/npm/@mathjax/%%FONT%%-font@4.0.0'
+  },
+  chtml: {
+    fontURL: 'https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.0.0/chtml/woff2',
+    dynamicPrefix: 'https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.0.0/chtml/dynamic'
+  },
+  startup: { typeset: false }
+};
+  const mathjaxScript = document.createElement('script');
+  mathjaxScript.id = 'publications-mathjax';
+  mathjaxScript.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/startup.js';
+  mathjaxScript.async = true;
+  document.head.append(mathjaxScript);
+}
+</script>
+<script defer src="assets/script.js"></script>
 </head>
 <body data-page="home">
+<script>document.body.dataset.page = document.documentElement.dataset.page;</script>
 <div class="reading-progress" aria-hidden="true"></div>
 <header class="site-header" id="siteHeader">
 <div class="site-header-inner">
 <nav class="side-nav" aria-label="Main navigation">
-<a href="./" class="active" aria-current="page">Home</a>
-<a href="publications/">Publications</a>
-<a href="experiences/">Experiences</a>
-<a href="resources/">Resources</a>
-<a href="photographs/">Photographs</a>
-</nav>
-
-<div class="header-utilities"><button class="theme-toggle" id="themeModeToggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
+<a href="./" data-route="home" class="active" aria-current="page">Home</a>
+<a href="?page=publications" data-route="publications">Publications</a>
+<a href="?page=experiences" data-route="experiences">Experiences</a>
+<a href="?page=resources" data-route="resources">Resources</a>
+<span class="nav-theme-group"><a href="?page=photographs" data-route="photographs">Photographs</a>
+<button class="theme-toggle" id="themeModeToggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
 <span class="theme-icon moon-icon" aria-hidden="true">
 <svg viewBox="0 0 24 24" fill="none">
 <path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.6 8.6 0 1 0 20.2 15.1Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -59,11 +114,13 @@
 <path d="M12 2.5v2M12 19.5v2M4.5 12h-2M21.5 12h-2M5.3 5.3 6.7 6.7M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
 </svg>
 </span>
-</button>
+</button></span>
+</nav>
+
 <div class="institution-logos" aria-label="Affiliations">
 <a class="institution-logo" href="https://centreborelli.ens-paris-saclay.fr/fr" target="_blank" rel="noopener"><img class="logo-borelli" src="assets/centre-borelli-color.png" alt="Centre Borelli"></a>
 <a class="institution-logo" href="https://ens-paris-saclay.fr/" target="_blank" rel="noopener"><img src="assets/ens-paris-saclay.png" alt="ENS Paris-Saclay"></a>
-</div></div>
+</div>
 </div>
 </header>
 <main class="content">
@@ -92,7 +149,7 @@ I am interested in stochastic processes, statistics, optimization, and their app
 </p>
 
 <p>
-Outside the lab and studies, I enjoy running, cycling, gym, and taking landscape <a href="photographs/">photographs</a>.
+Outside the lab and studies, I enjoy running, cycling, gym, and taking landscape <a href="?page=photographs">photographs</a>.
 </p>    
     
 <div class="profile-links" aria-label="Contact and profile links">
@@ -145,6 +202,792 @@ Outside the lab and studies, I enjoy running, cycling, gym, and taking landscape
 </div>
 
 </section>
+
+<template id="view-publications">
+<section class="section" id="research">
+
+<h1 class="page-title-accessible">Publications</h1>
+
+<div class="research-list expanded" id="researchList">
+
+  <article class="research-item">
+    <div class="research-number">[1]</div>
+    <div>
+      <h3 id="paper-title-1">Quadrature-Induced Local Minima in Structure-Preserving Lotka-Volterra Control</h3>
+      <p class="research-meta">A. Autran, <em>ArXiv preprint</em>, 2026</p>
+      <div class="research-domains">
+        <span class="domain-badge domain-control">Optimal Control</span>
+        <span class="domain-badge domain-numerical">Numerical Analysis</span>
+        <span class="domain-badge domain-biology">Mathematical Biology</span>
+      </div>
+      <p class="research-meta research-publication-line">
+        <a class="pdf-link research-paper-link" href="https://arxiv.org/pdf/2611.20131" target="_blank" rel="noopener">paper ↗</a>
+        <span class="research-summary-action">
+          <button class="research-summary-toggle" type="button"
+            id="summary-toggle-1" aria-expanded="false"
+            aria-controls="summary-1" aria-label="Show summary: Quadrature-Induced Local Minima in Structure-Preserving Lotka-Volterra Control">
+            Summary
+            <svg class="research-summary-chevron" viewBox="0 0 12 12"
+              fill="none" aria-hidden="true" focusable="false">
+              <path d="M2 4.5 6 8.5 10 4.5" stroke="currentColor"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </span>
+      </p>
+      
+
+<div class="research-summary-panel" id="summary-1"
+  role="region" aria-labelledby="paper-title-1" hidden>
+
+  <p>A numerical scheme can keep populations positive and still miscount the catch. We compare two harvest rules in a diffusive Lotka–Volterra model.</p>
+
+  <div class="research-summary-equation">
+    \[
+    H_{\mathrm{old}}^{n}=\tau q\,u^{n}v_{2}^{n},
+    \qquad\text{and}\qquad
+    H_{\mathrm{flux}}^{n}=\tau q\,u^{n}v_{2}^{n+1}.
+    \]
+  </div>
+
+  <p>
+    The flux rule counts the prey the scheme actually removes. In a pure-removal example, the old-state rule overcounts the catch and can create a strict but suboptimal local minimum. The flux cost stays strictly convex. For the coupled model in one dimension, we show that the differences in cost, gradient, and Hessian are \(O(\tau)\), uniformly in the mesh. We also derive exact discrete adjoints and prove that both rules have the same variational limit. In the numerical tests, the choice of rule changes the computed controls, especially the timing of switches on coarse grids.
+  </p>
+
+</div>
+</div>
+</article>
+
+
+       <article class="research-item">
+    <div class="research-number">[2]</div>
+    <div>
+      <h3 id="paper-title-2">Singular Tracking of Fractional Brownian Motion under Proportional Costs</h3>
+      <p class="research-meta">A. Autran, <em>ArXiv preprint</em>, 2026 — under review at <em>Stochastic Processes and their Applications </em></p>
+      <div class="research-domains">
+        <span class="domain-badge domain-control">Stochastic Control</span>
+        <span class="domain-badge domain-finance">Mathematical Finance</span>
+        <span class="domain-badge domain-stochastic">Fractional Brownian Motion</span>
+      </div>
+      <p class="research-meta research-publication-line">
+                  <a class="pdf-link research-paper-link"
+           href="https://arxiv.org/pdf/2611.01727"
+           target="_blank"
+           rel="noopener">paper ↗</a>
+        <span class="research-summary-action">
+          <button class="research-summary-toggle" type="button"
+            id="summary-toggle-2" aria-expanded="false"
+            aria-controls="summary-2" aria-label="Show summary: Singular Tracking of Fractional Brownian Motion under Proportional Costs">
+            Summary
+            <svg class="research-summary-chevron" viewBox="0 0 12 12"
+              fill="none" aria-hidden="true" focusable="false">
+              <path d="M2 4.5 6 8.5 10 4.5" stroke="currentColor"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </span>
+      </p>
+      
+      <div class="research-summary-panel" id="summary-2"
+        role="region" aria-labelledby="paper-title-2" hidden>
+        <p>Each adjustment has a cost. Wait too long, and the tracking error can grow. I study this trade-off for fractional Brownian motion with causal controls of finite variation, a quadratic tracking loss, and a cost proportional to the amount of adjustment. As the cost parameter \(\lambda\) goes to zero, the optimal value follows a power law.</p>
+        <div class="research-summary-equation">
+          \[
+          V_{\lambda}(T;a,b,\sigma)\mathrel{\underset{\lambda\downarrow0}{\sim}}\kappa_H T\,a^{\frac{1-H}{1+H}}(\lambda b)^{\frac{2H}{1+H}}\sigma^{\frac{2}{1+H}}.
+          \]
+        </div>
+        <p>The exponent depends on \(H\in(0,1)\), which measures how rough the target is. The weights \(a\) and \(b\) set the two costs, and \(\sigma\) sets the scale of the target. The constant \(\kappa_H&gt;0\) is the value of a long-run cell problem. Knowing the entire past can change the cost over a finite horizon. The leading constant stays the same. I extend the limit to suitable Gaussian Volterra targets and show how to bound and approximate the cell value.</p>
+      </div>
+    </div>
+  </article>   
+
+     <article class="research-item">
+    <div class="research-number">[3]</div>
+    <div>
+      <h3 id="paper-title-3">Conditional Fluctuations of Mean-Field Systems with Stable Common Noise</h3>
+      <p class="research-meta">A. Autran, <em>ArXiv preprint</em>, 2026 — under review at <em>Electronic Journal of Probability </em></p>
+      <div class="research-domains">
+        <span class="domain-badge domain-probability">Probability</span>
+        <span class="domain-badge domain-probability">Stochastic Analysis</span>
+        <span class="domain-badge domain-probability">Mean-Field Systems</span>
+      </div>
+      <p class="research-meta research-publication-line">
+          <a class="pdf-link research-paper-link"
+           href="https://arxiv.org/pdf/2610.01391"
+           target="_blank"
+           rel="noopener">paper ↗</a>
+        <span class="research-summary-action">
+          <button class="research-summary-toggle" type="button"
+            id="summary-toggle-3" aria-expanded="false"
+            aria-controls="summary-3" aria-label="Show summary: Conditional Fluctuations of Mean-Field Systems with Stable Common Noise">
+            Summary
+            <svg class="research-summary-chevron" viewBox="0 0 12 12"
+              fill="none" aria-hidden="true" focusable="false">
+              <path d="M2 4.5 6 8.5 10 4.5" stroke="currentColor"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </span>
+      </p>
+      
+      <div class="research-summary-panel" id="summary-3"
+        role="region" aria-labelledby="paper-title-3" hidden>
+        <p>In a large system, particles interact and share shocks. Each also has its own randomness. I study a smooth particle system on a torus with symmetric stable common noise, where \(0&lt;\alpha&lt;1\). In a common Poisson construction, I condition on the full source of common jumps. The conditional law of the sampling fluctuations converges in probability to a Gaussian law.</p>
+        <div class="research-summary-equation">
+          \[
+          \mathcal{L}\!\left(\sqrt{N}(\mu^{N}-\mu)\,\middle|\,\mathscr{G}^{0}\right)\mathrel{\underset{N\to\infty}{\overset{\mathbb{P}}{\longrightarrow}}}\mathcal{K}_{\mathscr{G}^{0}}.
+          \]
+        </div>
+        <p>The empirical measure \(\mu^N\) approaches the conditional mean-field limit \(\mu\). The centered Gaussian kernel \(\mathcal{K}_{\mathscr{G}^{0}}\) depends on the common noise. For one-dimensional microscopic approximations, I find the tail threshold at which a correction shifts the conditional mean or outweighs the sampling noise. Coupling matters too. In the final example, the microscopic laws stay the same, but the path fluctuations differ depending on how they are linked to the limiting common signal.</p>
+      </div>
+    </div>
+  </article>   
+
+<article class="research-item">
+    <div class="research-number">[4]</div>
+    <div>
+      <h3 id="paper-title-4">Second-Order Wasserstein Response for Lévy Laws</h3>
+      <p class="research-meta">A. Autran, <em>ArXiv preprint</em>, 2026</p>
+      <div class="research-domains">
+        <span class="domain-badge domain-probability">Probability</span>
+        <span class="domain-badge domain-probability">Stochastic Analysis</span>
+        <span class="domain-badge domain-stochastic">Jump Diffusions</span>
+      </div>
+      <p class="research-meta research-publication-line">
+        <a class="pdf-link research-paper-link"
+           href="https://arxiv.org/pdf/2610.01411"
+           target="_blank"
+           rel="noopener">paper ↗</a>
+        <span class="research-summary-action">
+          <button class="research-summary-toggle" type="button"
+            id="summary-toggle-4" aria-expanded="false"
+            aria-controls="summary-4" aria-label="Show summary: Second-Order Wasserstein Response for Lévy Laws">
+            Summary
+            <svg class="research-summary-chevron" viewBox="0 0 12 12"
+              fill="none" aria-hidden="true" focusable="false">
+              <path d="M2 4.5 6 8.5 10 4.5" stroke="currentColor"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </span>
+      </p>
+      
+      <div class="research-summary-panel" id="summary-4"
+        role="region" aria-labelledby="paper-title-4" hidden>
+        <p>Two perturbations can change the Lévy characteristics by similar amounts and have very different effects on the resulting laws. I compute the first- and second-order responses of Gaussian-smoothed infinitely divisible laws in the Wasserstein-1 distance. A balanced redistribution of jumps can cancel the linear term. The remaining error has a quadratic expansion.</p>
+        <div class="research-summary-equation">
+          \[
+          W_1(\lambda_{\varepsilon},\lambda_0)\mathrel{\underset{\varepsilon\to0}{=}}\varepsilon^2\lVert Q\rVert_{L^1}+o(\varepsilon^2).
+          \]
+        </div>
+        <p>The function \(Q\) gives the second-order change in the cumulative distribution function when the first-order change vanishes. Under the moment assumptions in the paper, its norm is positive if the jump displacements have nonzero dispersion. The expansion gives sharp error rates for local balanced remeshing. I also give a linear programming method for approximating jumps and describe what happens as Gaussian smoothing vanishes.</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="research-item">
+    <div class="research-number">[5]</div>
+    <div>
+      <h3 id="paper-title-5">Multi-Dimensional Charge Diffusion–Collection Model in Semiconductor Devices Subjected to Single Ionizing Particles</h3>
+      <p class="research-meta">A. Autran et al., <em>Applied Sciences</em>, 2026</p>
+      <div class="research-domains">
+        <span class="domain-badge domain-physics">Semiconductor Physics</span>
+        <span class="domain-badge domain-physics">Device Modeling</span>
+        <span class="domain-badge domain-numerical">Applied Mathematics</span>
+      </div>
+      <p class="research-meta research-publication-line">
+        <a class="pdf-link research-paper-link"
+           href="https://www.mdpi.com/2076-3417/16/11/5551"
+           target="_blank"
+           rel="noopener">paper ↗</a>
+        <span class="research-summary-action">
+          <button class="research-summary-toggle" type="button"
+            id="summary-toggle-5" aria-expanded="false"
+            aria-controls="summary-5" aria-label="Show summary: Multi-Dimensional Charge Diffusion–Collection Model in Semiconductor Devices Subjected to Single Ionizing Particles">
+            Summary
+            <svg class="research-summary-chevron" viewBox="0 0 12 12"
+              fill="none" aria-hidden="true" focusable="false">
+              <path d="M2 4.5 6 8.5 10 4.5" stroke="currentColor"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </span>
+      </p>
+      
+      <div class="research-summary-panel" id="summary-5"
+        role="region" aria-labelledby="paper-title-5" hidden>
+        <p>An ionizing particle crossing a semiconductor creates a cloud of charge carriers. Some diffuse toward a sensitive node. Others recombine before they reach it. We use one model for diffusion and collection in one, two, and three dimensions, assuming an idealized medium and a finite carrier lifetime.</p>
+        <div class="research-summary-equation">
+          \[
+          \frac{\partial n}{\partial t}=D\Delta n-\frac{n}{\tau},\qquad\text{and}\qquad Q_{\mathrm{col}}(t)=\int_0^t I_{\mathrm{col}}(s)\,\mathrm{d}s.
+          \]
+        </div>
+        <p>In the equations, \(n\) is the carrier density, \(D\) is the diffusion coefficient, and \(\tau\) is the carrier lifetime. Starting from a point source, we derive formulas for the density, diffusion current, and collected charge, with a representation in terms of Bessel functions. The formulas show how geometry affects the response. In all three dimensions, the current peaks before the carrier density. We include a short Python implementation for simulations and single-event sensitivity studies.</p>
+      </div>
+    </div>
+  </article>
+
+</div>
+
+
+
+</section>
+</template>
+
+<template id="view-experiences">
+<section class="section" id="experiences">
+
+<h1 class="page-title-accessible">Experiences</h1>
+
+<p class="section-intro">
+Research internships, projects, seminars, and reading groups completed during my studies.
+</p>
+
+<div class="timeline expanded" id="researchTimeline">
+    
+<article class="timeline-item" data-tone="ml">
+<div class="timeline-date">SEP — FEB 2027</div>
+<div class="timeline-marker" aria-hidden="true"></div>
+<div class="timeline-content">
+<h3>Machine Learning Internship</h3>
+<div class="experience-details">
+<h4>High-Dimensional Density Clustering Using Local Unimodality</h4>
+<p>Supervised by Argyris Kalogeratos (Senior Research Scientist)</p>
+<p class="place">Centre Borelli, École Normale Supérieure Paris-Saclay, France</p>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-learning">Machine Learning</span>
+<span class="domain-badge domain-learning">Clustering</span>
+<span class="domain-badge domain-statistics">Statistics</span>
+</div>
+</div>
+</article>
+
+<article class="timeline-item" data-tone="msc">
+<div class="timeline-date">JUN — AUG 2026</div>
+<div class="timeline-marker" aria-hidden="true"></div>
+<div class="timeline-content">
+<h3>M1 Research Internship</h3>
+<div class="experience-details">
+<h4>Optical Modeling of Thermochromic VO<sub>2</sub>-Based Oxide Nanocomposites</h4>
+<p>Supervised by Nguyen Ngoc Duy (Full Professor) and Amaury Baret (PhD Student)</p>
+<p class="place">University of Liège, Belgium</p>
+</div>
+<div class="timeline-links">
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/msc/VO2_modeling_report.pdf" target="_blank" rel="noopener">
+report <span aria-hidden="true">↗</span>
+</a>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/msc/VO2_modeling_beamer.pdf" target="_blank" rel="noopener">
+slides <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-physics">Applied Physics</span>
+<span class="domain-badge domain-physics">Materials Science</span>
+<span class="domain-badge domain-optimization">Optimization</span>
+</div>
+</div>
+</article>
+
+<article class="timeline-item" data-tone="research">
+<div class="timeline-date">APR — JUN 2026</div>
+<div class="timeline-marker" aria-hidden="true"></div>
+<div class="timeline-content">
+<h3>Research Internship</h3>
+<div class="experience-details">
+<h4>Numerical Simulation and Optimal Control of Spatial Lotka–Volterra Systems</h4>
+<p>Supervised by Martin J. Gander (Full Professor) and Bastien Chaudet-Dumas (Postdoctoral Researcher)</p>
+<p class="place">University of Geneva, Switzerland</p>
+</div>
+<div class="timeline-links">
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/msc/lotka-volterra-optimal-control-report.pdf" target="_blank" rel="noopener">
+report <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-control">Optimal Control</span>
+<span class="domain-badge domain-numerical">Numerical Analysis</span>
+<span class="domain-badge domain-biology">Mathematical Biology</span>
+</div>
+</div>
+</article>
+
+<article class="timeline-item" data-tone="ml">
+<div class="timeline-date">APR — MAY 2026</div>
+<div class="timeline-marker" aria-hidden="true"></div>
+<div class="timeline-content">
+<h3>Machine Learning Projects</h3>
+<div class="experience-details">
+<h4>Air Pollution and Cardiovascular Disease Prediction</h4>
+<p>Course taught by Myriam Maumy (Full Professor)</p>
+<p class="place">MSc Statistical Learning</p>
+</div>
+<div class="timeline-links">
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/machine-learning/air-pollution-prediction-report.pdf" target="_blank" rel="noopener">
+air pollution report <span aria-hidden="true">↗</span>
+</a>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/machine-learning/cardiovascular-disease-prediction-report.pdf" target="_blank" rel="noopener">
+cardiovascular report <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-learning">Machine Learning</span>
+<span class="domain-badge domain-statistics">Applied Statistics</span>
+</div>
+</div>
+</article>
+
+<article class="timeline-item research-extra" data-tone="reading">
+<div class="timeline-date">JAN 2026</div>
+<div class="timeline-marker" aria-hidden="true"></div>
+<div class="timeline-content">
+<h3>Statistical Reading Group</h3>
+<div class="experience-details">
+<h4>Supervised Statistical Learning: Prediction by Empirical Risk Minimization</h4>
+<p>Supervised by Magalie Fromont (Full Professor)</p>
+<p class="place">École Normale Supérieure de Rennes, France</p>
+</div>
+<div class="timeline-links">
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/reading-groups/statistical-learning-erm-slides.pdf" target="_blank" rel="noopener">
+slides <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-learning">Statistical Learning</span>
+<span class="domain-badge domain-optimization">Optimization</span>
+</div>
+</div>
+</article>
+
+<article class="timeline-item research-extra" data-tone="msc">
+<div class="timeline-date">NOV — JAN 2026</div>
+<div class="timeline-marker" aria-hidden="true"></div>
+<div class="timeline-content">
+<h3>M2 Research Seminar</h3>
+<div class="experience-details">
+<h4>Point Process and Stein’s Method</h4>
+<p>Supervised by Jean-Christophe Breton (Full Professor)</p>
+<p class="place">University of Rennes, France</p>
+</div>
+<div class="timeline-links">
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/seminars/stein-point-processes-report.pdf" target="_blank" rel="noopener">
+report <span aria-hidden="true">↗</span>
+</a>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/seminars/stein-point-processes-slides.pdf" target="_blank" rel="noopener">
+slides <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-probability">Probability</span>
+<span class="domain-badge domain-stochastic">Stochastic Processes</span>
+</div>
+</div>
+</article>
+    
+<article class="timeline-item research-extra" data-tone="reading">
+<div class="timeline-date">OCT — NOV 2025</div>
+<div class="timeline-marker" aria-hidden="true"></div>
+<div class="timeline-content">
+<h3>Algebra Reading Group</h3>
+<div class="experience-details">
+<h4>Elimination Theory and Extension</h4>
+<p>Supervised by Jade Nardi (CNRS Research Scientist)</p>
+<p class="place">École Normale Supérieure de Rennes, France</p>
+</div>
+<div class="timeline-links">
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/reading-groups/elimination-theory-extension-slides.pdf" target="_blank" rel="noopener">
+slides <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-geometry">Algebraic Geometry</span>
+<span class="domain-badge domain-algebra">Computational Algebra</span>
+</div>
+</div>
+</article>
+
+<article class="timeline-item research-extra" data-tone="bsc">
+<div class="timeline-date">JUN — AUG 2025</div>
+<div class="timeline-marker" aria-hidden="true"></div>
+<div class="timeline-content">
+<h3>L3 Research Internship</h3>
+<div class="experience-details">
+<h4>Lattice-Based Post-Quantum Cryptography</h4>
+<p>Supervised by Pierre-Alain Fouque (Full Professor) and Aurore Guillevic (Inria Research Scientist)</p>
+<p class="place">Inria / IRISA, France</p>
+</div>
+<div class="timeline-links">
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/bsc/post-quantum-cryptography-report.pdf" target="_blank" rel="noopener">
+report <span aria-hidden="true">↗</span>
+</a>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/bsc/post-quantum-cryptography-slides.pdf" target="_blank" rel="noopener">
+slides <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-algebra">Cryptography</span>
+<span class="domain-badge domain-algebra">Discrete Mathematics</span>
+</div>
+</div>
+</article>
+
+<article class="timeline-item research-extra" data-tone="research">
+<div class="timeline-date">MAY — JUN 2025</div>
+<div class="timeline-marker" aria-hidden="true"></div>
+<div class="timeline-content">
+<h3>Research Internship</h3>
+<div class="experience-details">
+<h4>Algebraic Counting of the Real Roots of Polynomials</h4>
+<p>Supervised by Marie-Françoise Roy (Professor Emeritus)</p>
+<p class="place">University of Rennes, France</p>
+</div>
+<div class="timeline-links">
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/bsc/real-root-counting-report.pdf" target="_blank" rel="noopener">
+report <span aria-hidden="true">↗</span>
+</a>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/bsc/real-root-counting-slides.pdf" target="_blank" rel="noopener">
+slides <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-geometry">Real Algebraic Geometry</span>
+<span class="domain-badge domain-algebra">Computational Algebra</span>
+</div>
+</div>
+</article>
+
+<article class="timeline-item research-extra" data-tone="reading">
+<div class="timeline-date">FEB — MAR 2025</div>
+<div class="timeline-marker" aria-hidden="true"></div>
+<div class="timeline-content">
+<h3>Directed Research Reading</h3>
+<div class="experience-details">
+<h4>Geometry of Numbers</h4>
+<p>Supervised by Juliette Bavard (CNRS Research Scientist)</p>
+<p class="place">École Normale Supérieure de Rennes, France</p>
+</div>
+<div class="timeline-links">
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/reading-groups/geometry-of-numbers-report.pdf" target="_blank" rel="noopener">
+report <span aria-hidden="true">↗</span>
+</a>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/reading-groups/geometry-of-numbers-slides.pdf" target="_blank" rel="noopener">
+slides <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-algebra">Number Theory</span>
+<span class="domain-badge domain-geometry">Geometry</span>
+</div>
+</div>
+</article>
+
+<article class="timeline-item research-extra" data-tone="bsc">
+<div class="timeline-date">FEB — MAR 2024</div>
+<div class="timeline-marker" aria-hidden="true"></div>
+<div class="timeline-content">
+<h3>L2 Research Internship</h3>
+<div class="experience-details">
+<h4>Topological Study of Matrix Groups</h4>
+<p>Supervised by Françoise Dal’Bo (Full Professor) and Jérémy Bettinger (PhD Student)</p>
+<p class="place">University of Rennes, France</p>
+</div>
+<div class="timeline-links">
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/bsc/topological-matrix-groups-report.pdf" target="_blank" rel="noopener">
+report <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-geometry">Topology</span>
+<span class="domain-badge domain-algebra">Linear Algebra</span>
+</div>
+</div>
+</article>
+
+<article class="timeline-item research-extra" data-tone="bsc">
+<div class="timeline-date">MAY — JUN 2023</div>
+<div class="timeline-marker" aria-hidden="true"></div>
+<div class="timeline-content">
+<h3>L1 Research Internship</h3>
+<div class="experience-details">
+<h4>Introduction to Hyperbolic Geometry and Fuchsian Groups</h4>
+<p>Supervised by Frank Loray (CNRS Research Director)</p>
+<p class="place">University of Rennes, France</p>
+</div>
+<div class="timeline-links">
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/bsc/hyperbolic-geometry-fuchsian-groups-report.pdf" target="_blank" rel="noopener">
+report <span aria-hidden="true">↗</span>
+</a>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/research/bsc/hyperbolic-geometry-fuchsian-groups-slides.pdf" target="_blank" rel="noopener">
+slides <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="research-domains">
+<span class="domain-badge domain-geometry">Geometry</span>
+<span class="domain-badge domain-algebra">Group Theory</span>
+</div>
+</div>
+</article>
+
+</div>
+
+
+
+</section>
+</template>
+
+<template id="view-resources">
+<section class="section resources-section" id="resources">
+
+<h1 class="page-title-accessible">Resources</h1>
+
+<div class="resource-group">
+
+<div class="resource-subhead">
+<h3>Master courses (2025/2026)</h3>
+</div>
+
+<p class="master-course-intro">
+Course notes I wrote during my M1/M2 year at ENS:
+</p>
+
+<div class="resource-grid master-grid master-grid-written">
+
+<article class="resource-card inline-pdf-card">
+<div class="resource-title-row">
+<h4>EDP appliquées à la biologie</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/courses/applied-pdes-biology.pdf" target="_blank" rel="noopener">
+PDF <span aria-hidden="true">↗</span>
+</a>
+</div>
+<p>Fokker–Planck, entropy methods, Wasserstein flows, Keller–Segel and Fisher–KPP.</p>
+</article>
+
+<article class="resource-card inline-pdf-card">
+<div class="resource-title-row">
+<h4>Modèles aléatoires</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/courses/random-models.pdf" target="_blank" rel="noopener">
+PDF <span aria-hidden="true">↗</span>
+</a>
+</div>
+<p>Galton–Watson trees, Poisson processes, continuous-time Markov chains and queues.</p>
+</article>
+
+</div>
+
+
+</div>
+
+<div class="resource-group">
+
+<div class="resource-subhead">
+<h3>Colles — ENS oral examinations (2024/2025)</h3>
+</div>
+
+<p class="section-intro">
+Mathematics oral examinations for L2 students preparing for the Écoles Normales Supérieures entrance examinations (Ulm, Paris-Saclay, Lyon and Rennes).
+</p>
+
+<div class="resource-grid compact-grid colles-grid">
+
+<article class="resource-card">
+<h4>Colle 1</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-01.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 2</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-02.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 3</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-03.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 4</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-04.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 5</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-05.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 6</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-06.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 7</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-07.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 8</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-08.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 9</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-09.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 10</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-10.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 11</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-11.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 12</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-12.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 13</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-13.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 14</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-14.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 15</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-15.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="resource-card">
+<h4>Colle 16</h4>
+<a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/colles/colle-16.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+</article>
+
+</div>
+
+</div>
+
+<div class="other-docs">
+<h3 class="other-title">Other documents (2023)</h3>
+</div>
+
+<p class="other-intro">Exercise sheets I wrote during my L1 Mathematics in Rennes:</p>
+
+<div class="resource-group">
+
+<div class="resource-grid compact-grid">
+
+<article class="resource-card inline-pdf-card">
+<div class="resource-title-row"><h4>Feuille 1</h4><a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/exercise-sheets/feuille-01.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
+<p>Cesàro lemma, Wilson’s theorem, sets, sequences, continuity and convexity</p>
+</article>
+
+<article class="resource-card inline-pdf-card">
+<div class="resource-title-row"><h4>Feuille 2</h4><a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/exercise-sheets/feuille-02.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
+<p>Monomorphisms, epimorphisms, integrals, sequences, norms and prime-valued polynomials</p>
+</article>
+
+<article class="resource-card inline-pdf-card">
+<div class="resource-title-row"><h4>Feuille 3</h4><a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/exercise-sheets/feuille-03.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
+<p>Heine’s theorem, arithmetic, Cantor and Cantor–Bernstein–Schröder</p>
+</article>
+
+<article class="resource-card inline-pdf-card">
+<div class="resource-title-row"><h4>Feuille 4</h4><a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/exercise-sheets/feuille-04.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
+<p>Fixed points, functional equations, differentiability, compactness and arithmetic</p>
+</article>
+
+<article class="resource-card inline-pdf-card">
+<div class="resource-title-row"><h4>Feuille 5</h4><a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/exercise-sheets/feuille-05.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
+<p>Matrix traces, fixed points, functional equations, subsequences and nilpotent matrices</p>
+</article>
+
+<article class="resource-card inline-pdf-card">
+<div class="resource-title-row"><h4>Feuille 6</h4><a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/exercise-sheets/feuille-06.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
+<p>Darboux’s theorem, matrix rank, algebraic numbers and divergent series</p>
+</article>
+
+<article class="resource-card inline-pdf-card">
+<div class="resource-title-row"><h4>Feuille 7</h4><a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/exercise-sheets/feuille-07.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
+<p>Linear families, Bolzano–Weierstrass, cluster points and asymptotic equivalents</p>
+</article>
+
+<article class="resource-card inline-pdf-card">
+<div class="resource-title-row"><h4>Feuille 8</h4><a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/exercise-sheets/feuille-08.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
+<p>Modulus-preserving maps, derivations, stable polynomials and Kürschák’s theorem</p>
+</article>
+
+<article class="resource-card inline-pdf-card">
+<div class="resource-title-row"><h4>Feuille 9</h4><a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/exercise-sheets/feuille-09.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
+<p>Common complements, kernels and images, independent maps and lower bounds</p>
+</article>
+
+<article class="resource-card inline-pdf-card">
+<div class="resource-title-row"><h4>Feuille 10</h4><a class="pdf-link" href="https://alexxandreautran.github.io/documents/resources/exercise-sheets/feuille-10.pdf" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a></div>
+<p>Multiplicative maps, dual bases, matrix equations and convergence</p>
+</article>
+
+</div>
+
+</div>
+
+</section>
+</template>
+
+<template id="view-photographs">
+<section class="section pictures-section" id="pictures">
+
+<h1 class="page-title-accessible">Photographs</h1>
+
+<div class="picture-grid">
+
+<figure class="picture-photo">
+<div class="picture-frame">
+<img src="documents/pictures/Photo1.png" alt="Picture 1" loading="lazy">
+</div>
+<figcaption>Pléneuf-Val-André, Brittany</figcaption>
+</figure>
+
+<figure class="picture-photo">
+<div class="picture-frame">
+<img src="documents/pictures/Photo2.png" alt="Picture 2" loading="lazy">
+</div>
+<figcaption>Saint-Malo from Dinard, Brittany</figcaption>
+</figure>
+
+<figure class="picture-photo">
+<div class="picture-frame">
+<img src="documents/pictures/Photo3.png" alt="Picture 3" loading="lazy">
+</div>
+<figcaption>Cesson-Sévigné, Brittany</figcaption>
+</figure>
+
+</div>
+
+</section>
+</template>
+
+<script>
+(() => {
+  const page = document.documentElement.dataset.page || 'home';
+  if (page !== 'home') {
+    const view = document.getElementById('view-' + page);
+    if (view) document.getElementById('about').replaceWith(view.content.cloneNode(true));
+  }
+  document.querySelectorAll('.side-nav a[data-route]').forEach(link => {
+    const active = link.dataset.route === page;
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+})();
+</script>
 <footer class="site-footer">
 © 2026 Alexandre Autran
 <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener">
