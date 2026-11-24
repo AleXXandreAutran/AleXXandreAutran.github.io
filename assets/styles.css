@@ -932,12 +932,23 @@ html[data-theme="light"] .sun-icon{
 }
 
 .picture-frame{
+    position:relative;
     width:100%;
     aspect-ratio:4 / 3;
     overflow:hidden;
-    border-radius:14px;
-    border:1px solid var(--border);
+    /* The PNGs already have a 48px radius at 1200 x 900px. */
+    border-radius:calc(4% + 2px) / calc(5.333333% + 2px);
     background:var(--panel);
+}
+
+.picture-frame::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    box-sizing:border-box;
+    border:1px solid var(--border);
+    border-radius:inherit;
+    pointer-events:none;
 }
 
 .picture-frame img{
@@ -2929,12 +2940,13 @@ html[data-theme="dark"] .institution-logo .logo-borelli { filter: brightness(0) 
 }
 body[data-page="home"] .content { overflow: clip; }
 
-.site-header .side-nav #themeModeToggle { margin: 0; flex-shrink: 0; }
-.nav-theme-group { display: inline-flex; flex-shrink: 0; align-items: center; gap: 20px; }
+.site-header-inner > #themeModeToggle { margin: 0; flex-shrink: 0; }
 @media (max-width: 900px) {
+  .site-header-inner { column-gap: 12px; }
   .site-header .side-nav { column-gap: 12px; }
-  .nav-theme-group { gap: 12px; }
 }
+@media (max-width: 800px) { .site-header .side-nav { column-gap: 10px; } }
+@media (max-width: 700px) { .site-header-inner > #themeModeToggle { order: 1; } }
 #about .about-copy > p { text-align: justify; text-align-last: start; text-justify: inter-word; }
 #resources > .resource-group + .resource-group,
 #resources > .other-docs { margin-top: 48px !important; }
