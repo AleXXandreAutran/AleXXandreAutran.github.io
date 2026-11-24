@@ -79,30 +79,11 @@
         updateProgress();
     }
 
-    const toggle = document.getElementById('themeModeToggle');
-    const systemReset = document.getElementById('themeSystemReset');
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
-    let savedTheme = null;
-    try { savedTheme = localStorage.getItem('portfolio-theme'); } catch {}
-    if (savedTheme === 'light' || savedTheme === 'dark') {
-        root.setAttribute('data-theme', savedTheme);
-    }
-
-    function updateToggle() {
-        const isManual = savedTheme === 'light' || savedTheme === 'dark';
-        root.dataset.themeSource = isManual ? 'manual' : 'system';
-        if (systemReset) systemReset.hidden = !isManual;
-        const isDark = root.getAttribute('data-theme') === 'dark';
-        const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
-        if (!toggle) return;
-        toggle.setAttribute('aria-label', label);
-        toggle.setAttribute('title', label);
-    }
 
     function followSystemTheme() {
-        if (savedTheme === 'light' || savedTheme === 'dark') return;
         root.setAttribute('data-theme', systemTheme.matches ? 'dark' : 'light');
-        updateToggle();
+        root.dataset.themeSource = 'system';
     }
 
     if (systemTheme.addEventListener) {
@@ -110,44 +91,9 @@
     } else {
         systemTheme.addListener(followSystemTheme);
     }
-    function refreshThemePreference() {
-        try { savedTheme = localStorage.getItem('portfolio-theme'); } catch {}
-        if (savedTheme === 'light' || savedTheme === 'dark') {
-            root.setAttribute('data-theme', savedTheme);
-            updateToggle();
-        } else {
-            followSystemTheme();
-        }
-    }
-    window.addEventListener('pageshow', refreshThemePreference);
-    window.addEventListener('focus', refreshThemePreference);
-    window.addEventListener('storage', (event) => {
-        if (event.key === 'portfolio-theme' || event.key === null) refreshThemePreference();
-    });
+    window.addEventListener('pageshow', followSystemTheme);
+    window.addEventListener('focus', followSystemTheme);
     followSystemTheme();
-
-    if (systemReset) {
-        systemReset.addEventListener('click', () => {
-            savedTheme = null;
-            try { localStorage.removeItem('portfolio-theme'); } catch {}
-            followSystemTheme();
-        });
-    }
-
-    if (toggle) {
-        toggle.addEventListener('click', () => {
-            const isDark = root.getAttribute('data-theme') === 'dark';
-            const nextTheme = isDark ? 'light' : 'dark';
-            savedTheme = nextTheme === (systemTheme.matches ? 'dark' : 'light') ? null : nextTheme;
-            root.setAttribute('data-theme', nextTheme);
-            try {
-                if (savedTheme) localStorage.setItem('portfolio-theme', savedTheme);
-                else localStorage.removeItem('portfolio-theme');
-            } catch {}
-            updateToggle();
-        });
-        updateToggle();
-    }
 
     const siteHeader = document.getElementById('siteHeader');
     if (siteHeader) {
