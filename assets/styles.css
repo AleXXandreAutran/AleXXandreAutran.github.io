@@ -2701,6 +2701,14 @@ a.pdf-link:hover,
   top: calc(var(--experience-title-line-height) / 2);
 }
 
+@media (min-width: 701px) {
+  #experiences .timeline-date {
+    align-self: start;
+    padding-top: 0;
+    line-height: var(--experience-title-line-height);
+  }
+}
+
 @media (max-width: 700px) {
   #experiences .timeline-date { grid-row: 1; }
   #experiences .timeline-marker,
@@ -2994,5 +3002,4 @@ body:not([data-page="home"]) .content > .section { padding-top: 76px !important;
   body:not([data-page="home"]) .content > .section { padding-top: 66px !important; }
 }
 
-/* Prevent a flash of Home when loading another view. */
 html[data-page]:not([data-page="home"]) #about { display: none !important; }
