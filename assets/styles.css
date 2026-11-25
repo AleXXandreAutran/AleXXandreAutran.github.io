@@ -2247,7 +2247,11 @@ html[data-theme] .resource-card:hover {
 }
 
 .timeline-item[data-tone] .timeline-marker {
-  border-color: var(--pill-color, var(--interest-blue));
+  border-color: #000;
+}
+
+html[data-theme="dark"] .timeline-item[data-tone] .timeline-marker {
+  border-color: var(--text);
 }
 
 .site-footer {
@@ -2683,6 +2687,28 @@ a.pdf-link:hover,
   }
 }
 
+
+#experiences .timeline {
+  --experience-title-line-height: calc(15.3px * var(--content-font-scale, 1) * 1.35);
+}
+
+#experiences .timeline-marker {
+  align-self: start;
+  margin-top: calc((var(--experience-title-line-height) - 10px) / 2) !important;
+}
+
+#experiences .timeline::before {
+  top: calc(var(--experience-title-line-height) / 2);
+}
+
+@media (max-width: 700px) {
+  #experiences .timeline-date { grid-row: 1; }
+  #experiences .timeline-marker,
+  #experiences .timeline-content { grid-row: 2; }
+  #experiences .timeline::before {
+    top: calc(10.8px * var(--content-font-scale, 1) * 1.65 + 9px + var(--experience-title-line-height) / 2);
+  }
+}
 
 #experiences .timeline-content {
   display: grid;
