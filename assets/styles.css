@@ -936,7 +936,6 @@ html[data-theme="light"] .sun-icon{
     width:100%;
     aspect-ratio:4 / 3;
     overflow:hidden;
-    /* The PNGs already have a 48px radius at 1200 x 900px. */
     border-radius:calc(4% + 2px) / calc(5.333333% + 2px);
     background:var(--panel);
 }
@@ -2690,6 +2689,8 @@ a.pdf-link:hover,
 
 #experiences .timeline {
   --experience-title-line-height: calc(15.3px * var(--content-font-scale, 1) * 1.35);
+  --timeline-marker-x: 136px;
+  --timeline-marker-y: calc(var(--experience-title-line-height) / 2);
 }
 
 #experiences .timeline-marker {
@@ -2698,7 +2699,23 @@ a.pdf-link:hover,
 }
 
 #experiences .timeline::before {
-  top: calc(var(--experience-title-line-height) / 2);
+  content: none;
+}
+
+#experiences .timeline-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: var(--timeline-marker-x);
+  top: var(--timeline-marker-y);
+  width: 1px;
+  height: 100%;
+  background: var(--border);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  #experiences .timeline { --timeline-marker-x: 111px; }
 }
 
 @media (min-width: 701px) {
@@ -2710,12 +2727,13 @@ a.pdf-link:hover,
 }
 
 @media (max-width: 700px) {
+  #experiences .timeline {
+    --timeline-marker-x: 9px;
+    --timeline-marker-y: calc(10.8px * var(--content-font-scale, 1) * 1.65 + 9px + var(--experience-title-line-height) / 2);
+  }
   #experiences .timeline-date { grid-row: 1; }
   #experiences .timeline-marker,
   #experiences .timeline-content { grid-row: 2; }
-  #experiences .timeline::before {
-    top: calc(10.8px * var(--content-font-scale, 1) * 1.65 + 9px + var(--experience-title-line-height) / 2);
-  }
 }
 
 #experiences .timeline-content {
@@ -2750,7 +2768,6 @@ a.pdf-link:hover,
 }
 
 
-/* The animated welcome keeps the existing paragraph's typography and height. */
 .welcome-typewriter {
   display: inline-block;
   white-space: nowrap;
@@ -2789,7 +2806,6 @@ a.pdf-link:hover,
 }
 
 
-/* Horizontal navigation and institutional marks. */
 :root {
   --sidebar-w: 0px;
   --site-header-height: 94px;
@@ -2953,7 +2969,6 @@ html[data-theme="dark"] .institution-logo .logo-borelli { filter: brightness(0) 
 }
 
 
-/* Dedicated pages with the same navigation, typography and theme. */
 .content {
   display: flex;
   flex-direction: column;
@@ -3003,3 +3018,79 @@ body:not([data-page="home"]) .content > .section { padding-top: 76px !important;
 }
 
 html[data-page]:not([data-page="home"]) #about { display: none !important; }
+
+#research .research-item > div:last-child {
+  display: grid;
+  align-content: start;
+  row-gap: 8px;
+}
+
+#research .research-item h3,
+#research .research-item .research-meta {
+  margin: 0 !important;
+}
+
+#research .research-item .research-domains,
+#research .research-item .research-publication-line {
+  min-height: 0;
+  margin: 0;
+}
+
+#research .research-item .research-publication-line {
+  align-items: center;
+}
+
+#research .research-summary-panel {
+  margin-top: 0;
+}
+
+@media (max-width: 440px) {
+  .site-header .side-nav {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    justify-items: center;
+    gap: 2px 0;
+  }
+
+  .site-header .side-nav a {
+    grid-column: span 2;
+  }
+
+  .site-header .side-nav a:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .site-header .side-nav a:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+}
+
+#resources .colles-grid {
+  grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+}
+
+@media (max-width: 1050px) {
+  #resources .colles-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  #resources .colles-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+#resources .resource-title-row > h4 {
+  flex: 1 1 8rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+#resources .resource-title-row > .pdf-link {
+  margin-inline-start: auto;
+}
+
+#pictures .picture-grid {
+  margin-top: 0;
+}
