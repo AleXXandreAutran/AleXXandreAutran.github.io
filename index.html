@@ -21,7 +21,7 @@
   const fromHash = legacy[url.hash];
   const page = Object.hasOwn(titles, requested) ? requested : (fromHash || 'home');
   document.documentElement.dataset.page = page;
-  document.title = page === 'home' ? titles.home : titles[page] + ' — Alexandre Autran';
+  document.title = titles[page];
   if (!requested && fromHash && fromHash !== 'home') {
     url.searchParams.set('page', fromHash);
     url.hash = '';
