@@ -14,24 +14,29 @@
 </script>
 <script>
 (() => {
-  const titles = { home: "AA's webpage", publications: 'Publications', experiences: 'Experiences', resources: 'Resources', photographs: 'Photographs' };
-  const legacy = { '#about': 'home', '#home': 'home', '#research': 'publications', '#publications': 'publications', '#experiences': 'experiences', '#resources': 'resources', '#pictures': 'photographs', '#photographs': 'photographs' };
+  const titles = { home: "AA's webpage", research: 'Research', experiences: 'Experiences', resources: 'Resources', photographs: 'Photographs' };
+  const legacy = { '#about': 'home', '#home': 'home', '#research': 'research', '#current-research': 'research', '#publications': 'research', '#experiences': 'experiences', '#resources': 'resources', '#pictures': 'photographs', '#photographs': 'photographs' };
   const url = new URL(location.href);
-  const requested = url.searchParams.get('page');
+  const originalPage = url.searchParams.get('page');
+  const requested = originalPage === 'publications' ? 'research' : originalPage;
   const fromHash = legacy[url.hash];
   const page = Object.hasOwn(titles, requested) ? requested : (fromHash || 'home');
   document.documentElement.dataset.page = page;
   document.title = titles[page];
-  if (!requested && fromHash && fromHash !== 'home') {
+  if (originalPage === 'publications') {
+    url.searchParams.set('page', 'research');
+    url.hash = '#publications';
+    history.replaceState(null, '', url);
+  } else if (!requested && fromHash && fromHash !== 'home') {
     url.searchParams.set('page', fromHash);
-    url.hash = '';
+    if (url.hash !== '#publications' && url.hash !== '#current-research') url.hash = '';
     history.replaceState(null, '', url);
   }
   window.addEventListener('hashchange', () => {
     const target = legacy[location.hash];
     if (!target || target === document.documentElement.dataset.page) return;
     const destination = new URL(location.href);
-    destination.hash = '';
+    if (destination.hash !== '#publications' && destination.hash !== '#current-research') destination.hash = '';
     if (target === 'home') destination.searchParams.delete('page');
     else destination.searchParams.set('page', target);
     location.replace(destination);
@@ -41,7 +46,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/styles.css">
 <script>
-if (document.documentElement.dataset.page === 'publications') {
+if (document.documentElement.dataset.page === 'research') {
 window.MathJax = {
   loader: {
     load: ['input/tex', 'output/chtml', 'ui/menu', 'a11y/assistive-mml']
@@ -88,7 +93,7 @@ window.MathJax = {
 <div class="site-header-inner">
 <nav class="side-nav" aria-label="Main navigation">
 <a href="./" data-route="home" class="active" aria-current="page">Home</a>
-<a href="?page=publications" data-route="publications">Publications</a>
+<a href="?page=research" data-route="research">Research</a>
 <a href="?page=experiences" data-route="experiences">Experiences</a>
 <a href="?page=resources" data-route="resources">Resources</a>
 <a href="?page=photographs" data-route="photographs">Photographs</a>
@@ -179,10 +184,19 @@ Outside the lab and studies, I enjoy doing sports, especially running, cycling, 
 
 </section>
 
-<template id="view-publications">
+<template id="view-research">
 <section class="section" id="research">
 
-<h1 class="page-title-accessible">Publications</h1>
+<h1 class="page-title-accessible">Research</h1>
+
+<section class="research-page-block current-research" id="current-research" aria-labelledby="current-research-heading">
+  <h2 class="research-page-heading" id="current-research-heading">Current research</h2>
+  <p>I’m currently studying how unimodality can help us understand the geometry of data. I’m particularly interested in how to decide whether two nearby groups of points belong to the same cluster, especially when the groups have curved shapes.</p>
+</section>
+
+<section class="research-page-block research-publications" id="publications" aria-labelledby="publications-heading">
+<h2 class="research-page-heading" id="publications-heading">Publications</h2>
+<p class="section-intro research-publications-intro">Some of these papers are based on topics covered in my M2 courses.</p>
 
 <div class="research-list expanded" id="researchList">
 
@@ -376,6 +390,7 @@ Outside the lab and studies, I enjoy doing sports, especially running, cycling, 
 
 
 
+</section>
 </section>
 </template>
 
@@ -685,14 +700,12 @@ slides <span aria-hidden="true">↗</span>
 
 <h1 class="page-title-accessible">Resources</h1>
 
-<div class="resource-group">
+<section class="resource-group resource-page-block" aria-labelledby="master-courses-heading">
 
-<div class="resource-subhead">
-<h3>Master courses (2025/2026)</h3>
-</div>
+<h2 class="resource-page-heading" id="master-courses-heading">Master courses</h2>
 
 <p class="master-course-intro">
-Course notes I wrote during my M1/M2 year at ENS:
+Course notes I wrote during my M1/M2 (2025/2026) year at ENS :
 </p>
 
 <div class="resource-grid master-grid master-grid-written">
@@ -720,13 +733,11 @@ PDF <span aria-hidden="true">↗</span>
 </div>
 
 
-</div>
+</section>
 
-<div class="resource-group">
+<section class="resource-group resource-page-block" aria-labelledby="colles-heading">
 
-<div class="resource-subhead">
-<h3>Colles — ENS oral examinations (2024/2025)</h3>
-</div>
+<h2 class="resource-page-heading" id="colles-heading">Colles: ENS oral examinations</h2>
 
 <p class="section-intro">
 Mathematics oral examinations for L2 students preparing for the Écoles Normales Supérieures entrance examinations (Ulm, Paris-Saclay, Lyon and Rennes).
@@ -816,15 +827,13 @@ Mathematics oral examinations for L2 students preparing for the Écoles Normales
 
 </div>
 
-</div>
+</section>
 
-<div class="other-docs">
-<h3 class="other-title">Other documents (2023)</h3>
-</div>
+<section class="resource-group resource-page-block" aria-labelledby="other-documents-heading">
 
-<p class="other-intro">Exercise sheets I wrote during my L1 Mathematics in Rennes:</p>
+<h2 class="resource-page-heading" id="other-documents-heading">Other documents</h2>
 
-<div class="resource-group">
+<p class="other-intro">Exercise sheets I wrote during my L1 Mathematics (2023) in Rennes:</p>
 
 <div class="resource-grid compact-grid">
 
@@ -880,7 +889,7 @@ Mathematics oral examinations for L2 students preparing for the Écoles Normales
 
 </div>
 
-</div>
+</section>
 
 </section>
 </template>
@@ -938,6 +947,9 @@ Mathematics oral examinations for L2 students preparing for the Écoles Normales
     if (active) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
   });
+  if (page === 'research' && ['#publications', '#current-research'].includes(location.hash)) {
+    requestAnimationFrame(() => document.querySelector(location.hash)?.scrollIntoView());
+  }
 })();
 </script>
 <footer class="site-footer">
