@@ -2161,6 +2161,8 @@ html[data-theme="light"] .profile-links .profile-link:hover {
 #resources .section-intro,
 #resources .other-intro {
   margin: 0 0 18px !important;
+  text-align: justify;
+  text-align-last: start;
 }
 
 #resources .other-intro + .resource-group {
@@ -3022,10 +3024,6 @@ body[data-page="home"] .content { overflow: clip; }
 @media (max-width: 700px) { .site-header-inner > #themeModeToggle { order: 1; } }
 #about .about-copy > p { text-align: justify; text-align-last: start; text-justify: inter-word; }
 #resources > .resource-group:first-of-type { margin-top: 0 !important; }
-#resources .resource-subhead h3,
-#resources .other-title { line-height: 1.35; }
-#resources > .resource-group + .resource-group,
-#resources > .other-docs { margin-top: 48px !important; }
 body:not([data-page="home"]) .content > .section { padding-top: 76px !important; }
 .page-title-accessible {
   position: absolute;
@@ -3118,4 +3116,52 @@ html[data-page]:not([data-page="home"]) #about { display: none !important; }
 
 #pictures .picture-grid {
   margin-top: 0;
+}
+
+#research .research-page-heading,
+#resources .resource-page-heading {
+  margin: 0 0 20px;
+  color: var(--text);
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+#research .research-page-block,
+#resources .resource-page-block {
+  scroll-margin-top: 18px;
+}
+
+#research .research-page-block + .research-page-block,
+#resources .resource-page-block + .resource-page-block {
+  margin-top: 52px !important;
+  padding-top: 34px;
+  border-top: 1px solid var(--border);
+}
+
+#research .current-research > p {
+  margin: 0;
+  line-height: var(--content-line-height, 1.65);
+  text-align: justify;
+  text-align-last: start;
+}
+
+#research .research-publications-intro {
+  margin-bottom: 23px !important;
+}
+
+@media (max-width: 700px) {
+  #research .research-page-block + .research-page-block,
+  #resources .resource-page-block + .resource-page-block {
+    margin-top: 40px !important;
+    padding-top: 27px;
+  }
+  #research .research-page-heading,
+  #resources .resource-page-heading {
+    font-size: 1.3rem;
+  }
+  #research .current-research > p {
+    text-align: left;
+  }
 }
