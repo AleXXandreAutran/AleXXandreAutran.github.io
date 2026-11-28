@@ -145,14 +145,19 @@
   text-align-last: start !important;
 }
 
+.content > .site-footer {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+}
+
 #themeModeToggle {
-  position: fixed;
-  right: max(var(--header-gutter), calc((100% - 740px) / 2), env(safe-area-inset-right));
-  bottom: max(18px, env(safe-area-inset-bottom));
-  z-index: 40;
+  position: relative;
   width: 56px;
   height: 28px;
   margin: 0;
+  flex: 0 0 auto;
   display: block;
   border-radius: 999px;
   background: color-mix(in srgb, var(--text) 5%, var(--bg));
@@ -202,6 +207,16 @@ html[data-theme="dark"] #themeModeToggle::before {
 html[data-theme="light"] #themeModeToggle .sun-icon,
 html[data-theme="dark"] #themeModeToggle .moon-icon {
   color: var(--text);
+}
+
+@media (max-width: 700px) {
+  .content > .site-footer {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+  }
+  .footer-copyright { grid-column: 2; }
+  .site-footer #themeModeToggle { grid-column: 3; justify-self: end; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -869,7 +884,7 @@ slides <span aria-hidden="true">↗</span>
 <h2 class="resource-page-heading" id="master-courses-heading">Master courses</h2>
 
 <p class="master-course-intro">
-Course notes I wrote during my M1/M2 (2025/2026) year at ENS:
+Course notes I wrote during my M1/M2 (2025/2026) year at ENS :
 </p>
 
 <div class="resource-grid master-grid master-grid-written">
@@ -1117,9 +1132,7 @@ Mathematics oral examinations for L2 students preparing for the Écoles Normales
 })();
 </script>
 <footer class="site-footer">
-© 2026 Alexandre Autran
-</footer>
-</main>
+<span class="footer-copyright">© 2026 Alexandre Autran</span>
 <button id="themeModeToggle" class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false">
   <span class="theme-icon moon-icon" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8a8.5 8.5 0 1 0 11.3 11.3Z"/></svg>
@@ -1128,5 +1141,7 @@ Mathematics oral examinations for L2 students preparing for the Écoles Normales
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
   </span>
 </button>
+</footer>
+</main>
 </body>
 </html>
