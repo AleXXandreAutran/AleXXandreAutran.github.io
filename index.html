@@ -45,6 +45,29 @@
 </script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/styles.css">
+<style>
+#research .research-meta:not(.research-publication-line),
+#research .research-summary-panel,
+#experiences > .section-intro,
+#experiences .timeline-content p,
+#resources .master-course-intro,
+#resources .section-intro,
+#resources .other-intro,
+#resources .resource-card p,
+#pictures .picture-photo figcaption {
+  font-size: calc(1rem * var(--content-font-scale, 1)) !important;
+  line-height: var(--content-line-height, 1.65) !important;
+  color: var(--text) !important;
+}
+
+#research .research-meta:not(.research-publication-line) em {
+  color: inherit !important;
+}
+
+html[data-theme] .domain-badge {
+  font-size: calc(1rem * var(--content-font-scale, 1)) !important;
+}
+</style>
 <script>
 if (document.documentElement.dataset.page === 'research') {
 window.MathJax = {
@@ -196,9 +219,7 @@ Outside the lab and studies, I enjoy doing sports, especially running, cycling, 
 
 <section class="research-page-block research-publications" id="publications" aria-labelledby="publications-heading">
 <h2 class="research-page-heading" id="publications-heading">Publications</h2>
-<p class="section-intro research-publications-intro" style="font: inherit; color: inherit; line-height: var(--content-line-height, 1.65); text-align: justify; text-align-last: start;">Papers [1]–[4] are single-author works inspired by the courses I took and the research internships I completed during my studies in Mathematics at ENS. They explore topics in stochastic analysis, optimal control, optimal transport and numerical analysis.</p>
-
-<p class="section-intro research-publications-intro" style="font: inherit; color: inherit; line-height: var(--content-line-height, 1.65); text-align: justify; text-align-last: start;">Paper [5] is a collaborative publication on charge transport in semiconductor devices, in which my contribution focused on mathematical modelling using partial differential equations (PDEs).</p>
+<p class="section-intro research-publications-intro" style="font: inherit; color: inherit; line-height: var(--content-line-height, 1.65); text-align: justify; text-align-last: start;">Papers [1]–[4] are single-author works inspired by the courses I took and the research internships I completed during my studies in Mathematics at ENS. They explore topics in stochastic analysis, optimal control, optimal transport and numerical analysis. Paper [5] is a collaborative publication on charge transport in semiconductor devices. My contribution focused on the mathematical analysis of the diffusion equation with recombination in one, two and three dimensions, including the derivation of expressions for carrier density and diffusion current, and the use of modified Bessel functions to describe the collected charge.</p>
 
 <div class="research-list expanded" id="researchList">
 
