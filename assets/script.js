@@ -80,20 +80,52 @@
     }
 
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const themeKey = 'aa-site-theme';
+    const themeToggle = document.getElementById('themeModeToggle');
+    let manualTheme = null;
 
-    function followSystemTheme() {
-        root.setAttribute('data-theme', systemTheme.matches ? 'dark' : 'light');
-        root.dataset.themeSource = 'system';
+    function readThemePreference() {
+        try {
+            const saved = localStorage.getItem(themeKey);
+            manualTheme = saved === 'dark' || saved === 'light' ? saved : null;
+        } catch {}
+    }
+
+    function applyTheme() {
+        const theme = manualTheme || (systemTheme.matches ? 'dark' : 'light');
+        root.setAttribute('data-theme', theme);
+        root.dataset.themeSource = manualTheme ? 'manual' : 'system';
+        if (themeToggle) themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+    }
+
+    function syncTheme() {
+        readThemePreference();
+        applyTheme();
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+            manualTheme = next === (systemTheme.matches ? 'dark' : 'light') ? null : next;
+            try {
+                if (manualTheme) localStorage.setItem(themeKey, manualTheme);
+                else localStorage.removeItem(themeKey);
+            } catch {}
+            applyTheme();
+        });
     }
 
     if (systemTheme.addEventListener) {
-        systemTheme.addEventListener('change', followSystemTheme);
+        systemTheme.addEventListener('change', applyTheme);
     } else {
-        systemTheme.addListener(followSystemTheme);
+        systemTheme.addListener(applyTheme);
     }
-    window.addEventListener('pageshow', followSystemTheme);
-    window.addEventListener('focus', followSystemTheme);
-    followSystemTheme();
+    window.addEventListener('pageshow', syncTheme);
+    window.addEventListener('focus', syncTheme);
+    window.addEventListener('storage', event => {
+        if (event.key === themeKey || event.key === null) syncTheme();
+    });
+    syncTheme();
 
     const siteHeader = document.getElementById('siteHeader');
     if (siteHeader) {
